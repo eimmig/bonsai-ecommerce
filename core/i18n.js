@@ -1,7 +1,6 @@
-// Classe para internacionalização e tradução
 export class I18n {
-  constructor(defaultLang = 'pt') {
-    this.currentLang = defaultLang;
+  constructor() {
+    this.currentLang = navigator.language.split('-')[0] || 'en';
     this.translations = {};
   }
 
@@ -38,6 +37,3 @@ export class I18n {
     await this.translatePage(this.currentLang);
   }
 }
-
-// Instância global para uso no index.js
-export const i18n = new I18n();

@@ -1,11 +1,21 @@
 @import url('../app/header/header.css');
 @import url('../app/footer/footer.css');
 
+:root {
+  --color-title: #4D933E;
+  --color-text: #081B02;
+  --color-button: #4D933E;
+  --color-button-hover: #44593A;
+  --color-border-light: #eee;
+  --color-border: #ddd;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-background-light: #f8f9fa;
+  --color-focus: #44593A;
+}
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: var(--color-text);
 }
-
-

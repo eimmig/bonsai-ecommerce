@@ -1,9 +1,11 @@
-import { i18n } from './core/i18n.js';
+import { I18n } from './core/i18n.js';
 
-window.setLanguage = (lang) => i18n.setLanguage(lang);
-window.i18nInstance = i18n;
+const translateService = new I18n();
+
+window.setLanguage = (lang) => translateService.setLanguage(lang);
+window.i18nInstance = translateService;
 
 Promise.all([
-  i18n.loadComponent("header", "app/header/header.html"),
-  i18n.loadComponent("footer", "app/footer/footer.html")
-]).then(() => i18n.translatePage(i18n.currentLang));
+  translateService.loadComponent("header", "app/header/header.html"),
+  translateService.loadComponent("footer", "app/footer/footer.html")
+]).then(() => translateService.translatePage(translateService.currentLang));

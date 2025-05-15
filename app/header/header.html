@@ -1,11 +1,31 @@
-<header style="background: #ffffff; color: #fff; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;">
-    <div>
-        <img src="../../assets/images/logo.svg" alt="Bonsai Ecommerce Logo"></img>
+<header class="navbar">
+  <div class="navbar-left">
+    <div class="logo">
+      <img src="../../assets/images/logo.svg" alt="Bonsai Ecommerce Logo">
     </div>
-    <nav>
-        <a href="/" style="color: #fff; text-decoration: none; margin-right: 1.5rem;">Home</a>
-        <a href="/shop" style="color: #fff; text-decoration: none; margin-right: 1.5rem;">Shop</a>
-        <a href="/about" style="color: #fff; text-decoration: none; margin-right: 1.5rem;">About</a>
-        <a href="/cart" style="color: #fff; text-decoration: none;">Cart</a>
+    <nav class="menu">
+      <a href="#" data-i18n="home">Início</a>
+      <div class="dropdown">
+        <a href="#" data-i18n="products">Produtos ▾</a>
+        <div class="dropdown-content">
+          <a href="#" data-i18n="bonsais">Bonsais</a>
+          <a href="#" data-i18n="accessories">Acessórios</a>
+          <a href="#" data-i18n="kits">Kits</a>
+        </div>
+      </div>
+      <a href="#" data-i18n="about_link">Sobre nós</a>
+      <a href="#" data-i18n="contact_link">Contato</a>
     </nav>
+  </div>
+
+  <div class="navbar-right">
+    <input type="text" placeholder="O que você procura?" class="search" data-i18n-placeholder="search_placeholder">
+    <a href="#" class="login" data-i18n="login">Entrar / Cadastrar</a>
+    <a href="#" class="cart">
+      <img src="../../assets/icons/cart-icon.svg" alt="Carrinho" class="cart-icon">
+    </a>
+    <button class="lang-switch" onclick="setLanguage(window.i18nInstance.currentLang === 'pt' ? 'en' : 'pt')">
+      <span data-i18n="lang_btn">EN/PT</span>
+    </button>
+  </div>
 </header>

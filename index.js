@@ -1,9 +1,9 @@
-// Carrega um componente HTML em um container
-function loadComponent(id, path) {
-    fetch(path)
-        .then(res => res.text())
-        .then(data => document.getElementById(id).innerHTML = data);
-}
+import { i18n } from './core/i18n.js';
 
-loadComponent("header", "app/header/header.html");
-loadComponent("footer", "app/footer/footer.html");
+window.setLanguage = (lang) => i18n.setLanguage(lang);
+window.i18nInstance = i18n;
+
+Promise.all([
+  i18n.loadComponent("header", "app/header/header.html"),
+  i18n.loadComponent("footer", "app/footer/footer.html")
+]).then(() => i18n.translatePage(i18n.currentLang));

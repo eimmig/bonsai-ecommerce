@@ -129,35 +129,3 @@
   background-color: #f8f9fa;
   color: var(--color-button);
 }
-
-@media (max-width: 991.98px) {
-  .navbar-nav {
-    gap: 1rem;
-    margin: 1rem 0;
-  }
-
-  .search-container {
-    width: 100%;
-    margin: 1rem 0;
-  }
-
-  .d-flex.align-items-center {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem !important;
-  }
-
-  .nav-link {
-    padding: 0.5rem 0 !important;
-  }
-
-  .dropdown-menu {
-    border: none;
-    box-shadow: none;
-    padding-left: 1rem;
-  }
-
-  .lang-btn {
-    margin-top: 0.5rem;
-  }
-}

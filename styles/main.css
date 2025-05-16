@@ -11,6 +11,7 @@
   --color-shadow: rgba(0, 0, 0, 0.1);
   --color-background-light: #f8f9fa;
   --color-focus: #44593A;
+  --color-footer: #44593A;
 }
 
 body {

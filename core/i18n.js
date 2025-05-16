@@ -12,13 +12,19 @@ export class I18n {
   async translatePage(lang = this.currentLang) {
     this.currentLang = lang;
     await this.loadTranslations(lang);
-    document.querySelectorAll('[data-i18n]').forEach(el => {
+    this.translateElement(document);
+  }
+
+  translateElement(element, lang = this.currentLang) {
+    element.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (this.translations?.[key]) {
         el.innerHTML = this.translations[key];
       }
     });
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+
+    // Traduz placeholders
+    element.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       const key = el.getAttribute('data-i18n-placeholder');
       if (this.translations?.[key]) {
         el.setAttribute('placeholder', this.translations[key]);
@@ -28,12 +34,5 @@ export class I18n {
 
   setLanguage(lang) {
     this.translatePage(lang);
-  }
-
-  async loadComponent(id, path) {
-    const res = await fetch(path);
-    const data = await res.text();
-    document.getElementById(id).innerHTML = data;
-    await this.translatePage(this.currentLang);
   }
 }

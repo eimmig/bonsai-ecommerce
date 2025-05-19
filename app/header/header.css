@@ -1,3 +1,4 @@
+/* Estilos base do navbar */
 .navbar {
   padding: 1rem 0;
   border-bottom: 1px solid var(--color-border-light);
@@ -12,6 +13,7 @@
   align-items: center;
 }
 
+/* Links de navegação */
 .nav-link {
   color: var(--color-text);
   font-size: 0.95rem;
@@ -23,6 +25,7 @@
   color: var(--color-button);
 }
 
+/* Campo de busca */
 .search-container {
   position: relative;
   width: 280px;
@@ -44,6 +47,7 @@
   opacity: 0.6;
 }
 
+/* Estados de foco */
 .search-input:focus {
   outline: none;
   box-shadow: 0 0 3px var(--color-shadow);
@@ -55,6 +59,7 @@
   border-color: var(--color-button);
 }
 
+/* Botões e links */
 .btn-link {
   text-decoration: none;
   padding: 0.375rem;
@@ -67,6 +72,7 @@
   color: var(--color-button);
 }
 
+/* Ícone do carrinho */
 .cart-link {
   padding: 0.5rem;
   opacity: 0.7;
@@ -77,6 +83,7 @@
   opacity: 1;
 }
 
+/* Indicador de quantidade no carrinho */
 .badge {
   font-size: 0.7rem;
   padding: 0.35em 0.5em;
@@ -84,6 +91,7 @@
   background-color: var(--color-button) !important;
 }
 
+/* Botão de idioma */
 .lang-btn {
   border: 1px solid var(--color-border);
   background: transparent;
@@ -99,6 +107,7 @@
   color: var(--color-button);
 }
 
+/* Estilos do dropdown */
 .dropdown .dropdown-toggle {
   display: flex;
   align-items: center;
@@ -117,15 +126,79 @@
   border-radius: 8px;
   border: 1px solid #eee;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-width: 200px;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
 }
 
 .dropdown-item {
   font-size: 0.9rem;
-  padding: 0.5rem 1.5rem;
-  color: var(--color-text);
+  padding: 0.5rem 1rem;
 }
 
 .dropdown-item:hover {
   background-color: #f8f9fa;
   color: var(--color-button);
+}
+
+/* Ícone do usuário */
+.user-icon-wrapper img {
+  filter: brightness(0) invert(1);
+}
+
+/* Estados de autenticação */
+.logged-in-only {
+  display: none;
+}
+
+body.is-logged-in .logged-in-only {
+  display: flex;
+}
+
+body.is-logged-in .logged-out-only {
+  display: none;
+}
+
+.user-icon-wrapper + span {
+  font-size: 0.9rem;
+}
+
+.dropdown-divider {
+  margin: 0.5rem 0;
+}
+
+/* Responsividade - Mobile */
+@media (max-width: 991.98px) {
+  .navbar-nav .dropdown {
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar-nav .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    padding-left: 2.5rem;
+    margin-top: 0.5rem;
+    background-color: transparent;
+  }
+
+  .navbar-nav .dropdown-item {
+    padding: 0.5rem 0;
+    color: var(--bs-nav-link-color);
+  }
+
+  .navbar-nav .dropdown-divider {
+    border-color: rgba(0, 0, 0, 0.1);
+    margin: 0.5rem 0;
+  }
+
+  .navbar-nav .user-icon-wrapper {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .navbar-nav .user-icon-wrapper img {
+    width: 16px;
+  }
 }

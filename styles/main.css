@@ -1,6 +1,8 @@
+/* Importação dos estilos dos componentes */
 @import url('../app/header/header.css');
 @import url('../app/footer/footer.css');
 
+/* Variáveis globais de cores e estilos */
 :root {
   --color-title: #4D933E;
   --color-text: #081B02;
@@ -14,6 +16,7 @@
   --color-footer: #44593A;
 }
 
+/* Estilos base */
 body {
   margin: 0;
   padding: 0;

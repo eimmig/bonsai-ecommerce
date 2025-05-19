@@ -4,14 +4,14 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Top navigation items for mobile -->
+    <!-- Seção superior mobile -->
     <div class="d-flex d-lg-none align-items-center">
       <a class="nav-link" href="#" data-i18n="home">Início</a>
       <a class="nav-link mx-3" href="#" data-i18n="products">Produtos</a>
       <a class="nav-link" href="#" data-i18n="about_link">Sobre nós</a>
     </div>
     
-    <!-- Desktop-only logo -->
+    <!-- Logo desktop -->
     <a class="navbar-brand d-none d-lg-block" href="#">
       <img src="../../assets/images/logo.svg" alt="Bonsai Ecommerce Logo" height="36">
     </a>
@@ -24,7 +24,7 @@
     </div>
 
     <div class="collapse navbar-collapse" id="navbarContent">
-      <!-- Mobile-only logo at top of menu -->
+      <!-- Logo mobile -->
       <div class="d-lg-none text-center py-3">
         <a class="navbar-brand" href="#">
           <img src="../../assets/images/logo.svg" alt="Bonsai Ecommerce Logo" height="36">
@@ -32,7 +32,7 @@
       </div>
 
       <ul class="navbar-nav mx-auto">
-        <!-- Desktop-only nav items -->
+        <!-- Menu navegação desktop -->
         <li class="nav-item d-none d-lg-block">
           <a class="nav-link" href="#" data-i18n="home">Início</a>
         </li>
@@ -50,12 +50,23 @@
           <a class="nav-link" href="#" data-i18n="about_link">Sobre nós</a>
         </li>
 
-        <!-- Mobile-only menu items -->
+        <!-- Menu navegação mobile -->
         <li class="nav-item d-lg-none">
           <a class="nav-link" href="#" data-i18n="contact_link">Contato</a>
         </li>
         <li class="nav-item d-lg-none">
-          <a class="nav-link text-dark" href="#" data-i18n="login">Entrar/ Cadastrar</a>
+          <a class="nav-link text-dark logged-out-only" href="#" data-i18n="login">Entrar/ Cadastrar</a>
+          
+          <div class="dropdown logged-in-only">
+            <button class="nav-link dropdown-toggle btn btn-link d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <span data-i18n="my_account">Minha Conta</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" data-i18n="cart">Meu Carrinho</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" data-i18n="logout">Sair</a></li>
+            </ul>
+          </div>
         </li>
         <li class="nav-item d-lg-none">
           <button class="nav-link btn btn-link" onclick="setLanguage(window.i18nInstance.currentLang === 'pt' ? 'en' : 'pt')">
@@ -64,15 +75,30 @@
         </li>
       </ul>
       
-      <!-- Desktop-only elements -->
+      <!-- Área direita desktop -->
       <div class="d-none d-lg-flex align-items-center flex-wrap gap-3">
         <div class="search-container flex-grow-1 flex-lg-grow-0">
           <input type="text" class="form-control search-input" data-i18n-placeholder="search_placeholder" placeholder="O que você procura?">
           <img src="../../assets/icons/search-icon.svg" alt="Buscar" class="search-icon">
         </div>
-        <a href="#" class="nav-link text-dark" data-i18n="login">Entrar/ Cadastrar</a>
+        <a href="#" class="nav-link text-dark logged-out-only" data-i18n="login">Entrar/ Cadastrar</a>
+        
+        <div class="dropdown logged-in-only">
+          <button class="nav-link dropdown-toggle btn btn-link d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="user-icon-wrapper bg-success rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+              <img src="../../assets/icons/user-icon.svg" alt="Usuário" width="20" class="text-white">
+            </span>
+            <span data-i18n="my_account">Minha Conta</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" data-i18n="cart">Meu Carrinho</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" data-i18n="logout">Sair</a></li>
+          </ul>
+        </div>
+        
         <a href="#" class="cart-link position-relative">
-          <img src="../../assets/icons/cart-icon.svg" alt="Carrinho" width="24">
+          <img src="../../assets/icons/cart-icon.svg" data-i18n="cart" alt="Carrinho" width="24">
           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
         </a>
         <button class="lang-btn ms-lg-2" onclick="setLanguage(window.i18nInstance.currentLang === 'pt' ? 'en' : 'pt')">
@@ -80,7 +106,7 @@
         </button>
       </div>
 
-      <!-- Mobile-only search -->
+      <!-- Busca mobile -->
       <div class="d-lg-none w-100 mt-3">
         <div class="search-container">
           <input type="text" class="form-control search-input" data-i18n-placeholder="search_placeholder" placeholder="O que você procura?">

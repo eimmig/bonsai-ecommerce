@@ -30,5 +30,7 @@
   "bank_slip": "Bank Slip",
   "store_name": "Bonsai Brasil Store",
   "store_address": "Rua das Ruas, 99 - São Paulo/SP",
-  "store_cnpj": "CNPJ 12.345.678/0001-99"
+  "store_cnpj": "CNPJ 12.345.678/0001-99",
+  "cart": "Cart",
+  "my_account": "My Account"
 }

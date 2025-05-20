@@ -1,5 +1,5 @@
 import { I18n } from './core/i18n.js';
-import Header from './app/header/header.js';
+import { Header } from './app/header/header.js';
 
 const translateService = new I18n();
 let headerComponent;

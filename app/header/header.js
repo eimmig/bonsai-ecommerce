@@ -1,4 +1,4 @@
-export default class Header {
+export class Header {
     constructor() {
         this.loginState = false;
         this.setupObserver();

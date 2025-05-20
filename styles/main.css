@@ -1,6 +1,7 @@
 /* Importação dos estilos dos componentes */
 @import url('../app/header/header.css');
 @import url('../app/footer/footer.css');
+@import url('../app/home/home.css');
 
 /* Variáveis globais de cores e estilos */
 :root {

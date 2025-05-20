@@ -6,11 +6,13 @@ let headerComponent;
 
 window.setLanguage = (lang) => translateService.setLanguage(lang);
 window.i18nInstance = translateService;
+window.loadComponent = loadComponent;
 
 // Carrega os componentes e inicializa a tradução
 Promise.all([
   loadComponent("header", "app/header/header.html", false),
-  loadComponent("footer", "app/footer/footer.html", false)
+  loadComponent("footer", "app/footer/footer.html", false),
+  loadComponent("main", "app/home/home.html", false),
 ]).then(() => {
   translateService.translatePage(translateService.currentLang);
   headerComponent = new Header();

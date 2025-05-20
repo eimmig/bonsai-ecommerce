@@ -5,10 +5,10 @@
     </button>
 
     <!-- Seção superior mobile -->
-    <div class="d-flex d-lg-none align-items-center">
-      <a class="nav-link" href="#" data-i18n="home">Início</a>
-      <a class="nav-link mx-3" href="#" data-i18n="products">Produtos</a>
-      <a class="nav-link" href="#" data-i18n="about_link">Sobre nós</a>
+    <div class="d-flex d-lg-none align-items-center">      
+      <a class="nav-link home-link" href="#" data-i18n="home">Início</a>
+      <a class="nav-link mx-3 products-link" href="#" data-i18n="products">Produtos</a>
+      <a class="nav-link about-link" href="#" data-i18n="about_link">Sobre nós</a>
     </div>
     
     <!-- Logo desktop -->
@@ -34,37 +34,40 @@
       <ul class="navbar-nav mx-auto">
         <!-- Menu navegação desktop -->
         <li class="nav-item d-none d-lg-block">
-          <a class="nav-link" href="#" data-i18n="home">Início</a>
+          <a class="nav-link home-link" href="#" data-i18n="home">Início</a>
         </li>
         <li class="nav-item dropdown d-none d-lg-block">
-          <button class="nav-link dropdown-toggle btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-i18n="products" onKeyDown="if(event.key === 'Enter') this.click()">
+          <button class="nav-link dropdown-toggle btn btn-link products-link" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-i18n="products" onKeyDown="if(event.key === 'Enter') this.click()">
             Produtos
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" data-i18n="bonsais">Bonsais</a></li>
-            <li><a class="dropdown-item" href="#" data-i18n="accessories">Acessórios</a></li>
-            <li><a class="dropdown-item" href="#" data-i18n="kits">Kits</a></li>
+            <li><a class="dropdown-item bonsais-link" href="#" data-i18n="bonsais">Bonsais</a></li>
+            <li><a class="dropdown-item accessories-link" href="#" data-i18n="accessories">Acessórios</a></li>
+            <li><a class="dropdown-item kits-link" href="#" data-i18n="kits">Kits</a></li>
           </ul>
+        </li>        
+        <li class="nav-item d-none d-lg-block">
+          <a class="nav-link about-link" href="#" data-i18n="about_link">Sobre nós</a>
         </li>
         <li class="nav-item d-none d-lg-block">
-          <a class="nav-link" href="#" data-i18n="about_link">Sobre nós</a>
+          <a class="nav-link contact-link" href="#" data-i18n="contact_link">Contato</a>
         </li>
 
         <!-- Menu navegação mobile -->
         <li class="nav-item d-lg-none">
-          <a class="nav-link" href="#" data-i18n="contact_link">Contato</a>
+          <a class="nav-link contact-link" href="#" data-i18n="contact_link">Contato</a>
         </li>
         <li class="nav-item d-lg-none">
-          <a class="nav-link text-dark logged-out-only" href="#" data-i18n="login">Entrar/ Cadastrar</a>
+          <a class="nav-link text-dark logged-out-only login-link" href="#" data-i18n="login">Entrar/ Cadastrar</a>
           
           <div class="dropdown logged-in-only">
             <button class="nav-link dropdown-toggle btn btn-link d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               <span data-i18n="my_account">Minha Conta</span>
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#" data-i18n="cart">Meu Carrinho</a></li>
+              <li><a class="dropdown-item cart-link" href="#" data-i18n="cart">Meu Carrinho</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#" data-i18n="logout">Sair</a></li>
+              <li><a class="dropdown-item logout-link" href="#" data-i18n="logout">Sair</a></li>
             </ul>
           </div>
         </li>
@@ -81,7 +84,7 @@
           <input type="text" class="form-control search-input" data-i18n-placeholder="search_placeholder" placeholder="O que você procura?">
           <img src="../../assets/icons/search-icon.svg" alt="Buscar" class="search-icon">
         </div>
-        <a href="#" class="nav-link text-dark logged-out-only" data-i18n="login">Entrar/ Cadastrar</a>
+        <a href="#" class="nav-link text-dark logged-out-only login-link" data-i18n="login">Entrar/ Cadastrar</a>
         
         <div class="dropdown logged-in-only">
           <button class="nav-link dropdown-toggle btn btn-link d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -91,9 +94,9 @@
             <span data-i18n="my_account">Minha Conta</span>
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" data-i18n="cart">Meu Carrinho</a></li>
+            <li><a class="dropdown-item cart-link" href="#" data-i18n="cart">Meu Carrinho</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#" data-i18n="logout">Sair</a></li>
+            <li><a class="dropdown-item logout-link" href="#" data-i18n="logout">Sair</a></li>
           </ul>
         </div>
         

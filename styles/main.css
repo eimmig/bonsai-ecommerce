@@ -2,17 +2,19 @@
 @import url('../app/header/header.css');
 @import url('../app/footer/footer.css');
 @import url('../app/home/home.css');
+@import url('../app/login/login.css');
 
 /* Variáveis globais de cores e estilos */
 :root {
+  --color-white: #fff;
   --color-title: #4D933E;
   --color-text: #081B02;
   --color-button: #4D933E;
   --color-button-hover: #44593A;
   --color-border-light: #eee;
   --color-border: #ddd;
-  --color-shadow: rgba(0, 0, 0, 0.1);
-  --color-background-light: #f8f9fa;
+  --color-shadow: rgba(0, 0, 0, 0.1); 
+   --color-background-light: #f8f9fa;
   --color-focus: #44593A;
   --color-footer: #44593A;
 }
@@ -23,4 +25,23 @@ body {
   padding: 0;
   box-sizing: border-box;
   color: var(--color-text);
+}
+
+/* Toast Notifications */
+.toast-container {
+  z-index: 9999;
+}
+
+.toast {
+  min-width: 300px;
+}
+
+.toast .toast-header {
+  border-bottom: none;
+}
+
+.toast.bg-success .btn-close,
+.toast.bg-danger .btn-close,
+.toast.bg-info .btn-close {
+  filter: brightness(0) invert(1);
 }

@@ -1,5 +1,6 @@
 import { I18n } from './core/i18n.js';
 import { Header } from './app/header/header.js';
+import { initLogin } from './app/login/login.js';
 
 const translateService = new I18n();
 let headerComponent;
@@ -28,5 +29,10 @@ async function loadComponent(id, path, translateAfterLoad = true) {
     const element = document.getElementById(id);
     translateService.translateElement(element, translateService.currentLang);
   }
+
+  if (path === "app/login/login.html") {
+    initLogin();
+  }
+
   return data;
 }

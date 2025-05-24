@@ -1,0 +1,157 @@
+<div class="checkout-container">
+    <h1 class="checkout-title">Finalizar Pedido</h1>
+    
+    <div class="checkout-steps">
+        <div class="checkout-step active" data-step="payment">
+            <span class="step-number">1</span>
+            <span class="step-title">Pagamento</span>
+        </div>
+        <div class="checkout-step" data-step="review">
+            <span class="step-number">2</span>
+            <span class="step-title">Revisão</span>
+        </div>
+        <div class="checkout-step" data-step="confirmation">
+            <span class="step-number">3</span>
+            <span class="step-title">Confirmação</span>
+        </div>
+    </div>
+    
+    <!-- Formulário de pagamento -->
+    <div class="checkout-form-container active" id="payment-form-container">
+        <div class="payment-methods">
+            <div class="payment-method-selector">
+                <div class="payment-method active" data-payment-method="credit-card">
+                    <img src="assets/icons/payment-cart.svg" alt="Cartão de Crédito">
+                    <span>Cartão de Crédito</span>
+                </div>
+                <div class="payment-method" data-payment-method="pix">
+                    <img src="assets/icons/Pix-icon.svg" alt="PIX">
+                    <span>PIX</span>
+                </div>
+                <div class="payment-method" data-payment-method="bank-slip">
+                    <img src="assets/icons/payment-ticket.svg" alt="Boleto">
+                    <span>Boleto</span>
+                </div>
+            </div>
+            
+            <!-- Formulário de cartão de crédito -->
+            <div class="payment-form active" id="credit-card-form">
+                <div class="form-group">
+                    <label for="card-number">Número do Cartão</label>
+                    <input type="text" id="card-number" class="form-control" placeholder="0000 0000 0000 0000" maxlength="19">
+                </div>
+                <div class="form-group">
+                    <label for="card-holder">Nome do Titular</label>
+                    <input type="text" id="card-holder" class="form-control" placeholder="Nome como impresso no cartão">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="card-expiry">Validade (MM/AA)</label>
+                        <input type="text" id="card-expiry" class="form-control" placeholder="MM/AA" maxlength="5">
+                    </div>
+                    <div class="form-group col">
+                        <label for="card-cvv">CVV</label>
+                        <input type="text" id="card-cvv" class="form-control" placeholder="CVV" maxlength="4">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="card-installments">Parcelas</label>
+                    <select id="card-installments" class="form-control">
+                        <option value="1">1x (à vista)</option>
+                        <option value="2">2x sem juros</option>
+                        <option value="3">3x sem juros</option>
+                        <option value="4">4x sem juros</option>
+                        <option value="5">5x sem juros</option>
+                        <option value="6">6x sem juros</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Formulário PIX -->
+            <div class="payment-form" id="pix-form">
+                <div class="pix-information">
+                    <p>Para pagamento via PIX, você receberá um QR code após a confirmação do pedido.</p>
+                    <div class="form-group">
+                        <label for="pix-name">Nome Completo</label>
+                        <input type="text" id="pix-name" class="form-control" placeholder="Seu nome completo">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formulário Boleto -->
+            <div class="payment-form" id="bank-slip-form">
+                <div class="bank-slip-information">
+                    <p>Para pagamento via boleto, você receberá o boleto bancário após a confirmação do pedido.</p>
+                    <div class="form-group">
+                        <label for="bank-slip-name">Nome Completo</label>
+                        <input type="text" id="bank-slip-name" class="form-control" placeholder="Seu nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="bank-slip-document">CPF/CNPJ</label>
+                        <input type="text" id="bank-slip-document" class="form-control" placeholder="Apenas números">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Revisão do pedido -->
+    <div class="checkout-form-container" id="review-form-container">
+        <h2>Revise seu pedido</h2>
+        
+        <div class="order-summary">
+            <div class="order-items">
+                <h3>Itens do Pedido</h3>
+                <div id="order-items-list"></div>
+            </div>
+            
+            <div class="order-totals">
+                <div class="order-total-row">
+                    <span>Subtotal:</span>
+                    <span id="order-subtotal"></span>
+                </div>
+                <div class="order-total-row">
+                    <span>Frete:</span>
+                    <span id="order-shipping"></span>
+                </div>
+                <div class="order-total-row">
+                    <span>Desconto:</span>
+                    <span id="order-discount"></span>
+                </div>
+                <div class="order-total-row total">
+                    <span>Total:</span>
+                    <span id="order-total"></span>
+                </div>
+                <div class="order-total-row payment-method-info">
+                    <span>Forma de pagamento:</span>
+                    <span id="order-payment-method"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirmação do pedido -->
+    <div class="checkout-form-container" id="confirmation-container">
+        <div class="confirmation-content">
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Pedido Confirmado!</h2>
+            <p>Seu pedido foi realizado com sucesso.</p>
+            <div class="confirmation-details">
+                <p><strong>Número do pedido:</strong> <span id="order-number"></span></p>
+                <p><strong>Data:</strong> <span id="order-date"></span></p>
+                <p><strong>Total:</strong> <span id="confirmation-total"></span></p>
+            </div>
+            <div class="confirmation-actions">
+                <button id="back-to-shopping" class="btn btn-primary">Continuar Comprando</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Barra de navegação do checkout -->
+    <div class="checkout-navigation">
+        <button id="back-button" class="btn btn-outline-secondary">Voltar</button>
+        <button id="next-button" class="btn btn-primary">Avançar</button>
+    </div>
+</div>

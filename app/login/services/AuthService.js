@@ -1,10 +1,7 @@
 export class AuthService {
     static USERS_STORAGE_KEY = 'registeredUsers';
+    static CURRENT_USER_KEY = 'currentUser';
 
-    /**
-     * Carrega a lista de usuários do localStorage
-     * @returns {Array} Lista de usuários ou array vazio se não houver dados
-     */
     static _loadUsers() {
         try {
             const usersJson = localStorage.getItem(AuthService.USERS_STORAGE_KEY);
@@ -14,11 +11,6 @@ export class AuthService {
         }
     }
 
-    /**
-     * Salva a lista de usuários no localStorage
-     * @param {Array} users Lista de usuários para salvar
-     * @returns {boolean} true se salvou com sucesso, false caso contrário
-     */
     static _saveUsers(users) {
         try {
             localStorage.setItem(AuthService.USERS_STORAGE_KEY, JSON.stringify(users));
@@ -28,11 +20,28 @@ export class AuthService {
         }
     }
 
-    /**
-     * Realiza o login do usuário
-     * @param {Object} formData Dados do formulário de login
-     * @returns {Promise} Promise com o resultado do login
-     */
+    static getCurrentUser() {
+        try {
+            const userData = localStorage.getItem(AuthService.CURRENT_USER_KEY);
+            return userData ? JSON.parse(userData) : null;
+        } catch {
+            return null;
+        }
+    }
+
+    static logout() {
+        try {
+            localStorage.removeItem(AuthService.CURRENT_USER_KEY);
+            document.body.classList.remove('is-logged-in');
+            
+            document.dispatchEvent(new CustomEvent('user-logged-out'));
+            
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
     static async login(formData) {
         const users = AuthService._loadUsers();
         return new Promise((resolve, reject) => {
@@ -43,7 +52,10 @@ export class AuthService {
 
                 if (user) {
                     const userData = { email: user.email, nome: user.nome };
-                    localStorage.setItem('currentUser', JSON.stringify(userData));
+                    localStorage.setItem(AuthService.CURRENT_USER_KEY, JSON.stringify(userData));
+                    
+                    document.body.classList.add('is-logged-in');
+                    
                     resolve({ message: 'Login bem-sucedido!', user: userData });
                 } else {
                     reject(new Error('Credenciais inválidas.'));
@@ -52,11 +64,6 @@ export class AuthService {
         });
     }
 
-    /**
-     * Realiza o cadastro de um novo usuário
-     * @param {Object} formData Dados do formulário de cadastro
-     * @returns {Promise} Promise com o resultado do cadastro
-     */
     static async signup(formData) {
         const users = AuthService._loadUsers();
 

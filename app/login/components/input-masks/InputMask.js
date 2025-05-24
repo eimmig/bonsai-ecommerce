@@ -1,7 +1,3 @@
-/**
- * Classe base para máscaras de input
- * Fornece funcionalidade básica para aplicar máscaras em campos de texto
- */
 export class InputMask {
     /**
      * @param {string} elementId ID do elemento input

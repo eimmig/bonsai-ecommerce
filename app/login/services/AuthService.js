@@ -1,6 +1,3 @@
-/**
- * Serviço responsável por gerenciar a autenticação de usuários
- */
 export class AuthService {
     static USERS_STORAGE_KEY = 'registeredUsers';
 

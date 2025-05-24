@@ -4,15 +4,12 @@ import { TelefoneMask } from '../components/input-masks/TelefoneMask.js';
 import { NotificationService } from '../../../core/notifications.js';
 import { FormValidator } from '../../../core/form-validator.js';
 
-/**
- * Gerencia a página de autenticação
- * Controla o formulário de login/cadastro e suas interações
- */
 export class AuthenticationPageManager {
     /**
      * Inicializa o gerenciador da página de autenticação
      * Configura os elementos DOM e estado inicial
-     */    constructor() {
+     */
+    constructor() {
         this._setupUIElements();
         this._cacheFormElements();
         this._cacheInputElements();
@@ -27,8 +24,6 @@ export class AuthenticationPageManager {
     _initializeFormValidation() {
         this.loginForm.setAttribute('novalidate', '');
         this.signupForm.setAttribute('novalidate', '');
-
-        // Criar instâncias do FormValidator para cada formulário
         this.loginValidator = new FormValidator(this.loginForm);
         this.signupValidator = new FormValidator(this.signupForm);
     }
@@ -57,11 +52,8 @@ export class AuthenticationPageManager {
      * Armazena referências aos campos de entrada
      */
     _cacheInputElements() {
-        // Login form inputs
         this.loginEmailInput = document.getElementById('login-email');
         this.loginPasswordInput = document.getElementById('login-senha');
-
-        // Signup form inputs
         this.signupNameInput = document.getElementById('signup-nome');
         this.signupCpfCnpjInput = document.getElementById('signup-cpf-cnpj');
         this.signupPhoneInput = document.getElementById('signup-telefone');
@@ -82,11 +74,8 @@ export class AuthenticationPageManager {
      * Configura todos os event listeners necessários
      */
     addEventListeners() {
-        // Event listeners para alternar entre login e cadastro
         this.signUpToggleBtn.addEventListener('click', this.toggleMode.bind(this));
         this.loginToggleBtn.addEventListener('click', this.toggleMode.bind(this));
-
-        // Event listeners para submissão dos formulários
         this.loginForm.addEventListener('submit', this.handleLoginSubmit.bind(this));
         this.signupForm.addEventListener('submit', this.handleSignupSubmit.bind(this));
     }
@@ -114,12 +103,15 @@ export class AuthenticationPageManager {
     toggleMode() {
         this.isSignUpMode = !this.isSignUpMode;
         this.container.classList.toggle('sign-up-mode', this.isSignUpMode);
-    }    /**
+    }
+
+    /**
      * Manipula o envio do formulário de login
      * @param {Event} event Evento de submit do formulário
-     */    async handleLoginSubmit(event) {
+     */
+    async handleLoginSubmit(event) {
         event.preventDefault();
-        
+
         if (!this.loginValidator.validateForm()) {
             return;
         }
@@ -132,13 +124,13 @@ export class AuthenticationPageManager {
         try {
             await AuthService.login(formData);
             NotificationService.showToast('Sucesso', 'Login realizado com sucesso!');
-            this.loginValidator.reset(); // Reset antes de redirecionar
+            this.loginValidator.reset();
             this.showMainUI();
             window.loadComponent("main", "app/home/home.html", true);
         } catch (error) {
             NotificationService.showToast('Erro', error.message, 'error');
-            this.loginValidator.reset(); // Limpa o formulário em caso de erro
-            this.loginEmailInput.focus(); // Foca no campo de email para nova tentativa
+            this.loginValidator.reset();
+            this.loginEmailInput.focus();
         }
     }
 

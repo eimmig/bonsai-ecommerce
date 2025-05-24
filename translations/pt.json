@@ -61,5 +61,9 @@
   "t_about_store": "Sobre a Loja",
   "about_store": "Cultivamos bonsais há mais de 10 anos com<br>técnicas tradicionais e entrega em todo o Brasil.<br>Nosso objetivo é levar equilíbrio, beleza e natureza<br>para sua casa.",
   "t_care_and_tips": "Dicas e Cuidados com Bonsai",
-  "care_and_tips": "Aprenda como manter seu bonsai sempre<br>saudável: rega correta, poda, adubação e luz<br>ideal."
+  "care_and_tips": "Aprenda como manter seu bonsai sempre<br>saudável: rega correta, poda, adubação e luz<br>ideal.",
+  "newsletter_title": "Receba ofertas e novidades",
+  "newsletter_text": "Cadastre seu e-mail e fique por dentro das<br>promoções e novos produtos.",
+  "newsletter_email_placeholder": "Seu e-mail",
+  "subscribe": "Inscrever-se"
 }

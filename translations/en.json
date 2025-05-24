@@ -61,5 +61,9 @@
   "t_about_store": "About the Store",
   "about_store": "We cultivate bonsais longer than 10 years, with<br>traditional techniques and deliver to all Brazil.<br>Our goal is to provide balance, beauty and nature<br>to your home.",
   "t_care_and_tips": "Tips and Care with Bonsai",
-  "care_and_tips": "Learn how to keep your bonsai always<br>healthy: correct watering, pruning, fertilization and ideal<br>lighting."
+  "care_and_tips": "Learn how to keep your bonsai always<br>healthy: correct watering, pruning, fertilization and ideal<br>lighting.",
+  "newsletter_title": "Get offers and news.",
+  "newsletter_text": "Register your email and stay on top of promotions and<br>new products",
+  "newsletter_email_placeholder": "Your email",
+  "subscribe": "Subscribe"
 }

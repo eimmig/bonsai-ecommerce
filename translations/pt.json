@@ -70,5 +70,12 @@
   "tip_watering_text": "Regue apenas quando a camada<br> superior do solo estiver seca ao toque.",
   "tip_prune_title": "Dica 2 - Faça podas regulares",
   "tip_prune_text": "A poda ajuda na saúde e na estética do<br>bonsai. Use tesouras apropriadas.",
-  "tip_light_exposition_title":
+  "tip_light_exposition_title": "Dica 3 - Exposição à luz",
+  "tip_light_exposition_text": "Deixe seu bonsai em local com luz indireta<br>e evite sol forte nas horas mais quentes.",
+  "tip_fertilizer_title": "Dica - 4 Adubação equilibrada",
+  "tip_fertilizer_text":"Use feritilizantes específicos a cada 15 dias<br>no verão e mensalmente no inverno.",
+  "tip_ideal_place_title":"Dica 5 - Local Ideal",
+  "tip_ideal_place_text":"Escolha um lugar arejado, longe de ar-<br>condicionado ou correntes de vento.",
+  "tip_vase_title":"Dica 6 - Escolha o vaso correto",
+  "tip_vase_text": "Use vasos com boa drenagem e<br>promoção ideal para o porte da planta."
 }

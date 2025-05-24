@@ -18,7 +18,7 @@
   "talk_to_us": "Contact Us",
   "returns_exchanges": "Returns & Exchanges",
   "faq": "FAQ",
-  "contact": "Contact",  
+  "contact": "Contact",
   "whatsapp": "WhatsApp: (11) 12345-5678",
   "email": "Email: contato@bonsaibrasil.com.br",
   "address": "Address: Rua das Cerejeiras, 108",
@@ -45,7 +45,7 @@
   "signup_email_placeholder": "Email",
   "signup_password_placeholder": "Password",
   "signup_submit": "Sign Up",
-  "signup_new_here": "New Here ?",  
+  "signup_new_here": "New Here ?",
   "signup_cta": "Sign up and get access to amazing products!",
   "login_already_member": "Already a member?",
   "login_cta": "Sign in with your data and enjoy our offers!",
@@ -54,5 +54,12 @@
   "error_min_password": "Password must be at least 6 characters long",
   "error_min_name": "Name must be at least 3 characters long",
   "error_invalid_cpf_cnpj": "Please enter a valid CPF/CNPJ",
-  "error_invalid_phone": "Please enter a valid phone number"
+  "error_invalid_phone": "Please enter a valid phone number",
+  "hero_title": "Find your <br>perfect <span class=\"bonsai-title\">bonsai</span>.",
+  "hero_subtitle": "Discover selected species, cultivated with care and Japanese tradition.",
+  "featured_products": "Featured Products",
+  "t_about_store": "About the Store",
+  "about_store": "We cultivate bonsais longer than 10 years, with<br>traditional techniques and deliver to all Brazil.<br>Our goal is to provide balance, beauty and nature<br>to your home.",
+  "t_care_and_tips": "Tips and Care with Bonsai",
+  "care_and_tips": "Learn how to keep your bonsai always<br>healthy: correct watering, pruning, fertilization and ideal<br>lighting."
 }

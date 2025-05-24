@@ -18,7 +18,7 @@
   "talk_to_us": "Fale Conosco",
   "returns_exchanges": "Trocas e Devoluções",
   "faq": "FAQ",
-  "contact": "Contato",  
+  "contact": "Contato",
   "whatsapp": "WhatsApp: (11) 12345-5678",
   "email": "E-mail: contato@bonsaibrasil.com.br",
   "address": "Endereço físico: Rua das Cerejeiras, 108",
@@ -45,7 +45,7 @@
   "signup_email_placeholder": "E-mail",
   "signup_password_placeholder": "Senha",
   "signup_submit": "Cadastre-se",
-  "signup_new_here": "Novo Aqui ?",  
+  "signup_new_here": "Novo Aqui ?",
   "signup_cta": "Cadastre-se já e tenha acesso a produtos incríveis!",
   "login_already_member": "Já é um de nós?",
   "login_cta": "Entre com seus dados e aproveite nossas ofertas!",
@@ -54,5 +54,12 @@
   "error_min_password": "A senha deve ter pelo menos 6 caracteres",
   "error_min_name": "O nome deve ter pelo menos 3 caracteres",
   "error_invalid_cpf_cnpj": "Por favor, insira um CPF/CNPJ válido",
-  "error_invalid_phone": "Por favor, insira um telefone válido"
+  "error_invalid_phone": "Por favor, insira um telefone válido",
+  "hero_title": "Encontre seu <br><span class=\"bonsai-title\">bonsai</span> perfeito.",
+  "hero_subtitle": "escubra espécies selecionadas, cultivadas com cuidado e tradição japonesa.",
+  "featured_products": "Produtos em Destaque",
+  "t_about_store": "Sobre a Loja",
+  "about_store": "Cultivamos bonsais há mais de 10 anos com<br>técnicas tradicionais e entrega em todo o Brasil.<br>Nosso objetivo é levar equilíbrio, beleza e natureza<br>para sua casa.",
+  "t_care_and_tips": "Dicas e Cuidados com Bonsai",
+  "care_and_tips": "Aprenda como manter seu bonsai sempre<br>saudável: rega correta, poda, adubação e luz<br>ideal."
 }

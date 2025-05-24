@@ -4,6 +4,7 @@
  * Este script gerencia a criação e interação dos cards de produtos,
  * incluindo cálculo de desconto, formatação de preço e interações de botões.
  */
+import {NotificationService} from "../../core/notifications.js";
 
 export class ProductCard {
     constructor(maxProducts = null) {
@@ -150,7 +151,7 @@ export class ProductCard {
         // Exemplo: usar localStorage ou enviar para API
 
         // Simular notificação de sucesso
-        this.showNotification('Produto adicionado ao carrinho com sucesso!');
+        NotificationService.showToast('Sucesso', 'Produto adicionado ao carrinho com sucesso!', 'success');
     }
 
     /**
@@ -163,30 +164,6 @@ export class ProductCard {
         window.location.href = `../product-detail/product-detail.html?id=${productId}`;
     }
 
-    /**
-     * Exibe uma notificação na interface
-     * @param {string} message - Mensagem a ser exibida
-     */
-    showNotification(message) {
-        // Verificar se já existe um elemento de notificação
-        let notification = document.querySelector('.notification');
-
-        if (!notification) {
-            // Criar o elemento de notificação
-            notification = document.createElement('div');
-            notification.className = 'notification';
-            document.body.appendChild(notification);
-        }
-
-        // Definir o conteúdo e mostrar
-        notification.textContent = message;
-        notification.classList.add('show');
-
-        // Remover após alguns segundos
-        setTimeout(() => {
-            notification.classList.remove('show');
-        }, 3000);
-    }
 
     /**
      * Calcula o preço com desconto

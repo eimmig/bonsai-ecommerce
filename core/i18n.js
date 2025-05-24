@@ -14,7 +14,6 @@ export class I18n {
     await this.loadTranslations(lang);
     this.translateElement(document);
   }
-
   translateElement(element, lang = this.currentLang) {
     // Traduz textos
     element.querySelectorAll('[data-i18n]').forEach(el => {
@@ -29,6 +28,14 @@ export class I18n {
       const key = el.getAttribute('data-i18n-placeholder');
       if (this.translations?.[key]) {
         el.setAttribute('placeholder', this.translations[key]);
+      }
+    });
+
+    // Traduz valores de inputs
+    element.querySelectorAll('[data-i18n-value]').forEach(el => {
+      const key = el.getAttribute('data-i18n-value');
+      if (this.translations?.[key]) {
+        el.value = this.translations[key];
       }
     });
   }

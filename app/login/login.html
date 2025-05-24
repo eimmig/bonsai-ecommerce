@@ -1,0 +1,102 @@
+<div class="auth-container">
+    <div class="auth-forms-container">
+        <div class="auth-form-wrapper">
+            <form action="#" class="auth-signin-form needs-validation" id="login-form" novalidate>
+                <h2 class="auth-title" data-i18n="login_title">Entrar</h2>
+                <div class="auth-input-field">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" name="email" data-i18n-placeholder="login_email_placeholder" 
+                           placeholder="E-mail" id="login-email" required autocomplete="username" />
+                    <div class="invalid-feedback" data-i18n="error_required_field"></div>
+                </div>
+                <div class="auth-input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="senha" data-i18n-placeholder="login_password_placeholder" 
+                           placeholder="Senha" id="login-senha" required minlength="6"
+                           autocomplete="current-password" />
+                    <div class="invalid-feedback" data-i18n="error_min_password"></div>
+                </div>
+                <input type="submit" data-i18n-value="login_submit" value="Login" class="auth-btn auth-solid" />
+                <div class="auth-links">
+                    <a href="/reset" class="auth-password-reset" data-i18n="login_forgot_password">
+                        Esqueci minha senha
+                    </a>
+                </div>
+            </form>
+
+            <form action="#" class="auth-signup-form needs-validation" id="signup-form" novalidate>
+                <h2 class="auth-title" data-i18n="signup_title">Cadastre-se</h2>
+                <div class="auth-input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="nome" data-i18n-placeholder="signup_name_placeholder" 
+                           placeholder="Nome" id="signup-nome" required minlength="3" 
+                           autocomplete="name" />
+                    <div class="invalid-feedback" data-i18n="error_min_name"></div>
+                </div>
+                <div class="auth-input-field">
+                    <i class="fa-solid fa-id-card"></i>
+                    <input type="text" name="cpf_cnpj" data-i18n-placeholder="signup_cpf_cnpj_placeholder" 
+                           placeholder="CPF/CNPJ" id="signup-cpf-cnpj" required autocomplete="off" />
+                    <div class="invalid-feedback" data-i18n="error_invalid_cpf_cnpj"></div>
+                </div>
+                <div class="auth-input-field">
+                    <i class="fa-solid fa-phone"></i>
+                    <input type="text" name="telefone" data-i18n-placeholder="signup_phone_placeholder" 
+                           placeholder="Telefone" id="signup-telefone" required autocomplete="tel" />
+                    <div class="invalid-feedback" data-i18n="error_invalid_phone"></div>
+                </div>
+                <div class="auth-input-field">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" name="email" data-i18n-placeholder="signup_email_placeholder" 
+                           placeholder="E-mail" id="signup-email" required 
+                           pattern="[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                           autocomplete="email" />
+                    <div class="invalid-feedback" data-i18n="error_invalid_email"></div>
+                </div>
+                <div class="auth-input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="senha" data-i18n-placeholder="signup_password_placeholder" 
+                           placeholder="Senha" id="signup-senha" required minlength="6"
+                           autocomplete="new-password" />
+                    <div class="invalid-feedback" data-i18n="error_min_password"></div>
+                </div>
+                <input type="submit" class="auth-btn" data-i18n-value="signup_submit" value="Cadastre-se" />
+            </form>
+        </div>
+    </div>
+
+    <div class="auth-panels-container">
+        <div class="auth-panel auth-left-panel">
+            <div class="auth-content">
+                <h3 data-i18n="signup_new_here">Novo Aqui ?</h3>
+                <p data-i18n="signup_cta">Cadastre-se já e tenha acesso a produtos incríveis!</p>
+                <button class="auth-btn auth-transparent" id="signup-toggle-btn" data-i18n="signup_submit">
+                    Cadastre-se
+                </button>
+                <button class="lang-btn ms-lg-2" onclick="window.location.reload()">
+                    <span data-i18n="return">Voltar</span>
+                </button>
+                <button class="lang-btn ms-lg-2" onclick="setLanguage(window.i18nInstance.currentLang === 'pt' ? 'en' : 'pt')">
+                    <span data-i18n="lang_btn">EN/PT</span>
+                </button>
+            </div>
+            <img src="../../assets/images/register.svg" class="auth-image" alt="Ilustração de pessoa no campo" />
+        </div>
+        <div class="auth-panel auth-right-panel">
+            <div class="auth-content">
+                <h3 data-i18n="login_already_member">Já é um de nós?</h3>
+                <p data-i18n="login_cta">Entre com seus dados e aproveite nossas ofertas!</p>
+                <button class="auth-btn auth-transparent" id="login-toggle-btn" data-i18n="login_submit">
+                    Entrar
+                </button>
+                <button class="lang-btn ms-lg-2" onclick="window.location.reload()">
+                    <span data-i18n="return">Voltar</span>
+                </button>
+                <button class="lang-btn ms-lg-2" onclick="setLanguage(window.i18nInstance.currentLang === 'pt' ? 'en' : 'pt')">
+                    <span data-i18n="lang_btn">EN/PT</span>
+                </button>
+            </div>
+            <img src="../../assets/images/login.svg" class="auth-image" alt="Ilustração de pessoa em uma ilha com arvores" />
+        </div>
+    </div>
+</div>

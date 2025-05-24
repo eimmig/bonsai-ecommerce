@@ -3,6 +3,8 @@
 @import url('../app/footer/footer.css');
 @import url('../app/home/home.css');
 @import url('../app/login/login.css');
+@import url('../app/cart/cart.css');
+
 
 /* Variáveis globais de cores e estilos */
 :root {

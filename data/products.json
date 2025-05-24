@@ -1,0 +1,34 @@
+{
+  "produtos" : [
+    {
+      "id": "1",
+      "nome": "nome",
+      "descricao": "descricao",
+      "valor": 123.4,
+      "porcentagemDesconto": 25,
+      "imagem": [
+        {
+        "urlImagem1": "../images/products/bonsai-serissa-foetida.svg",
+        "urlImagem2": "../images/products/bonsai-serissa-foetida.svg",
+        "urlImagem3": "../images/products/bonsai-serissa-foetida.svg",
+        "urlImagemDestaque": "../images/products/bonsai-serissa-foetida.svg"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "nome": "nome",
+      "descricao": "descricao",
+      "valor": 123.4,
+      "porcentagemDesconto": 0,
+      "imagem": [
+        {
+        "urlImagem1": "../images/products/bonsai-serissa-foetida.svg",
+        "urlImagem2": "../images/products/bonsai-serissa-foetida.svg",
+        "urlImagem3": "../images/products/bonsai-serissa-foetida.svg",
+        "urlImagemDestaque": "../images/products/bonsai-serissa-foetida.svg"
+        }
+      ]
+    }
+  ]
+}

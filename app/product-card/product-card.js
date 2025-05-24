@@ -1,0 +1,216 @@
+/**
+ * ProductCard Component
+ *
+ * Este script gerencia a criação e interação dos cards de produtos,
+ * incluindo cálculo de desconto, formatação de preço e interações de botões.
+ */
+
+export class ProductCard {
+    constructor(maxProducts = null) {
+        this.productsData = [];
+        this.maxProducts = maxProducts; // Recebe o número máximo de produtos como parâmetro, com valor padrão 6
+        this.init();
+    }
+
+    /**
+     * Inicializa o componente, carregando os dados e configurando eventos
+     */
+    async init() {
+        try {
+            await this.loadProductsData();
+            this.renderProductCards();
+            this.setupEventListeners();
+        } catch (error) {
+            console.error('Erro ao inicializar o componente ProductCard:', error);
+        }
+    }
+
+    /**
+     * Carrega os dados de produtos do arquivo JSON usando a função global loadComponent
+     */
+    async loadProductsData() {
+        try {
+            // Verifica se a função global loadComponent está disponível
+            if (typeof window.loadComponent === 'function') {
+                // Cria um elemento temporário para receber os dados
+                const tempElement = document.createElement('div');
+                tempElement.style.display = 'none';
+                tempElement.id = 'product-data-home';
+                document.body.appendChild(tempElement);
+
+                // Carrega os dados usando a função global
+                await window.loadComponent('product-data-home', '../../data/products.json', false);
+
+                // Extrai os dados do JSON
+                const jsonContent = tempElement.textContent || tempElement.innerText;
+                const data = JSON.parse(jsonContent);
+
+                // Remove o elemento temporário
+                document.body.removeChild(tempElement);
+
+                // Limita ao número máximo de produtos
+                this.productsData = data.produtos.slice(0, this.maxProducts);
+            } else {
+                // Fallback para o método anterior, caso a função global não esteja disponível
+                const response = await fetch('../../data/products.json');
+                if (!response.ok) {
+                    throw new Error('Não foi possível carregar os dados dos produtos');
+                }
+                const data = await response.json();
+                this.productsData = data.produtos.slice(0, this.maxProducts);
+            }
+        } catch (error) {
+            console.error('Erro ao carregar dados de produtos:', error);
+            this.productsData = [];
+        }
+    }
+
+    /**
+     * Renderiza os cards de produtos baseados nos dados carregados
+     */
+    renderProductCards() {
+        const container = document.querySelector('.products-container');
+        if (container) {
+            container.innerHTML = '';
+
+            this.productsData.forEach(product => {
+                container.appendChild(this.createProductCard(product));
+            });
+        }
+    }
+
+    /**
+     * Cria um elemento de card de produto baseado nos dados fornecidos
+     * @param {Object} product - Dados do produto a ser exibido
+     * @returns {HTMLElement} - Elemento DOM do card de produto
+     */
+    createProductCard(product) {
+        const hasDiscount = product.porcentagemDesconto > 0;
+        const discountedPrice = this.calculateDiscountedPrice(product.valor, product.porcentagemDesconto);
+
+        const cardElement = document.createElement('div');
+        cardElement.className = `product-card ${!hasDiscount ? 'no-discount' : ''}`;
+        cardElement.dataset.productId = product.id;
+
+        // Garantir que a imagem seja a urlImagemDestaque
+        const imageUrl = product.imagem[0].urlImagemDestaque;
+
+        cardElement.innerHTML = `
+            ${hasDiscount ? `<div class="discount-badge">-${product.porcentagemDesconto}%</div>` : ''}
+            <div class="product-image">
+                <img src="${imageUrl}" alt="${product.nome}">
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">${product.nome}</h3>
+                <p class="product-description">${product.descricao}</p>
+                <div class="product-price">
+                    ${hasDiscount ? `<span class="original-price">${this.formatPrice(product.valor)}</span>` : ''}
+                    <span class="discounted-price">${this.formatPrice(discountedPrice)}</span>
+                </div>
+                <button class="add-to-cart-btn">Adicionar ao carrinho</button>
+                <button class="view-details-btn">Ver detalhes</button>
+            </div>
+        `;
+
+        return cardElement;
+    }
+
+    /**
+     * Configura os event listeners para os botões do card
+     */
+    setupEventListeners() {
+        document.addEventListener('click', (event) => {
+            // Verificar se o clique foi em um botão de adicionar ao carrinho
+            if (event.target.classList.contains('add-to-cart-btn')) {
+                const card = event.target.closest('.product-card');
+                if (card) {
+                    const productId = card.dataset.productId;
+                    this.addToCart(productId);
+                }
+            }
+
+            // Verificar se o clique foi em um botão de ver detalhes
+            if (event.target.classList.contains('view-details-btn')) {
+                const card = event.target.closest('.product-card');
+                if (card) {
+                    const productId = card.dataset.productId;
+                    this.viewProductDetails(productId);
+                }
+            }
+        });
+    }
+
+    /**
+     * Adiciona um produto ao carrinho
+     * @param {string} productId - ID do produto a ser adicionado ao carrinho
+     */
+    addToCart(productId) {
+        console.log(`Produto ${productId} adicionado ao carrinho`);
+        // Implementação futura: integração com o carrinho de compras
+        // Exemplo: usar localStorage ou enviar para API
+
+        // Simular notificação de sucesso
+        this.showNotification('Produto adicionado ao carrinho com sucesso!');
+    }
+
+    /**
+     * Redireciona para a página de detalhes do produto
+     * @param {string} productId - ID do produto a visualizar
+     */
+    viewProductDetails(productId) {
+        console.log(`Redirecionando para detalhes do produto ${productId}`);
+        // Implementação: redirecionar para a página de detalhes
+        window.location.href = `../product-detail/product-detail.html?id=${productId}`;
+    }
+
+    /**
+     * Exibe uma notificação na interface
+     * @param {string} message - Mensagem a ser exibida
+     */
+    showNotification(message) {
+        // Verificar se já existe um elemento de notificação
+        let notification = document.querySelector('.notification');
+
+        if (!notification) {
+            // Criar o elemento de notificação
+            notification = document.createElement('div');
+            notification.className = 'notification';
+            document.body.appendChild(notification);
+        }
+
+        // Definir o conteúdo e mostrar
+        notification.textContent = message;
+        notification.classList.add('show');
+
+        // Remover após alguns segundos
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+
+    /**
+     * Calcula o preço com desconto
+     * @param {number} originalPrice - Preço original do produto
+     * @param {number} discountPercentage - Percentual de desconto
+     * @returns {number} - Preço com desconto aplicado
+     */
+    calculateDiscountedPrice(originalPrice, discountPercentage) {
+        if (!discountPercentage || discountPercentage <= 0) {
+            return originalPrice;
+        }
+
+        const discount = (originalPrice * discountPercentage) / 100;
+        return originalPrice - discount;
+    }
+
+    /**
+     * Formata o valor para o formato de moeda brasileira
+     * @param {number} value - Valor a ser formatado
+     * @returns {string} - Valor formatado (ex: "R$ 299,90")
+     */
+    formatPrice(value) {
+        return `R$ ${value.toFixed(2).replace('.', ',')}`;
+    }
+}
+
+

@@ -3,6 +3,7 @@
 @import url('../app/footer/footer.css');
 @import url('../app/home/home.css');
 @import url('../app/login/login.css');
+@import url('../app/product-card/product-card.css');
 
 /* Variáveis globais de cores e estilos */
 :root {
@@ -13,7 +14,7 @@
   --color-button-hover: #44593A;
   --color-border-light: #eee;
   --color-border: #ddd;
-  --color-shadow: rgba(0, 0, 0, 0.1); 
+  --color-shadow: rgba(0, 0, 0, 0.1);
    --color-background-light: #f8f9fa;
   --color-focus: #44593A;
   --color-footer: #44593A;

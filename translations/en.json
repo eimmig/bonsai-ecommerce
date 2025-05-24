@@ -65,5 +65,9 @@
   "newsletter_title": "Get offers and news.",
   "newsletter_text": "Register your email and stay on top of promotions and<br>new products",
   "newsletter_email_placeholder": "Your email",
-  "subscribe": "Subscribe"
+  "subscribe": "Subscribe",
+  "tip_watering_title": "Tip 1 - Water in the right measure",
+  "tip_watering_text": "Water only when the top layer<br>of soil is dry to the touch.",
+  "tip_prune_title": "Tip 2 - Do regular pruning",
+  "tip_prune_text": "Pruning helps with the health and aesthetics of the<br>bonsai. Use appropriate scissors."
 }

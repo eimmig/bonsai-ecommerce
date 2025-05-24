@@ -65,5 +65,10 @@
   "newsletter_title": "Receba ofertas e novidades",
   "newsletter_text": "Cadastre seu e-mail e fique por dentro das<br>promoções e novos produtos.",
   "newsletter_email_placeholder": "Seu e-mail",
-  "subscribe": "Inscrever-se"
+  "subscribe": "Inscrever-se",
+  "tip_watering_title": "Dica 1 - Rega na medida certa",
+  "tip_watering_text": "Regue apenas quando a camada<br> superior do solo estiver seca ao toque.",
+  "tip_prune_title": "Dica 2 - Faça podas regulares",
+  "tip_prune_text": "A poda ajuda na saúde e na estética do<br>bonsai. Use tesouras apropriadas.",
+  "tip_light_exposition_title":
 }

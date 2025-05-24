@@ -54,5 +54,6 @@
   "error_min_password": "A senha deve ter pelo menos 6 caracteres",
   "error_min_name": "O nome deve ter pelo menos 3 caracteres",
   "error_invalid_cpf_cnpj": "Por favor, insira um CPF/CNPJ válido",
-  "error_invalid_phone": "Por favor, insira um telefone válido"
+  "error_invalid_phone": "Por favor, insira um telefone válido",
+  "return": "Voltar"
 }

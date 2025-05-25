@@ -43,7 +43,14 @@ export class HeaderCartManager {
      * @private
      */
     _updateCartCount() {
-        const cartItemCount = this.cartUtils.getCartItemCount();
+        // Checa se há usuário logado
+        let user = null;
+        try {
+            user = JSON.parse(localStorage.getItem('currentUser'));
+        } catch {}
+        // Sempre instancia CartUtils para garantir currentUserIdentifier correto
+        this.cartUtils = new CartUtils();
+        const cartItemCount = user?.email ? this.cartUtils.getCartItemCount() : 0;
         this._updateAllBadges(cartItemCount);
     }
     
@@ -89,6 +96,8 @@ export class HeaderCartManager {
      */
     _setupEventListeners() {
         document.addEventListener('cart-updated', this._handleCartUpdated.bind(this));
+        document.addEventListener('user-logged-in', this._handleCartUpdated.bind(this));
+        document.addEventListener('user-logged-out', this._handleCartUpdated.bind(this));
     }
     
     /**

@@ -33,6 +33,7 @@ export class Header {
         localStorage.removeItem('currentUser');
         this.loginState = false;
         document.body.classList.remove('is-logged-in');
+        document.dispatchEvent(new CustomEvent('cart-updated'));
         window.loadComponent('main', 'app/home/home.html', true);
     }
 

@@ -1,6 +1,8 @@
 import { Cart } from './cart-with-itens/cart-with-itens.js';
 import { EmptyCartPage } from './empty-cart/empty-cart.js';
 import { CartUtils } from './utils/cart-utils.js';
+import { loadProductsFromStorage } from '../../core/format.js';
+import { AuthService } from '../login/services/AuthService.js';
 
 /**
  * Função que inicializa o módulo do carrinho
@@ -8,8 +10,19 @@ import { CartUtils } from './utils/cart-utils.js';
  * dependendo se existem itens no carrinho do usuário atual
  */
 export function initCart() {
+    // Verifica se o usuário está logado
+    const currentUser = AuthService.getCurrentUser ? AuthService.getCurrentUser() : JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser?.email) {
+        window.loadComponent('main', 'app/login/login.html', true);
+        return;
+    }
     const cartManager = new CartManager();
     cartManager.initialize();
+    // Aplica tradução após renderizar o carrinho
+    if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
+        const main = document.getElementById('main');
+        window.i18nInstance.translateElement(main, window.i18nInstance.currentLang);
+    }
 }
 
 /**
@@ -28,12 +41,7 @@ class CartManager {
      * @returns {Array} Array de produtos
      */
     _loadProducts() {
-        try {
-            return JSON.parse(localStorage.getItem('products') || '{"produtos":[]}').produtos;
-        } catch (error) {
-            console.error("Erro ao carregar produtos:", error);
-            return [];
-        }
+        return loadProductsFromStorage();
     }
     
     /**
@@ -41,81 +49,12 @@ class CartManager {
      * @public
      */
     async initialize() {
-        if (this._shouldShowEmptyCart()) {
-            await this._loadEmptyCartView();
+        if (this.cartUtils.isCartEmpty()) {
+            await window.loadComponent('main', 'app/cart/empty-cart/empty-cart.html', true);
+            this.emptyCartPage = new EmptyCartPage();
         } else {
-            await this._loadCartWithItemsView();
+            await window.loadComponent('main', 'app/cart/cart-with-itens/cart-with-itens.html', true);
+            this.cartWithItems = new Cart();
         }
-    }
-    
-    /**
-     * Verifica se deve mostrar o carrinho vazio
-     * @private
-     * @returns {boolean} True se o carrinho estiver vazio
-     */
-    _shouldShowEmptyCart() {
-        return this.cartUtils.isCartEmpty();
-    }
-
-    /**
-     * Carrega a visualização de carrinho vazio
-     * @private
-     */
-    async _loadEmptyCartView() {
-        try {
-            await this._loadComponent('app/cart/empty-cart/empty-cart.html');
-            this._initializeEmptyCartPage();
-        } catch (error) {
-            this._handleViewLoadError("Erro ao carregar carrinho vazio", error);
-        }
-    }
-
-    /**
-     * Carrega a visualização de carrinho com itens
-     * @private
-     */
-    async _loadCartWithItemsView() {
-        try {
-            await this._loadComponent('app/cart/cart-with-itens/cart-with-itens.html');
-            this._initializeCartWithItems();
-        } catch (error) {
-            this._handleViewLoadError("Erro ao carregar carrinho com itens", error);
-        }
-    }
-    
-    /**
-     * Carrega um componente usando a função global loadComponent
-     * @private
-     * @param {string} path Caminho do componente
-     * @returns {Promise} Promise que resolve quando o componente é carregado
-     */
-    async _loadComponent(path) {
-        return window.loadComponent('main', path, true);
-    }
-    
-    /**
-     * Inicializa a página de carrinho vazio
-     * @private
-     */
-    _initializeEmptyCartPage() {
-        new EmptyCartPage();
-    }
-    
-    /**
-     * Inicializa o carrinho com itens
-     * @private
-     */
-    _initializeCartWithItems() {
-        new Cart();
-    }
-    
-    /**
-     * Trata erros de carregamento de visualização
-     * @private
-     * @param {string} message Mensagem de erro
-     * @param {Error} error Objeto de erro
-     */
-    _handleViewLoadError(message, error) {
-        console.error(message, error);
     }
 }

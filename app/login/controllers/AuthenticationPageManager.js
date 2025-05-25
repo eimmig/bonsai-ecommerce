@@ -92,11 +92,14 @@ export class AuthenticationPageManager {
             NotificationService.showToast('Sucesso', 'Login realizado com sucesso!');
             this.loginValidator.reset();
             this.showMainUI();
-            
             document.dispatchEvent(new CustomEvent('user-logged-in', { 
                 detail: { user: result.user }
             }));
-            
+            document.dispatchEvent(new CustomEvent('cart-updated'));
+            // Força atualização do badge do carrinho se header já estiver carregado
+            if (window.headerComponent && window.headerComponent.headerCartManager) {
+                window.headerComponent.headerCartManager._updateCartCount();
+            }
             window.loadComponent("main", "app/home/home.html", true);
         } catch (error) {
             NotificationService.showToast('Erro', error.message, 'error');

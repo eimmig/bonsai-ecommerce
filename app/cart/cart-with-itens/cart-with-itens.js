@@ -1,5 +1,6 @@
 import { CartUtils } from '../utils/cart-utils.js';
 import { NotificationService } from '../../../core/notifications.js';
+import { formatCurrencyBRL, loadProductsFromStorage } from '../../../core/format.js';
 
 /**
  * Classe responsável pela página de carrinho com itens
@@ -47,27 +48,11 @@ export class Cart {
      */
     _initializeData() {
         this.cartUtils = new CartUtils();
-        this.cartItems = this.cartUtils.getCartItems();
-        this.products = this._loadProductsData();
+        this._refreshCartItems();
+        this.products = loadProductsFromStorage();
         this.shippingCost = Cart.CONFIG.DEFAULT_SHIPPING_COST;
         this.discountAmount = 0;
     }
-    
-    /**
-     * Carrega os produtos do localStorage
-     * @private
-     * @returns {Array} Array de produtos
-     */
-    _loadProductsData() {
-        try {
-            return JSON.parse(
-                localStorage.getItem(Cart.CONFIG.STORAGE_KEY_PRODUCTS) || '{"produtos":[]}'
-            ).produtos;
-        } catch (error) {
-            console.error("Erro ao carregar produtos:", error);
-            return [];
-        }
-    }    
     
     /**
      * Formata um valor para exibição como moeda (R$)
@@ -76,7 +61,7 @@ export class Cart {
      * @returns {string} Valor formatado como moeda
      */
     _formatCurrency(value) {
-        return `R$ ${value.toFixed(2).replace('.', ',')}`;
+        return formatCurrencyBRL(value);
     }
     
     /**
@@ -85,9 +70,9 @@ export class Cart {
      */
     _calculateSummary() {
         const summary = this._calculateCartTotals();
-        
         this.discountAmount = summary.totalDiscount;
-        const total = summary.subtotal + this.shippingCost;
+        // Corrigido: total = subtotal + frete - desconto
+        const total = summary.subtotal + this.shippingCost - this.discountAmount;
 
         this.elements.summarySubtotal.textContent = this._formatCurrency(summary.subtotal);
         this.elements.summaryShipping.textContent = this._formatCurrency(this.shippingCost);
@@ -149,9 +134,7 @@ export class Cart {
         } else if (this._isIncrementButton(event.target)) {
             this._incrementItemQuantity(item);
         }
-        
-        // Atualiza os itens do carrinho e recarrega a interface
-        this._refreshCartItems();
+        // Removido _refreshCartItems() daqui, pois já é chamado nos métodos acima
     }
     
     /**
@@ -185,6 +168,12 @@ export class Cart {
         } else {
             this.cartUtils.removeFromCart(item.productId);
         }
+        this._refreshCartItems();
+        if (!this.cartItems || this.cartItems.length === 0) {
+            window.loadComponent('main', 'app/cart/empty-cart/empty-cart.html', true);
+            return;
+        }
+        this._renderCartItems();
     }
     
     /**
@@ -194,6 +183,8 @@ export class Cart {
      */
     _incrementItemQuantity(item) {
         this.cartUtils.updateQuantity(item.productId, item.quantity + 1);
+        this._refreshCartItems();
+        this._renderCartItems();
     }
     
     /**
@@ -202,7 +193,6 @@ export class Cart {
      */
     _refreshCartItems() {
         this.cartItems = this.cartUtils.getCartItems();
-        this._renderCartItems();
     }    
     
     /**
@@ -279,13 +269,10 @@ export class Cart {
     _renderCartItems() {
         const productsList = this.elements.productsList;
         productsList.innerHTML = '';
-
-        if (this._isCartEmpty()) {
-            this._showEmptyCartMessage(productsList);
-            this._redirectToEmptyCart();
+        if (!this.cartItems || this.cartItems.length === 0) {
+            this._disableCheckoutButton();
             return;
         }
-        
         this._enableCheckoutButton();
         this._renderEachCartItem(productsList);
         this._calculateSummary();
@@ -298,16 +285,6 @@ export class Cart {
      */
     _isCartEmpty() {
         return this.cartItems.length === 0;
-    }
-    
-    /**
-     * Exibe uma mensagem de carrinho vazio
-     * @private
-     * @param {HTMLElement} container Elemento onde a mensagem será exibida
-     */
-    _showEmptyCartMessage(container) {
-        container.innerHTML = '<p style="text-align: center; padding: 20px; color: #555;">Seu carrinho está vazio.</p>';
-        this._disableCheckoutButton();
     }
     
     /**
@@ -324,14 +301,6 @@ export class Cart {
      */
     _enableCheckoutButton() {
         this.elements.checkoutBtn.disabled = false;
-    }
-    
-    /**
-     * Redireciona para a página de carrinho vazio
-     * @private
-     */
-    _redirectToEmptyCart() {
-        window.loadComponent('main', 'app/cart/empty-cart/empty-cart.html', true);
     }
     
     /**

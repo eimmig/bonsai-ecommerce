@@ -5,10 +5,6 @@ import { NotificationService } from '../../../core/notifications.js';
 import { FormValidator } from '../../../core/form-validator.js';
 
 export class AuthenticationPageManager {
-    /**
-     * Inicializa o gerenciador da página de autenticação
-     * Configura os elementos DOM e estado inicial
-     */
     constructor() {
         this._setupUIElements();
         this._cacheFormElements();
@@ -17,10 +13,6 @@ export class AuthenticationPageManager {
         this._initializeFormValidation();
     }
 
-    /**
-     * Inicializa a validação dos formulários
-     * @private
-     */
     _initializeFormValidation() {
         this.loginForm.setAttribute('novalidate', '');
         this.signupForm.setAttribute('novalidate', '');
@@ -28,9 +20,6 @@ export class AuthenticationPageManager {
         this.signupValidator = new FormValidator(this.signupForm);
     }
 
-    /**
-     * Configura os elementos principais da UI
-     */
     _setupUIElements() {
         document.getElementById('header').classList.add('d-none');
         document.getElementById('footer').classList.add('d-none');
@@ -38,9 +27,6 @@ export class AuthenticationPageManager {
         this.isSignUpMode = false;
     }
 
-    /**
-     * Armazena referências aos formulários e botões
-     */
     _cacheFormElements() {
         this.loginForm = document.getElementById('login-form');
         this.signupForm = document.getElementById('signup-form');
@@ -48,9 +34,6 @@ export class AuthenticationPageManager {
         this.loginToggleBtn = document.getElementById('login-toggle-btn');
     }
 
-    /**
-     * Armazena referências aos campos de entrada
-     */
     _cacheInputElements() {
         this.loginEmailInput = document.getElementById('login-email');
         this.loginPasswordInput = document.getElementById('login-senha');
@@ -61,18 +44,12 @@ export class AuthenticationPageManager {
         this.signupPasswordInput = document.getElementById('signup-senha');
     }
 
-    /**
-     * Inicializa o componente de autenticação
-     */
     init() {
         this.addEventListeners();
         this.initInputMasks();
         this._checkInitialMode();
     }
 
-    /**
-     * Configura todos os event listeners necessários
-     */
     addEventListeners() {
         this.signUpToggleBtn.addEventListener('click', this.toggleMode.bind(this));
         this.loginToggleBtn.addEventListener('click', this.toggleMode.bind(this));
@@ -80,35 +57,21 @@ export class AuthenticationPageManager {
         this.signupForm.addEventListener('submit', this.handleSignupSubmit.bind(this));
     }
 
-    /**
-     * Inicializa as máscaras para os campos de CPF/CNPJ e telefone
-     */
     initInputMasks() {
         this.cpfCnpjMask = new CpfCnpjMask('signup-cpf-cnpj');
         this.telefoneMask = new TelefoneMask('signup-telefone');
     }
 
-    /**
-     * Verifica e configura o modo inicial da interface
-     * @private
-     */
     _checkInitialMode() {
         this.isSignUpMode = false;
         this.toggleMode();
     }
 
-    /**
-     * Alterna entre os modos de login e cadastro
-     */
     toggleMode() {
         this.isSignUpMode = !this.isSignUpMode;
         this.container.classList.toggle('sign-up-mode', this.isSignUpMode);
     }
 
-    /**
-     * Manipula o envio do formulário de login
-     * @param {Event} event Evento de submit do formulário
-     */
     async handleLoginSubmit(event) {
         event.preventDefault();
 
@@ -122,10 +85,21 @@ export class AuthenticationPageManager {
         };
 
         try {
-            await AuthService.login(formData);
+            const result = await AuthService.login(formData);
+            
+            document.body.classList.add('is-logged-in');
+            
             NotificationService.showToast('Sucesso', 'Login realizado com sucesso!');
             this.loginValidator.reset();
             this.showMainUI();
+            document.dispatchEvent(new CustomEvent('user-logged-in', { 
+                detail: { user: result.user }
+            }));
+            document.dispatchEvent(new CustomEvent('cart-updated'));
+            // Força atualização do badge do carrinho se header já estiver carregado
+            if (window.headerComponent && window.headerComponent.headerCartManager) {
+                window.headerComponent.headerCartManager._updateCartCount();
+            }
             window.loadComponent("main", "app/home/home.html", true);
         } catch (error) {
             NotificationService.showToast('Erro', error.message, 'error');
@@ -143,10 +117,6 @@ export class AuthenticationPageManager {
         document.getElementById('footer').classList.remove('d-none');
     }
 
-    /**
-     * Manipula o envio do formulário de cadastro
-     * @param {Event} event Evento de submit do formulário
-     */
     async handleSignupSubmit(event) {
         event.preventDefault();
 

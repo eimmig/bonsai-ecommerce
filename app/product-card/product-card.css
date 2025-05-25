@@ -93,6 +93,7 @@
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -100,7 +101,13 @@
 .product-price {
     display: flex;
     align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary-color);
     margin-bottom: 15px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .original-price {
@@ -108,12 +115,14 @@
     color: var(--dark-gray);
     text-decoration: line-through;
     margin-right: 10px;
+    white-space: nowrap;
 }
 
 .discounted-price {
     font-size: 18px;
     font-weight: bold;
     color: var(--primary-color);
+    white-space: nowrap;
 }
 
 .add-to-cart-btn, .view-details-btn {

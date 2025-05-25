@@ -201,13 +201,6 @@
     color: var(--color-title);
 }
 
-.product-category {
-    display: block;
-    color: var(--color-text-light, #777);
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-}
-
 .price-container {
     display: flex;
     align-items: center;

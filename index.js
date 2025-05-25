@@ -4,6 +4,7 @@ import { initLogin } from './app/login/login.js';
 import { initHome } from "./app/home/home.js";
 import { initAbout } from "./app/about/about.js";
 import { initCart } from './app/cart/cart.js';
+import {initProductDetail} from "./app/product-detail/product-detail.js";
 
 const translateService = new I18n();
 let headerComponent;
@@ -39,7 +40,7 @@ Promise.all([
   headerComponent = new Header();
 });
 
-async function loadComponent(id, path, translateAfterLoad = true) {
+async function loadComponent(id, path, translateAfterLoad = true, parameters = null) {
   const res = await fetch(path);
   const data = await res.text();
   document.getElementById(id).innerHTML = data;
@@ -63,6 +64,9 @@ async function loadComponent(id, path, translateAfterLoad = true) {
 
   if (path === "app/cart/cart.html") {
     initCart();
+  }
+  if (path === "app/product-detail/product-detail.html") {
+    initProductDetail(parameters)
   }
 
   return data;

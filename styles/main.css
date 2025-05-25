@@ -7,9 +7,11 @@
 @import url('../app/tips-card/tips-card.css');
 @import url('../app/cart/cart-with-itens/cart-with-itens.css');
 @import url('../app/cart/empty-cart/empty-cart.css');
+@import url('../app/product-detail/product-detail.css');
 
 /* Variáveis globais de cores e estilos */
 :root {
+  --color-primary: #006d3b;
   --color-white: #fff;
   --color-title: #4D933E;
   --color-text: #081B02;
@@ -21,6 +23,11 @@
   --color-background-light: #f8f9fa;
   --color-focus: #44593A;
   --color-footer: #44593A;
+  --color-discount: #e74c3c;
+  --color-light-gray: #f5f5f5;
+  --transition: all 0.3s ease;
+  --color-dark-gray: #666666;
+  --color-border-green: #006d3b;
 }
 
 /* Estilos base */

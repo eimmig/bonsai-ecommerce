@@ -31,6 +31,7 @@ export class ProductCard {
      */
     async loadProductsData() {
         try {
+            let jsonPath = '/data/products.json'; // Caminho absoluto a partir da raiz do servidor
             // Verifica se a função global loadComponent está disponível
             if (typeof window.loadComponent === 'function') {
                 // Cria um elemento temporário para receber os dados
@@ -40,7 +41,7 @@ export class ProductCard {
                 document.body.appendChild(tempElement);
 
                 // Carrega os dados usando a função global
-                await window.loadComponent('product-data-home', '../../data/products.json', false);
+                await window.loadComponent('product-data-home', jsonPath, false);
 
                 // Extrai os dados do JSON
                 const jsonContent = tempElement.textContent || tempElement.innerText;
@@ -53,7 +54,7 @@ export class ProductCard {
                 this.productsData = data.produtos.slice(0, this.maxProducts);
             } else {
                 // Fallback para o método anterior, caso a função global não esteja disponível
-                const response = await fetch('../../data/products.json');
+                const response = await fetch(jsonPath);
                 if (!response.ok) {
                     throw new Error('Não foi possível carregar os dados dos produtos');
                 }
@@ -160,10 +161,8 @@ export class ProductCard {
      */
     viewProductDetails(productId) {
         console.log(`Redirecionando para detalhes do produto ${productId}`);
-        // Implementação: redirecionar para a página de detalhes
-        window.location.href = `../product-detail/product-detail.html?id=${productId}`;
+        window.loadComponent('main', 'app/product-detail/product-detail.html', true, productId);
     }
-
 
     /**
      * Calcula o preço com desconto
@@ -189,5 +188,4 @@ export class ProductCard {
         return `R$ ${value.toFixed(2).replace('.', ',')}`;
     }
 }
-
 

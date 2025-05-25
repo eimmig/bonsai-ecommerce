@@ -2,6 +2,7 @@ import { I18n } from './core/i18n.js';
 import { Header } from './app/header/header.js';
 import { initLogin } from './app/login/login.js';
 import { initProductCard, initTipsCard } from "./app/home/home.js";
+import { initProductDetail } from "./app/product-detail/product-detail.js";
 
 const translateService = new I18n();
 let headerComponent;
@@ -38,6 +39,9 @@ async function loadComponent(id, path, translateAfterLoad = true) {
   if (path === "app/home/home.html") {
     initProductCard();
     initTipsCard();
+  }
+  if (path === "app/product-detail/product-detail.html") {
+    initProductDetail(1)
   }
   return data;
 }

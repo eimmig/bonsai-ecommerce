@@ -4,15 +4,16 @@
  * Este script gerencia a exibição detalhada de um produto específico,
  * carregando dados do produto, gerenciando imagens e produtos relacionados.
  */
-import { NotificationService } from "../../core/notifications.js";
-import { ProductCard } from "../product-card/product-card.js";
+import {NotificationService} from "../../core/notifications.js";
+import {ProductCard} from "../product-card/product-card.js";
 
 export class ProductDetail {
-    constructor() {
+    constructor(selectedProductId = null) {
         this.productData = null;
         this.allProducts = [];
         this.currentImageIndex = 0;
         this.productCard = new ProductCard();
+        this.selectedProductId = selectedProductId;
         this.init();
     }
 
@@ -21,9 +22,12 @@ export class ProductDetail {
      */
     async init() {
         try {
-            // Obter o ID do produto da URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get('id');
+            // Obter o ID do produto do parâmetro ou da URL
+            let productId = this.selectedProductId;
+            if (!productId) {
+                const urlParams = new URLSearchParams(window.location.search);
+                productId = urlParams.get('id');
+            }
 
             if (!productId) {
                 this.showError('ID do produto não especificado');
@@ -195,7 +199,7 @@ export class ProductDetail {
         const relatedProducts = this.allProducts.filter(product => product.id !== this.productData.id);
 
         // Limitar a 4 produtos relacionados
-        const productsToShow = relatedProducts.slice(0, 4);
+        const productsToShow = relatedProducts.slice(0, 3);
 
         // Usar o método de criação de card do ProductCard
         productsToShow.forEach(product => {
@@ -255,7 +259,7 @@ export class ProductDetail {
                 const card = event.target.closest('.product-card');
                 if (card) {
                     const productId = card.dataset.productId;
-                    window.location.href = `/app/product-detail/product-detail.html?id=${productId}`;
+                    window.loadComponent("main", "app/product-detail/product-detail.html", true, productId);
                 }
             }
         });
@@ -277,14 +281,22 @@ export class ProductDetail {
      * @param {string} message - Mensagem de erro a ser exibida
      */
     showError(message) {
-        const container = document.querySelector('.product-detail');
-        container.innerHTML = `
-            <div class="error-message">
-                <h2>Ops! Algo deu errado</h2>
-                <p>${message}</p>
-                <a href="../home/home.html" class="btn-primary">Voltar para a página inicial</a>
-            </div>
-        `;
+        let container = document.querySelector('.product-detail');
+        if (!container) {
+            // fallback: tenta usar o main
+            container = document.getElementById('main');
+        }
+        if (container) {
+            container.innerHTML = `
+                <div class="error-message">
+                    <h2>Ops! Algo deu errado</h2>
+                    <p>${message}</p>
+                    <a href="/index.html" class="btn-primary">Voltar para a página inicial</a>
+                </div>
+            `;
+        } else {
+            alert(message);
+        }
     }
 
     /**
@@ -346,6 +358,14 @@ export class ProductDetail {
 }
 
 // Inicializa o componente quando o DOM estiver pronto
+if (!window.ProductDetail) {
+    window.ProductDetail = ProductDetail;
+}
 document.addEventListener('DOMContentLoaded', () => {
     new ProductDetail();
 });
+
+export function initProductDetail(productId) {
+    const productDetail = new ProductDetail();
+    return productDetail;
+}

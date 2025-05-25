@@ -2,7 +2,6 @@ import { I18n } from './core/i18n.js';
 import { Header } from './app/header/header.js';
 import { initLogin } from './app/login/login.js';
 import { initCart } from './app/cart/cart.js';
-import { initPayment } from './app/payment/payment.js';
 
 const translateService = new I18n();
 let headerComponent;
@@ -56,10 +55,6 @@ async function loadComponent(id, path, translateAfterLoad = true) {
     initCart();
   }
 
-  if (path === "app/payment/checkout/checkout.html") {
-    initPayment();
-  }
-  
   return data;
 }
 

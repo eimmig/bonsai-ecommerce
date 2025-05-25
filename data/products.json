@@ -2,16 +2,16 @@
   "produtos" : [
     {
       "id": "1",
-      "nome": "nome",
+      "nome": "nome Bonsai",
       "descricao": "descricao",
       "valor": 123.4,
       "porcentagemDesconto": 25,
       "imagem": [
         {
-        "urlImagem1": "../images/products/bonsai-serissa-foetida.svg",
-        "urlImagem2": "../images/products/bonsai-serissa-foetida.svg",
-        "urlImagem3": "../images/products/bonsai-serissa-foetida.svg",
-        "urlImagemDestaque": "../images/products/bonsai-serissa-foetida.svg"
+        "urlImagem1": "https://aidobonsai.com/wp-content/uploads/2009/04/serissa-4.jpg?w=450&h=320",
+        "urlImagem2": "https://aidobonsai.com/wp-content/uploads/2009/04/serissa-4.jpg?w=450&h=320",
+        "urlImagem3": "https://aidobonsai.com/wp-content/uploads/2009/04/serissa-4.jpg?w=450&h=320",
+        "urlImagemDestaque": "https://aidobonsai.com/wp-content/uploads/2009/04/serissa-4.jpg?w=450&h=320"
         }
       ]
     },
@@ -23,10 +23,10 @@
       "porcentagemDesconto": 0,
       "imagem": [
         {
-        "urlImagem1": "../images/products/bonsai-serissa-foetida.svg",
-        "urlImagem2": "../images/products/bonsai-serissa-foetida.svg",
-        "urlImagem3": "../images/products/bonsai-serissa-foetida.svg",
-        "urlImagemDestaque": "../images/products/bonsai-serissa-foetida.svg"
+        "urlImagem1": "https://aidobonsai.com/wp-content/uploads/2009/04/serissa-4.jpg?w=450&h=320",
+        "urlImagem2": "https://aidobonsai.com/wp-content/uploads/2009/04/serissa-4.jpg?w=450&h=320",
+        "urlImagem3": "https://aidobonsai.com/wp-content/uploads/2009/04/serissa-4.jpg?w=450&h=320",
+        "urlImagemDestaque": "https://aidobonsai.com/wp-content/uploads/2009/04/serissa-4.jpg?w=450&h=320"
         }
       ]
     }

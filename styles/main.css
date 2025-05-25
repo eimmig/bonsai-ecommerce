@@ -3,11 +3,8 @@
 @import url('../app/footer/footer.css');
 @import url('../app/home/home.css');
 @import url('../app/login/login.css');
-@import url('../app/cart/cart.css');
 @import url('../app/cart/cart-with-itens/cart-with-itens.css');
 @import url('../app/cart/empty-cart/empty-cart.css');
-@import url('../app/payment/checkout/checkout.css');
-
 
 /* Variáveis globais de cores e estilos */
 :root {

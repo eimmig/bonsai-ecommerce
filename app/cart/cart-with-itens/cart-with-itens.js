@@ -1,5 +1,4 @@
 import { CartUtils } from '../utils/cart-utils.js';
-import { CartTestUtils } from '../utils/cart-test-utils.js';
 import { NotificationService } from '../../../core/notifications.js';
 
 /**
@@ -68,7 +67,9 @@ export class Cart {
             console.error("Erro ao carregar produtos:", error);
             return [];
         }
-    }    /**
+    }    
+    
+    /**
      * Formata um valor para exibição como moeda (R$)
      * @private
      * @param {number} value Valor a ser formatado
@@ -127,7 +128,9 @@ export class Cart {
      */
     _calculateDiscountedPrice(originalPrice, discountPercentage) {
         return originalPrice * (1 - discountPercentage / 100);
-    }    /**
+    }    
+    
+    /**
      * Manipula as alterações de quantidade (+ e -)
      * @private
      * @param {Event} event Evento do DOM
@@ -200,7 +203,9 @@ export class Cart {
     _refreshCartItems() {
         this.cartItems = this.cartUtils.getCartItems();
         this._renderCartItems();
-    }    /**
+    }    
+    
+    /**
      * Configura os listeners de eventos
      * @private
      */
@@ -262,9 +267,12 @@ export class Cart {
      * @private
      */
     _handleCheckout() {
+        //TODO: Implementar lógica de checkout
         NotificationService.showToast('Redirecionando', 'Preparando página de pagamento', 'info');
         window.loadComponent('main', 'app/payment/checkout/checkout.html', true);
-    }    /**
+    }    
+    
+    /**
      * Renderiza os itens do carrinho
      * @private
      */

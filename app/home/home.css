@@ -219,12 +219,6 @@
     color: var(--color-border);
 }
 
-.product-price {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: var(--color-title);
-}
-
 /* About Bonsai Section */
 .about-bonsai-section  {
     display: flex;

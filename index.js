@@ -1,6 +1,8 @@
 import { I18n } from './core/i18n.js';
 import { Header } from './app/header/header.js';
 import { initLogin } from './app/login/login.js';
+import { initHome } from "./app/home/home.js";
+import { initAbout } from "./app/about/about.js";
 import { initCart } from './app/cart/cart.js';
 
 const translateService = new I18n();
@@ -41,7 +43,7 @@ async function loadComponent(id, path, translateAfterLoad = true) {
   const res = await fetch(path);
   const data = await res.text();
   document.getElementById(id).innerHTML = data;
-  
+
   if (translateAfterLoad) {
     const element = document.getElementById(id);
     translateService.translateElement(element, translateService.currentLang);
@@ -49,6 +51,14 @@ async function loadComponent(id, path, translateAfterLoad = true) {
 
   if (path === "app/login/login.html") {
     initLogin();
+  }
+
+  if (path === "app/home/home.html") {
+    initHome();
+  }
+
+  if (path === "app/about/about.html") {
+    initAbout();
   }
 
   if (path === "app/cart/cart.html") {

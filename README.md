@@ -14,7 +14,7 @@ Cada componente é composto por:
 
 Exemplo:
 ```
-app/cart-empty/
+app/cart/cart-empty/
 ├── cart-empty.html
 ├── cart-empty.css
 └── cart-empty.js

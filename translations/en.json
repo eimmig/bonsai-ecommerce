@@ -78,5 +78,15 @@
   "tip_ideal_place_title": "Tip 5 - Ideal Location",
   "tip_ideal_place_text": "Choose an airy place, away from air <br>conditioning or wind currents.",
   "tip_vase_title": "Tip 6 - Choose the correct pot",
-  "tip_vase_text": "Use pots with good drainage and<br>ideal promotion for the size of the plant."
+  "tip_vase_text": "Use pots with good drainage and<br>ideal promotion for the size of the plant.",
+  "product_detail_title": "Product Details | Bonsai E-commerce",
+  "loading_product": "Loading product details...",
+  "main_product_image_alt": "Main product image",
+  "add_to_cart": "Add to cart",
+  "about_this_product": "About this product",
+  "care": "Care",
+  "light": "Light:",
+  "water": "Water:",
+  "ideal_temp": "Ideal temperature:",
+  "related_products": "You may also like"
 }

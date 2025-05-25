@@ -7,6 +7,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    background-color: var(--color-background-light);
 }
 
 .hero-section::before {
@@ -16,7 +17,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    /*background: rgba(0, 0, 0, 0.3);*/
 }
 
 .hero-content {
@@ -74,7 +74,7 @@
 }
 
 .category-card {
-    background: #fff;
+    background: var(--color-white);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 10px var(--color-shadow);
@@ -114,12 +114,13 @@
 
 .btn-outline:hover {
     background: var(--color-button);
-    color: white;
+    color: var(--color-white);
 }
 
 /* Featured Products Section */
 .featured-products-section {
     padding: 4rem 0;
+    background: var(--color-white);
 }
 
 .product-grid {
@@ -130,7 +131,7 @@
 }
 
 .product-card {
-    background: white;
+    background: var(--color-white);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 10px var(--color-shadow);
@@ -181,13 +182,13 @@
 }
 
 .btn-quick-view {
-    background: white;
+    background: var(--color-white);
     color: var(--color-text);
 }
 
 .btn-add-cart {
     background: var(--color-button);
-    color: white;
+    color: var(--color-white);
 }
 
 .product-info {
@@ -202,7 +203,7 @@
 
 .product-category {
     display: block;
-    color: #777;
+    color: var(--color-text-light, #777);
     font-size: 0.9rem;
     margin-bottom: 1rem;
 }
@@ -215,7 +216,7 @@
 
 .price-original {
     text-decoration: line-through;
-    color: #999;
+    color: var(--color-border);
 }
 
 .product-price {
@@ -231,7 +232,8 @@
     justify-content: center;
     flex-direction: column;
     padding: 4rem 0;
-    background-color: var(--color-white);
+    background: var(--color-background-light);
+    color: var(--color-text);
 }
 
 .about-store h1 {
@@ -271,7 +273,8 @@
 /* Newsletter Section */
 .newsletter-section {
     padding: 4rem 0;
-    background-color: var(--color-background-light);
+    background: var(--color-background-light);
+    color: var(--color-text);
 }
 
 .newsletter-container {
@@ -313,12 +316,12 @@
     font-weight: bold;
     transition: var(--transition);
     margin-top: 10px;
-    background-color: var(--primary-color);
-    color: var(--white);
+    background: var(--color-button);
+    color: var(--color-white);
 }
 
 .btn-subscribe:hover {
-    background-color: #005a30;
+    background: var(--color-button-hover);
 }
 
 /* Responsive adjustments */

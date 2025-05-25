@@ -1,16 +1,12 @@
 import {ProductCard} from "../product-card/product-card.js";
-import {initTipsCard} from "../tips-card/tips-card.js";
+import { initTipsCard } from "../tips-card/tips-card.js";
 
-/**
- * Função de inicialização do módulo de cards de produtos
- * @returns {ProductCard} Instância do gerenciador de cards de produtos
- */
-export function initProductCard() {
-    return new ProductCard(6);
+export function initHome() {
+    // Renderiza os cards de produtos
+    const productCard = new ProductCard(6);
+    productCard.init();
+
+    // Carrega os tips-cards no container da home
+    initTipsCard('tips-container');
 }
-
-/**
- * Função de inicialização do módulo de cards de dicas
- */
-export {initTipsCard};
 

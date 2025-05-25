@@ -57,7 +57,7 @@
   "error_invalid_phone": "Por favor, insira um telefone válido",
   "return": "Voltar",
   "hero_title": "Encontre seu <br><span class=\"bonsai-title\">bonsai</span> perfeito.",
-  "hero_subtitle": "escubra espécies selecionadas, cultivadas com cuidado e tradição japonesa.",
+  "hero_subtitle": "Descubra espécies selecionadas, cultivadas com cuidado e tradição japonesa.",
   "featured_products": "Produtos em Destaque",
   "t_about_store": "Sobre a Loja",
   "about_store": "Cultivamos bonsais há mais de 10 anos com<br>técnicas tradicionais e entrega em todo o Brasil.<br>Nosso objetivo é levar equilíbrio, beleza e natureza<br>para sua casa.",
@@ -78,5 +78,15 @@
   "tip_ideal_place_title":"Dica 5 - Local Ideal",
   "tip_ideal_place_text":"Escolha um lugar arejado, longe de ar-<br>condicionado ou correntes de vento.",
   "tip_vase_title":"Dica 6 - Escolha o vaso correto",
-  "tip_vase_text": "Use vasos com boa drenagem e<br>promoção ideal para o porte da planta."
+  "tip_vase_text": "Use vasos com boa drenagem e<br>promoção ideal para o porte da planta.",
+  "product_detail_title": "Detalhes do Produto | Bonsai E-commerce",
+  "loading_product": "Carregando detalhes do produto...",
+  "main_product_image_alt": "Imagem em destaque do produto",
+  "add_to_cart": "Adicionar ao carrinho",
+  "about_this_product": "Sobre este produto",
+  "care": "Cuidados",
+  "light": "Luz:",
+  "water": "Água:",
+  "ideal_temp": "Temperatura ideal:",
+  "related_products": "Você também pode gostar"
 }

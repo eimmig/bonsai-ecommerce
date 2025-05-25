@@ -4,6 +4,7 @@
 @import url('../app/home/home.css');
 @import url('../app/login/login.css');
 @import url('../app/product-card/product-card.css');
+@import url('../app/tips-card/tips-card.css');
 
 /* Variáveis globais de cores e estilos */
 :root {

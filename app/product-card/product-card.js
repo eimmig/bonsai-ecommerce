@@ -10,7 +10,6 @@ export class ProductCard {
     constructor(maxProducts = null) {
         this.productsData = [];
         this.maxProducts = maxProducts; // Recebe o número máximo de produtos como parâmetro, com valor padrão 6
-        this.init();
     }
 
     /**

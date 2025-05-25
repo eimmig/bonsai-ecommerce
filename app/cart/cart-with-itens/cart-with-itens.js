@@ -11,7 +11,6 @@ export class Cart {
      */
     static get CONFIG() {
         return {
-            STORAGE_KEY_PRODUCTS: 'products',
             DEFAULT_SHIPPING_COST: 50.00
         };
     }

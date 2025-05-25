@@ -43,6 +43,7 @@ export class EmptyCartPage {
     _handleStartShopping() {
         this._navigateToHomePage();
     }
+    
     /**
      * Navega para a página inicial de produtos
      * @private

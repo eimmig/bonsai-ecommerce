@@ -1,6 +1,7 @@
 import { I18n } from './core/i18n.js';
 import { Header } from './app/header/header.js';
 import { initLogin } from './app/login/login.js';
+import { initCart } from './app/cart/cart.js';
 
 const translateService = new I18n();
 let headerComponent;
@@ -9,7 +10,24 @@ window.setLanguage = (lang) => translateService.setLanguage(lang);
 window.i18nInstance = translateService;
 window.loadComponent = loadComponent;
 
-// Carrega os componentes e inicializa a tradução
+document.addEventListener('DOMContentLoaded', () => {
+  loadProductsData();
+  checkUserSession();
+});
+
+function checkUserSession() {
+  try {
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const userData = JSON.parse(currentUser);
+      console.log('Usuário já autenticado:', userData.nome);
+      document.body.classList.add('is-logged-in');
+    }
+  } catch (error) {
+    console.error('Erro ao verificar sessão do usuário:', error);
+  }
+}
+
 Promise.all([
   loadComponent("header", "app/header/header.html", false),
   loadComponent("footer", "app/footer/footer.html", false),
@@ -19,7 +37,6 @@ Promise.all([
   headerComponent = new Header();
 });
 
-// Carrega um componente HTML e opcionalmente o traduz
 async function loadComponent(id, path, translateAfterLoad = true) {
   const res = await fetch(path);
   const data = await res.text();
@@ -34,5 +51,24 @@ async function loadComponent(id, path, translateAfterLoad = true) {
     initLogin();
   }
 
+  if (path === "app/cart/cart.html") {
+    initCart();
+  }
+
   return data;
+}
+
+async function loadProductsData() {
+  try {
+    const response = await fetch('./data/products.json');
+    if (!response.ok) {
+      throw new Error(`Erro ao carregar produtos: ${response.status}`);
+    }
+    
+    const productsData = await response.json();
+    localStorage.setItem('products', JSON.stringify(productsData));
+    console.log('Dados de produtos carregados com sucesso!');
+  } catch (error) {
+    console.error('Falha ao carregar dados de produtos:', error);
+  }
 }

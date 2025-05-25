@@ -1,0 +1,41 @@
+<div class="cart-page-container">
+    <h2 class="cart-page-title" data-i18n="cart_with_items_title">Você tem itens no carrinho</h2>
+
+    <div class="cart-content-wrapper">
+        <div class="cart-items-section">
+            <div class="cart-items-header">
+                <span class="product-header" data-i18n="cart_product_header">Produto(s)</span>
+                <span class="price-header" data-i18n="cart_price_header">Preço</span>
+                <span class="quantity-header" data-i18n="cart_quantity_header">Quantidade</span>
+            </div>
+            <div id="cart-products-list" class="cart-products-list">
+                <!-- Itens do carrinho renderizados via JS -->
+            </div>
+        </div>
+
+        <div class="cart-summary-section">
+            <h3 data-i18n="cart_summary_title">Resumo</h3>
+            <div class="summary-line">
+                <span data-i18n="cart_summary_subtotal">Subtotal:</span>
+                <span id="summary-subtotal">R$ 0,00</span>
+            </div>
+            <div class="summary-line">
+                <span data-i18n="cart_summary_shipping">Frete:</span>
+                <span id="summary-shipping">R$ 0,00</span>
+            </div>
+            <div class="summary-line">
+                <span data-i18n="cart_summary_discount">Desconto:</span>
+                <span id="summary-discount">R$ 0,00</span>
+            </div>
+            <div class="summary-line total-line">
+                <span data-i18n="cart_summary_total">Total:</span>
+                <span id="summary-total">R$ 0,00</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-actions">
+        <button id="continue-shopping-btn" class="btn btn-outline-success" data-i18n="cart_continue_shopping">Continuar comprando</button>
+        <button id="checkout-btn" class="btn btn-success" data-i18n="cart_checkout">Ir para pagamento</button>
+    </div>
+</div>

@@ -1,0 +1,342 @@
+/* Estilos para a página Home */
+
+/* Hero Section */
+.hero-section {
+    background-position: center;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*background: rgba(0, 0, 0, 0.3);*/
+}
+
+.hero-content {
+    position: relative;
+    padding: 2rem;
+    max-width: 600px;
+    margin-left: 10%;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hero-content h1 br {
+    color: var(--color-title);
+}
+
+.bonsai-title {
+    color: var(--color-title);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.btn-shop {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Categories Section */
+.categories-section {
+    padding: 4rem 0;
+    background-color: var(--color-background-light);
+}
+
+.section-title {
+    text-align: center;
+    color: var(--color-title);
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+    font-weight: 600;
+}
+
+.categories-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.category-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px var(--color-shadow);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+.category-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.category-card h3 {
+    font-size: 1.3rem;
+    padding: 1rem;
+    margin: 0;
+    color: var(--color-title);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--color-button);
+    color: var(--color-button);
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: var(--color-button);
+    color: white;
+}
+
+/* Featured Products Section */
+.featured-products-section {
+    padding: 4rem 0;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.product-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px var(--color-shadow);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-img-container {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.05);
+}
+
+.product-overlay {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    transition: bottom 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+    bottom: 0;
+}
+
+.btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+}
+
+.btn-quick-view {
+    background: white;
+    color: var(--color-text);
+}
+
+.btn-add-cart {
+    background: var(--color-button);
+    color: white;
+}
+
+.product-info {
+    padding: 1rem;
+}
+
+.product-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-title);
+}
+
+.product-category {
+    display: block;
+    color: #777;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.price-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.price-original {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.product-price {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--color-title);
+}
+
+/* About Bonsai Section */
+.about-bonsai-section  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 4rem 0;
+    background-color: var(--color-white);
+}
+
+.about-store h1 {
+    text-align: center;
+    color: var(--color-title);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.about-store p {
+    text-align: center;
+    color: var(--color-text);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.care-and-tips h1 {
+    text-align: center;
+    color: var(--color-title);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.care-and-tips p {
+    text-align: center;
+    color: var(--color-text);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+
+/* Benefits Section */
+.benefits-section {
+    padding: 4rem 0;
+}
+
+/* Newsletter Section */
+.newsletter-section {
+    padding: 4rem 0;
+    background-color: var(--color-background-light);
+}
+
+.newsletter-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+ .newsletter-container h2 {
+    font-size: 2.5rem;
+    color: var(--color-title);
+    margin-bottom: 1rem;
+ }
+
+.newsletter-container p {
+    font-size: 1.2rem;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+}
+
+.newsletter-form {
+    display: flex;
+    margin-top: 2rem;
+    gap: 1rem;
+    align-items: center;
+    flex-direction: column;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+}
+.btn-subscribe {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: var(--transition);
+    margin-top: 10px;
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.btn-subscribe:hover {
+    background-color: #005a30;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-content {
+        margin-left: 5%;
+        max-width: 90%;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .about-bonsai-section .col-md-6:first-child {
+        margin-bottom: 2rem;
+    }
+}

@@ -1,6 +1,7 @@
 import { I18n } from './core/i18n.js';
 import { Header } from './app/header/header.js';
 import { initLogin } from './app/login/login.js';
+import { initProductCard, initTipsCard } from "./app/home/home.js";
 
 const translateService = new I18n();
 let headerComponent;
@@ -24,7 +25,7 @@ async function loadComponent(id, path, translateAfterLoad = true) {
   const res = await fetch(path);
   const data = await res.text();
   document.getElementById(id).innerHTML = data;
-  
+
   if (translateAfterLoad) {
     const element = document.getElementById(id);
     translateService.translateElement(element, translateService.currentLang);
@@ -34,5 +35,10 @@ async function loadComponent(id, path, translateAfterLoad = true) {
     initLogin();
   }
 
+  if (path === "app/home/home.html") {
+    initProductCard();
+    initTipsCard();
+  }
   return data;
 }
+

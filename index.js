@@ -22,7 +22,7 @@ Promise.all([
 });
 
 // Carrega um componente HTML e opcionalmente o traduz
-async function loadComponent(id, path, translateAfterLoad = true) {
+async function loadComponent(id, path, translateAfterLoad = true, parameters = null) {
   const res = await fetch(path);
   const data = await res.text();
   document.getElementById(id).innerHTML = data;
@@ -41,7 +41,7 @@ async function loadComponent(id, path, translateAfterLoad = true) {
     initTipsCard();
   }
   if (path === "app/product-detail/product-detail.html") {
-    initProductDetail(1)
+    initProductDetail(parameters);
   }
   return data;
 }

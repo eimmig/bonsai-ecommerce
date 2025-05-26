@@ -61,6 +61,8 @@ export class ProductCard {
             this.productsData.forEach(product => {
                 container.appendChild(this.createProductCard(product));
             });
+
+            window.i18nInstance.translateElement(container);
         }
     }
 

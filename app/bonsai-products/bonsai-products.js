@@ -26,19 +26,16 @@ export class BonsaiProducts {
         const container = document.querySelector(".bonsai-products-container");
         if (!container) return;
         container.innerHTML = "";
-        container.classList.add("bonsai-grid-4"); // Garante a classe de grid para 4 colunas
-        // Reutiliza o ProductCard para renderizar todos os produtos
+        container.classList.add("bonsai-grid-4"); 
         import("../product-card/product-card.js").then(module => {
             const ProductCard = module.ProductCard;
             const cardComponent = new ProductCard();
             cardComponent.productsData = this.productsData;
-            // Renderiza os cards no container customizado
             cardComponent.renderProductCards = function() {
                 this.productsData.forEach(product => {
                     const card = this.createProductCard(product);
                     container.appendChild(card);
                 });
-                // Garante tradução dos botões após renderização
                 if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
                     window.i18nInstance.translateElement(container);
                 }

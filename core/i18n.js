@@ -44,6 +44,22 @@ export class I18n {
     });
   }
 
+  /**
+   * Traduz uma chave com suporte a parâmetros
+   * @param {string} key
+   * @param {object} params
+   * @returns {string}
+   */
+  translate(key, params = {}) {
+    let text = this.translations?.[key] || key;
+    if (params && typeof text === 'string') {
+      Object.entries(params).forEach(([k, v]) => {
+        text = text.replace(new RegExp(`{${k}}`, 'g'), v);
+      });
+    }
+    return text;
+  }
+
   setLanguage(lang) {
     this.translatePage(lang);
   }

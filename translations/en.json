@@ -101,5 +101,22 @@
   "cart_continue_shopping": "Continue shopping",
   "cart_checkout": "Go to checkout",
   "cart_empty_message": "Your cart is empty :(",
-  "cart_start_shopping": "Start shopping!"
+  "cart_start_shopping": "Start shopping!",
+  "btn_view_product": "View product",
+  "btn_add_to_cart": "Add to cart",
+  "btn_calculate": "Calculate",
+  "btn_back_home": "Back to home page",
+  "installments_prefix": "Up to {n}x of",
+  "installments_suffix": "interest-free",
+  "placeholder_cep": "Enter your ZIP code",
+  "error_no_product_id": "Product ID not specified.",
+  "error_load_product_detail": "Could not load product details.",
+  "error_load_products": "Could not load products.",
+  "error_product_not_found": "Product not found.",
+  "msg_product_added_cart": "Product added to cart successfully!",
+  "error_title": "Oops! Something went wrong",
+  "payment_options": "Payment options",
+  "calculate_shipping": "Calculate shipping",
+  "more_products": "More products",
+  "all_bonsais": "All <span class=\"bonsai-title\">Bonsais</span>"
 }

@@ -55,6 +55,18 @@ export class AuthenticationPageManager {
         this.loginToggleBtn.addEventListener('click', this.toggleMode.bind(this));
         this.loginForm.addEventListener('submit', this.handleLoginSubmit.bind(this));
         this.signupForm.addEventListener('submit', this.handleSignupSubmit.bind(this));
+        
+        const btn1 = document.getElementById('back-to-home-btn');
+        const btn2 = document.getElementById('back-to-home-btn-2');
+        [btn1, btn2].forEach(btn => {
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    document.getElementById('header').classList.remove('d-none');
+                    document.getElementById('footer').classList.remove('d-none');
+                    window.loadComponent('main', 'app/home/home.html', true);
+                });
+            }
+        });
     }
 
     initInputMasks() {

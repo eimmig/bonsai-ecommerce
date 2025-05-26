@@ -5,6 +5,7 @@
  * incluindo cálculo de desconto, formatação de preço e interações de botões.
  */
 import {NotificationService} from "../../core/notifications.js";
+import { loadProductsFromStorage } from "../../core/functionUtils.js";
 
 export class ProductCard {
     constructor(maxProducts = null) {
@@ -30,38 +31,35 @@ export class ProductCard {
      */
     async loadProductsData() {
         try {
-            // Verifica se a função global loadComponent está disponível
-            if (typeof window.loadComponent === 'function') {
-                // Cria um elemento temporário para receber os dados
-                const tempElement = document.createElement('div');
-                tempElement.style.display = 'none';
-                tempElement.id = 'product-data-home';
-                document.body.appendChild(tempElement);
+            let jsonPath = '/data/products.json'; // Caminho absoluto a partir da raiz do servidor
 
-                // Carrega os dados usando a função global
-                await window.loadComponent('product-data-home', '../../data/products.json', false);
-
-                // Extrai os dados do JSON
-                const jsonContent = tempElement.textContent || tempElement.innerText;
-                const data = JSON.parse(jsonContent);
-
-                // Remove o elemento temporário
-                document.body.removeChild(tempElement);
-
-                // Limita ao número máximo de produtos
-                this.productsData = data.produtos.slice(0, this.maxProducts);
-            } else {
-                // Fallback para o método anterior, caso a função global não esteja disponível
-                const response = await fetch('../../data/products.json');
-                if (!response.ok) {
-                    throw new Error('Não foi possível carregar os dados dos produtos');
-                }
-                const data = await response.json();
-                this.productsData = data.produtos.slice(0, this.maxProducts);
+            // Usa utilitário centralizado para tentar carregar do localStorage primeiro
+            const localProducts = loadProductsFromStorage();
+            if (localProducts?.length) {
+                this.productsData = this.maxProducts ? localProducts.slice(0, this.maxProducts) : localProducts;
+                console.log("Produtos carregados do localStorage:", this.productsData.length);
+                return this.productsData;
             }
+
+            // Se não encontrou no localStorage, busca via fetch
+            const response = await fetch(jsonPath);
+            if (!response.ok) {
+                throw new Error('Não foi possível carregar os dados dos produtos');
+            }
+
+            const data = await response.json();
+            this.productsData = data.produtos;
+
+            if (this.maxProducts) {
+                this.productsData = this.productsData.slice(0, this.maxProducts);
+            }
+
+            console.log("Produtos carregados via fetch:", this.productsData.length);
+            return this.productsData;
         } catch (error) {
             console.error('Erro ao carregar dados de produtos:', error);
             this.productsData = [];
+            return this.productsData;
         }
     }
 
@@ -101,14 +99,14 @@ export class ProductCard {
                 <img src="${imageUrl}" alt="${product.nome}">
             </div>
             <div class="product-info">
-                <h3 class="product-name">${product.nome}</h3>
+                <h3 class="product-name-card">${product.nome}</h3>
                 <p class="product-description">${product.descricao}</p>
                 <div class="product-price">
                     ${hasDiscount ? `<span class="original-price">${this.formatPrice(product.valor)}</span>` : ''}
                     <span class="discounted-price">${this.formatPrice(discountedPrice)}</span>
                 </div>
-                <button class="add-to-cart-btn">Adicionar ao carrinho</button>
-                <button class="view-details-btn">Ver detalhes</button>
+                <button class="add-to-cart-btn" data-i18n="btn_add_to_cart">Adicionar ao carrinho</button>
+                <button class="view-details-btn" data-i18n="btn_view_product">Ver detalhes</button>
             </div>
         `;
 
@@ -159,10 +157,8 @@ export class ProductCard {
      */
     viewProductDetails(productId) {
         console.log(`Redirecionando para detalhes do produto ${productId}`);
-        // Implementação: redirecionar para a página de detalhes
-        window.location.href = `../product-detail/product-detail.html?id=${productId}`;
+        window.loadComponent('main', 'app/product-detail/product-detail.html', true, productId);
     }
-
 
     /**
      * Calcula o preço com desconto
@@ -188,5 +184,4 @@ export class ProductCard {
         return `R$ ${value.toFixed(2).replace('.', ',')}`;
     }
 }
-
 

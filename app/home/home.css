@@ -6,18 +6,12 @@
     height: 600px;
     display: flex;
     align-items: center;
-    position: relative;
     background-color: var(--color-background-light);
+    justify-content: space-between;
+}
+.banner-image {
 }
 
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
 
 .hero-content {
     position: relative;
@@ -313,6 +307,12 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .hero-section {
+        height: 500px;
+        padding: 2rem;
+        flex-direction: column;
+        margin-bottom: 100px;
+    }
     .hero-content {
         margin-left: 5%;
         max-width: 90%;

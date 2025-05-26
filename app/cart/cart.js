@@ -16,9 +16,10 @@ export function initCart() {
         window.loadComponent('main', 'app/login/login.html', true);
         return;
     }
+
     const cartManager = new CartManager();
     cartManager.initialize();
-    // Aplica tradução após renderizar o carrinho
+    
     if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
         const main = document.getElementById('main');
         window.i18nInstance.translateElement(main, window.i18nInstance.currentLang);
@@ -36,15 +37,6 @@ class CartManager {
     constructor() {
         this.cartUtils = new CartUtils();
     }    
-    
-    /**
-     * Carrega os produtos do localStorage
-     * @private
-     * @returns {Array} Array de produtos
-     */
-    _loadProducts() {
-        return loadProductsFromStorage();
-    }
     
     /**
      * Inicializa o carrinho - decide qual componente mostrar

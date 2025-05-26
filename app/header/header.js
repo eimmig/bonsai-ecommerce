@@ -5,6 +5,7 @@ export class Header {
     constructor() {
         this.loginState = this.checkUserLoggedIn();
         this.setupObserver();
+        this.setupProductSearch();
     }
 
     checkUserLoggedIn() {
@@ -143,6 +144,54 @@ export class Header {
                 e.preventDefault();
                 await window.loadComponent("main", "app/bonsai-products/bonsai-products.html", true);
             });
+        });
+    }
+
+    setupProductSearch() {
+        const searchInputs = document.querySelectorAll('.search-input');
+        searchInputs.forEach(input => {
+            input.addEventListener('input', async (e) => {
+                const searchTerm = Header.normalizeString(input.value.trim());
+                const isOnProductsPage = window.location.hash.includes('bonsai-products') || document.querySelector('.bonsai-products-section');
+                if (!isOnProductsPage) {
+                    await window.loadComponent('main', 'app/bonsai-products/bonsai-products.html', true);
+                    const observer = new MutationObserver((mutations, obs) => {
+                        const hasCards = document.querySelector('.product-card');
+                        if (hasCards) {
+                            Header.filterProductCards(searchTerm);
+                            obs.disconnect();
+                        }
+                    });
+                    observer.observe(document.body, { childList: true, subtree: true });
+                } else {
+                    Header.filterProductCards(searchTerm);
+                }
+            });
+        });
+    }
+
+    static normalizeString(str) {
+        return str
+            .normalize('NFD')                           
+            .replace(/[\u0300-\u036f]/g, '')            
+            .replace(/[^\p{L}\p{N} ]+/gu, '')           
+            .toLowerCase();
+    }
+
+
+    static filterProductCards(searchTerm) {
+        const productContainers = document.querySelectorAll('.products-container, .products-container-detail, .bonsai-products-container');
+        productContainers.forEach(container => {
+            const cards = container.querySelectorAll('.product-card');
+            for (const card of cards) {
+                const nameEl = card.querySelector('.product-name-card');
+                const productName = nameEl ? Header.normalizeString(nameEl.textContent || nameEl.innerText || '') : '';
+                if (!searchTerm || productName.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
         });
     }
 }

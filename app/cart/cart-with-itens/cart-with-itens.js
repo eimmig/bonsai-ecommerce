@@ -169,7 +169,7 @@ export class Cart {
         }
         this._refreshCartItems();
         if (!this.cartItems || this.cartItems.length === 0) {
-            window.loadComponent('main', 'app/cart/empty-cart/empty-cart.html', true);
+            window.loadComponent('main', 'app/cart/cart.html', true);
             return;
         }
         this._renderCartItems();
@@ -257,7 +257,11 @@ export class Cart {
      */
     _handleCheckout() {
         //TODO: Implementar lógica de checkout
-        NotificationService.showToast('Redirecionando', 'Preparando página de pagamento', 'info');
+        NotificationService.showToast(
+            window.i18nInstance?.translate('toast_checkout_redirect_title') || 'Redirecionando',
+            window.i18nInstance?.translate('toast_checkout_redirect_message') || 'Preparando página de pagamento',
+            'info'
+        );
         window.loadComponent('main', 'app/payment/checkout/checkout.html', true);
     }    
     
@@ -275,15 +279,6 @@ export class Cart {
         this._enableCheckoutButton();
         this._renderEachCartItem(productsList);
         this._calculateSummary();
-    }
-    
-    /**
-     * Verifica se o carrinho está vazio
-     * @private
-     * @returns {boolean} true se o carrinho estiver vazio
-     */
-    _isCartEmpty() {
-        return this.cartItems.length === 0;
     }
     
     /**
@@ -351,7 +346,7 @@ export class Cart {
      */
     _getProductImageUrl(productInfo) {
         return productInfo.imagem && productInfo.imagem.length > 0 
-            ? productInfo.imagem[0].urlImagemDestaque 
+            ? productInfo.imagem.urlImagemDestaque 
             : 'assets/images/products/default.svg';
     }
     

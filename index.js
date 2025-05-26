@@ -68,6 +68,7 @@ async function loadComponent(id, path, translateAfterLoad = true, parameters = n
   if (path === "app/cart/cart.html") {
     initCart();
   }
+
   if (path === "app/product-detail/product-detail.html") {
     initProductDetail(parameters)
   }

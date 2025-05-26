@@ -312,6 +312,7 @@
         padding: 2rem;
         flex-direction: column;
         margin-bottom: 100px;
+        justify-content: normal;
     }
     .hero-content {
         margin-left: 5%;

@@ -371,4 +371,13 @@
     #add-to-cart-btn {
         width: 100%;
     }
+    .original-price {
+        font-size: 0.9rem;
+    }
+    .discounted-price {
+        font-size: 1.5rem;
+    }
+    .shipping-input {
+        flex-direction:  column;
+    }
 }

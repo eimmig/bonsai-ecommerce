@@ -1,7 +1,28 @@
+import { HeaderCartManager } from './utils/header-cart.js';
+import { getFromStorage, removeFromStorage } from '../../core/functionUtils.js';
+
 export class Header {
     constructor() {
-        this.loginState = false;
+        this.loginState = this.checkUserLoggedIn();
         this.setupObserver();
+    }
+
+    checkUserLoggedIn() {
+        try {
+            const currentUser = getFromStorage('currentUser');
+            if (currentUser) {
+                const userData = currentUser;
+                if (userData?.email) {
+                    document.body.classList.add('is-logged-in');
+                    return true;
+                }
+            }
+            document.body.classList.remove('is-logged-in');
+            return false;
+        } catch (error) {
+            console.error('Erro ao verificar usuário logado:', error);
+            return false;
+        }
     }
 
     toggleLoginState() {
@@ -9,28 +30,33 @@ export class Header {
         document.body.classList.toggle('is-logged-in');
     }
 
+    logout() {
+        removeFromStorage('currentUser');
+        this.loginState = false;
+        document.body.classList.remove('is-logged-in');
+        document.dispatchEvent(new CustomEvent('cart-updated'));
+        window.loadComponent('main', 'app/home/home.html', true);
+    }
+
     setupLoginHandlers() {
-        // Configura listeners para login (desktop e mobile)
-        const loginBtns = document.querySelectorAll('.logged-out-only');
+        const loginBtns = document.querySelectorAll('.login-link');
         loginBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', async (e) => {
                 e.preventDefault();
-                this.toggleLoginState();
+                await window.loadComponent("main", "app/login/login.html", true);
             });
         });
 
-        // Configura listeners para logout (desktop e mobile)
-        const logoutBtns = document.querySelectorAll('[data-i18n="logout"]');
+        const logoutBtns = document.querySelectorAll('.logout-link');
         logoutBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                this.toggleLoginState();
+                this.logout();
             });
         });
     }
 
     setupObserver() {
-        // Observa mudanças no DOM para detectar quando o header é carregado
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.addedNodes.length) {
@@ -42,6 +68,7 @@ export class Header {
                         this.setupCartLink();
                         this.setupContactLink();
                         this.setupLoginLink();
+                        this.headerCartManager = new HeaderCartManager();
                         observer.disconnect();
                     }
                 }
@@ -52,6 +79,8 @@ export class Header {
             childList: true,
             subtree: true
         });
+        // Adiciona setup para o link Bonsais
+        this.setupBonsaisLink();
     }
     
     setupHomeLink() {
@@ -103,6 +132,16 @@ export class Header {
             link.addEventListener('click', async (e) => {
                 e.preventDefault();
                 await window.loadComponent("main", "app/login/login.html", true);
+            });
+        });
+    }
+
+    setupBonsaisLink() {
+        const bonsaisLinks = document.querySelectorAll('.bonsais-link');
+        bonsaisLinks.forEach(link => {
+            link.addEventListener('click', async (e) => {
+                e.preventDefault();
+                await window.loadComponent("main", "app/bonsai-products/bonsai-products.html", true);
             });
         });
     }

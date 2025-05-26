@@ -1,1 +1,66 @@
-TESTE PRODUCS detail INSERIDO
+<link rel="stylesheet" href="/styles/main.css">
+<link rel="stylesheet" href="/app/product-detail/product-detail.css">
+
+<main class="product-detail-container">
+    <section class="product-detail">
+        <div class="loading-indicator" id="loading-product">
+            <div class="spinner"></div>
+            <p>Carregando detalhes do produto...</p>
+        </div>
+
+        <div class="product-content" id="product-content" style="display: none;">
+            <div class="product-images">
+                <div class="product-main-image">
+                    <img id="main-product-image" src="" alt="Imagem em destaque">
+                </div>
+                <div class="product-thumbnails">
+                    <!-- Thumbnails serão adicionadas via JavaScript -->
+                </div>
+
+                <div class="product-description">
+                    <h2 data-i18n="about_this_product">Sobre este produto</h2>
+                    <p id="product-description"></p>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <h1 id="product-name" class="product-title"></h1>
+
+                <div class="payment-options">
+                    <h3 data-i18n="payment_options">Opções de pagamento</h3>
+                    <div class="product-price-container">
+                        <div id="product-price-area">
+                            <!-- Preço será adicionado via JavaScript -->
+                        </div>
+                        <div class="installment-options" id="installment-options">
+                            <!-- Opções de parcelamento serão adicionadas via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shipping-calculator">
+                    <h3 data-i18n="calculate_shipping">Calcule o frete</h3>
+                    <div class="shipping-input">
+                        <input type="text" id="shipping-cep" placeholder="Digite seu CEP" maxlength="9" class="shipping-input-field" data-i18n-placeholder="placeholder_cep">
+                        <button id="calculate-shipping" class="btn-secondary" data-i18n="btn_calculate">Calcular</button>
+                    </div>
+                    <div id="shipping-result" class="shipping-result"></div>
+                </div>
+
+                <div class="product-actions">
+                    <button id="add-to-cart-btn" class="btn-primary" data-i18n="btn_add_to_cart">
+                        <img src="/assets/icons/cart-icon.svg" alt="Carrinho" class="cart-icon">
+                        Adicionar ao carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-products">
+        <h2 data-i18n="more_products">Mais produtos</h2>
+        <div class="products-container-detail">
+            <!-- Produtos relacionados serão adicionados via JavaScript -->
+        </div>
+    </section>
+</main>

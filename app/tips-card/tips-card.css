@@ -1,0 +1,63 @@
+/* Tips Card Component Styles */
+.tips-cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 20px 0;
+}
+
+.tip-card {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.tip-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tip-icon {
+    display: flex;
+    align-items: baseline;
+
+}
+
+.tip-icon i {
+    font-size: 20px;
+    color: #666666;
+}
+
+.tip-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-title);
+    padding-left: 5px;
+}
+
+.tip-card p {
+    text-align: justify;
+    font-size: 18px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .tips-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .tips-cards-container {
+        grid-template-columns: 1fr;
+    }
+}

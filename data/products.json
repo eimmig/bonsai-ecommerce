@@ -1,0 +1,94 @@
+{
+  "produtos": [
+    {
+      "id": "1",
+      "nome": "Ficus Retusa",
+      "descricao": "Bonsai Ficus Retusa perfeito para ambientes internos, fácil manutenção.",
+      "valor": 299.90,
+      "porcentagemDesconto": 25,
+      "imagem": [
+        {
+          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
+          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "nome": "Juniperus Chinensis",
+      "descricao": "Bonsai estilo cascata, ideal para decoração em ambientes naturais.",
+      "valor": 349.90,
+      "porcentagemDesconto": 10,
+      "imagem": [
+        {
+          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
+          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "nome": "Carmona Microphylla",
+      "descricao": "Bonsai compacto, ideal para mesa de escritório, requer pouca luz.",
+      "valor": 179.90,
+      "porcentagemDesconto": 0,
+      "imagem": [
+        {
+          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
+          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "nome": "Pinus Pentaphylla",
+      "descricao": "Bonsai tradicional japonês, resistente e indicado para áreas externas.",
+      "valor": 459.90,
+      "porcentagemDesconto": 15,
+      "imagem": [
+        {
+          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
+          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "nome": "Acer Palmatum",
+      "descricao": "Bonsai de bordo japonês, coloração vermelha vibrante no outono.",
+      "valor": 529.90,
+      "porcentagemDesconto": 20,
+      "imagem": [
+        {
+          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
+          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "nome": "Zelkova Serrata",
+      "descricao": "Bonsai elegante com folhagem delicada, adaptável a diversos ambientes.",
+      "valor": 399.90,
+      "porcentagemDesconto": 5,
+      "imagem": [
+        {
+          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
+          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
+          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+.bonsai-products-container.bonsai-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem 1.5rem;
+  margin-top: 2rem;
+}
+
+.bonsai-products-container .product-card {
+  /* Ajuste para ocupar 100% da célula do grid */
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 1200px) {
+  .bonsai-products-container.bonsai-grid-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .bonsai-products-container.bonsai-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .bonsai-products-container.bonsai-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bonsai-products-section h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+.bonsai-products-section h2 .bonsai-title {
+  color: var(--color-title);
+  font-weight: 700;
+}

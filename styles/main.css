@@ -2,25 +2,73 @@
 @import url('../app/header/header.css');
 @import url('../app/footer/footer.css');
 @import url('../app/home/home.css');
+@import url('../app/login/login.css');
+@import url('../app/product-card/product-card.css');
+@import url('../app/tips-card/tips-card.css');
+@import url('../app/cart/cart-with-itens/cart-with-itens.css');
+@import url('../app/cart/empty-cart/empty-cart.css');
+@import url('../app/product-detail/product-detail.css');
+@import url('../app/bonsai-products/bonsai-products.css');
 
 /* Variáveis globais de cores e estilos */
 :root {
+  --color-primary: #006d3b;
+  --color-white: #fff;
   --color-title: #4D933E;
   --color-text: #081B02;
   --color-button: #4D933E;
   --color-button-hover: #44593A;
   --color-border-light: #eee;
   --color-border: #ddd;
-  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow: rgba(0, 0, 0, 0.1); 
   --color-background-light: #f8f9fa;
   --color-focus: #44593A;
   --color-footer: #44593A;
+  --color-discount: #e74c3c;
+  --color-light-gray: #f5f5f5;
+  --transition: all 0.3s ease;
+  --color-dark-gray: #666666;
+  --color-border-green: #006d3b;
 }
 
 /* Estilos base */
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   color: var(--color-text);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#main {
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+}
+
+/* Toast Notifications */
+.toast-container {
+  z-index: 9999;
+}
+
+.toast {
+  min-width: 300px;
+}
+
+.toast .toast-header {
+  border-bottom: none;
+}
+
+.toast.bg-success .btn-close,
+.toast.bg-danger .btn-close,
+.toast.bg-info .btn-close {
+  filter: brightness(0) invert(1);
 }

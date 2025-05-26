@@ -1,15 +1,19 @@
 import { NotificationService } from "../../core/notifications.js";
-import { ProductCard } from "../product-card/product-card.js";
+import { formatCurrencyBRL, loadProductsFromStorage } from "../../core/functionUtils.js";
 
 export class ProductDetail {
-    constructor(selectedProductId = null) {
+    /**
+     * Cria a instância do componente ProductDetail
+     */
+    constructor() {
         this.productData = null;
         this.allProducts = [];
         this.currentImageIndex = 0;
-        this.productCard = new ProductCard();
-        this.init(selectedProductId);
     }
 
+    /**
+     * Inicializa o componente, carregando dados e configurando eventos
+     */
     async init(productId) {
         try {
             if (!productId) {
@@ -17,32 +21,30 @@ export class ProductDetail {
                 productId = urlParams.get("id");
             }
             if (!productId) {
-                this.showError("ID do produto não especificado");
+                this.showError(this._t('error_no_product_id'));
                 return;
             }
             await this.loadProductData(productId);
             this.setupEventListeners();
         } catch (error) {
             console.error("Erro ao inicializar o componente ProductDetail:", error);
-            this.showError("Não foi possível carregar os detalhes do produto");
+            this.showError(this._t('error_load_product_detail'));
         }
     }
 
+    /**
+     * Carrega os dados do produto e renderiza detalhes
+     */
     async loadProductData(productId) {
         try {
-            // Descomenta e garante o carregamento dos produtos
-            await this.productCard.loadProductsData();
-            this.allProducts = this.productCard.productsData || [];
-
-            if (this.allProducts.length === 0) {
-                throw new Error("Não foi possível carregar os produtos");
+            this.allProducts = loadProductsFromStorage();
+            if (!this.allProducts.length) {
+                throw new Error(this._t('error_load_products'));
             }
-
             this.productData = this.allProducts.find(product => product.id === productId);
             if (!this.productData) {
-                throw new Error("Produto não encontrado");
+                throw new Error(this._t('error_product_not_found'));
             }
-
             this.renderProductDetails();
             this.renderRelatedProducts();
             const loading = document.getElementById("loading-product");
@@ -51,10 +53,13 @@ export class ProductDetail {
             if (content) content.style.display = "flex";
         } catch (error) {
             console.error("Erro ao carregar dados do produto:", error);
-            this.showError("Não foi possível carregar os detalhes do produto");
+            this.showError(this._t('error_load_product_detail'));
         }
     }
 
+    /**
+     * Renderiza os detalhes do produto na página
+     */
     renderProductDetails() {
         document.getElementById("product-name").textContent = this.productData.nome;
         document.title = `${this.productData.nome} | Bonsai E-commerce`;
@@ -63,6 +68,9 @@ export class ProductDetail {
         this.renderProductImages();
     }
 
+    /**
+     * Renderiza a área de preço e opções de parcelamento
+     */
     renderPriceArea() {
         const priceArea = document.getElementById("product-price-area");
         const installmentOptions = document.getElementById("installment-options");
@@ -71,31 +79,32 @@ export class ProductDetail {
             this.productData.valor,
             this.productData.porcentagemDesconto
         );
-
-        // Renderiza área de preço
         let priceHTML = "";
         if (hasDiscount) {
-            priceHTML += `<span class="original-price">${this.formatPrice(this.productData.valor)}</span>`;
-            priceHTML += `<span class="discounted-price">${this.formatPrice(discountedPrice)}</span>`;
+            priceHTML += `<span class="original-price">${formatCurrencyBRL(this.productData.valor)}</span>`;
+            priceHTML += `<span class="discounted-price">${formatCurrencyBRL(discountedPrice)}</span>`;
             priceHTML += `<span class="discount-badge-detail">-${this.productData.porcentagemDesconto}%</span>`;
         } else {
-            priceHTML += `<span class="discounted-price">${this.formatPrice(this.productData.valor)}</span>`;
+            priceHTML += `<span class="discounted-price">${formatCurrencyBRL(this.productData.valor)}</span>`;
         }
         priceArea.innerHTML = priceHTML;
-
-        // Renderiza opções de parcelamento
         const finalPrice = hasDiscount ? discountedPrice : this.productData.valor;
         const installmentHTML = this.generateInstallmentOptions(finalPrice);
         installmentOptions.innerHTML = installmentHTML;
     }
 
+    /**
+     * Gera o HTML das opções de parcelamento
+     */
     generateInstallmentOptions(price) {
-        // Gera opções de parcelamento até 12x
         const maxInstallments = 12;
         const installmentValue = price / maxInstallments;
-        return `Em até ${maxInstallments}x de ${this.formatPrice(installmentValue)} sem juros`;
+        return `${this._t('installments_prefix', {n: maxInstallments})} ${formatCurrencyBRL(installmentValue)} ${this._t('installments_suffix')}`;
     }
 
+    /**
+     * Renderiza as imagens principais e miniaturas do produto
+     */
     renderProductImages() {
         const mainImage = document.getElementById("main-product-image");
         mainImage.src = this.productData.imagem[0].urlImagemDestaque;
@@ -121,6 +130,9 @@ export class ProductDetail {
         });
     }
 
+    /**
+     * Altera a imagem principal ao clicar em uma miniatura
+     */
     changeThumbnail(index) {
         const thumbnails = document.querySelectorAll(".thumbnail");
         thumbnails.forEach(thumb => thumb.classList.remove("active"));
@@ -136,6 +148,9 @@ export class ProductDetail {
         this.currentImageIndex = index;
     }
 
+    /**
+     * Renderiza os produtos relacionados
+     */
     renderRelatedProducts() {
         const container = document.querySelector(".related-products .products-container-detail");
         if (!container) return;
@@ -148,6 +163,9 @@ export class ProductDetail {
         });
     }
 
+    /**
+     * Cria o card de produto relacionado
+     */
     createProductCard(product) {
         const hasDiscount = product.porcentagemDesconto > 0;
         const discountedPrice = this.calculateDiscountedPrice(product.valor, product.porcentagemDesconto);
@@ -164,15 +182,18 @@ export class ProductDetail {
                 <h3 class="product-name">${product.nome}</h3>
                 <p class="product-description">${product.descricao.substring(0, 80)}${product.descricao.length > 80 ? "..." : ""}</p>
                 <div class="product-price">
-                    ${hasDiscount ? `<span class="original-price">${this.formatPrice(product.valor)}</span>` : ""}
-                    <span class="discounted-price">${this.formatPrice(discountedPrice)}</span>
+                    ${hasDiscount ? `<span class="original-price">${formatCurrencyBRL(product.valor)}</span>` : ""}
+                    <span class="discounted-price">${formatCurrencyBRL(discountedPrice)}</span>
                 </div>
-                <button class="view-details-btn">Ver produto</button>
+                <button class="view-details-btn" data-i18n="btn_view_product">${this._t('btn_view_product')}</button>
             </div>
         `;
         return cardElement;
     }
 
+    /**
+     * Configura os event listeners dos botões e produtos relacionados
+     */
     setupEventListeners() {
         const addToCartBtn = document.getElementById("add-to-cart-btn");
         if (addToCartBtn) {
@@ -196,38 +217,54 @@ export class ProductDetail {
         }
     }
 
+    /**
+     * Adiciona o produto ao carrinho
+     */
     addToCart() {
-        NotificationService.showToast("Sucesso", "Produto adicionado ao carrinho com sucesso!", "success");
+        NotificationService.showToast("Sucesso", this._t('msg_product_added_cart'), "success");
     }
 
+    /**
+     * Exibe mensagem de erro customizada
+     */
     showError(message) {
         let container = document.querySelector(".product-detail");
         if (!container) container = document.getElementById("main");
         if (container) {
             container.innerHTML = `
                 <div class="error-message">
-                    <h2>Ops! Algo deu errado</h2>
+                    <h2 data-i18n="error_title">${this._t('error_title')}</h2>
                     <p>${message}</p>
-                    <a href="/index.html" class="btn-primary">Voltar para a página inicial</a>
+                    <a href="/index.html" class="btn-primary" data-i18n="btn_back_home">${this._t('btn_back_home')}</a>
                 </div>
             `;
         } else {
             alert(message);
         }
-
     }
 
+    /**
+     * Calcula o preço com desconto
+     */
     calculateDiscountedPrice(originalPrice, discountPercentage) {
         if (!discountPercentage || discountPercentage <= 0) return originalPrice;
         const discount = (originalPrice * discountPercentage) / 100;
         return originalPrice - discount;
     }
 
-    formatPrice(value) {
-        return `R$ ${value.toFixed(2).replace('.', ',')}`;
+    /**
+     * Função de tradução local
+     */
+    _t(key, params = {}) {
+        if (window.i18nInstance && typeof window.i18nInstance.translate === 'function') {
+            return window.i18nInstance.translate(key, params) || key;
+        }
+        return key;
     }
 }
 
 export function initProductDetail(selectedProductId) {
-    return new ProductDetail(selectedProductId);
+    const detail = new ProductDetail();
+    detail.init(selectedProductId);
+    return detail;
 }

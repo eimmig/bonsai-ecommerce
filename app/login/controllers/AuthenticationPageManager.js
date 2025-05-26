@@ -48,6 +48,7 @@ export class AuthenticationPageManager {
         this.addEventListeners();
         this.initInputMasks();
         this._checkInitialMode();
+        document.title = 'Entrar | Bonsai E-commerce';
     }
 
     addEventListeners() {

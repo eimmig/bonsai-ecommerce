@@ -50,5 +50,7 @@ class CartManager {
             await window.loadComponent('main', 'app/cart/cart-with-itens/cart-with-itens.html', true);
             this.cartWithItems = new Cart();
         }
+
+        document.title = 'Carrinho | Bonsai E-commerce';
     }
 }

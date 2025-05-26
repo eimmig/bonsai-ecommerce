@@ -136,5 +136,10 @@
   "toast_signup_success_title": "Success",
   "toast_signup_success_message": "Registration successful! You can now log in.",
   "toast_error_title": "Error",
-  "toast_error_message": "An error occurred. Please try again."
+  "toast_error_message": "An error occurred. Please try again.",
+  "about_page_title": "About Us | Bonsai E-commerce",
+  "home_page_title": "Home | Bonsai E-commerce",
+  "products_page_title": "Products | Bonsai E-commerce",
+  "cart_page_title": "Cart | Bonsai E-commerce",
+  "login_page_title": "Login | Bonsai E-commerce"
 }

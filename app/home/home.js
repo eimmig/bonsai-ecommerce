@@ -8,5 +8,7 @@ export function initHome() {
 
     // Carrega os tips-cards no container da home
     initTipsCard('tips-container');
+
+    document.title = 'Home | Bonsai E-commerce';
 }
 

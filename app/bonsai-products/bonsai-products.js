@@ -15,6 +15,8 @@ export class BonsaiProducts {
     async init() {
         this.productsData = loadProductsFromStorage();
         this.renderProductCardsWithComponent();
+
+        document.title = 'Produtos | Bonsai E-commerce';
     }
 
     /**

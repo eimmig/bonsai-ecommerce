@@ -1,8 +1,8 @@
 import { Cart } from './cart-with-itens/cart-with-itens.js';
 import { EmptyCartPage } from './empty-cart/empty-cart.js';
 import { CartUtils } from './utils/cart-utils.js';
-import { loadProductsFromStorage } from '../../core/format.js';
 import { AuthService } from '../login/services/AuthService.js';
+import { getFromStorage } from '../../core/functionUtils.js';
 
 /**
  * Função que inicializa o módulo do carrinho
@@ -11,7 +11,7 @@ import { AuthService } from '../login/services/AuthService.js';
  */
 export function initCart() {
     // Verifica se o usuário está logado
-    const currentUser = AuthService.getCurrentUser ? AuthService.getCurrentUser() : JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = AuthService.getCurrentUser ? AuthService.getCurrentUser() : getFromStorage('currentUser');
     if (!currentUser?.email) {
         window.loadComponent('main', 'app/login/login.html', true);
         return;
@@ -35,7 +35,9 @@ class CartManager {
      */
     constructor() {
         this.cartUtils = new CartUtils();
-    }    /**
+    }    
+    
+    /**
      * Carrega os produtos do localStorage
      * @private
      * @returns {Array} Array de produtos

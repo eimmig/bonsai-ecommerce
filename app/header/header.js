@@ -1,4 +1,5 @@
 import { HeaderCartManager } from './utils/header-cart.js';
+import { getFromStorage, removeFromStorage } from '../../core/functionUtils.js';
 
 export class Header {
     constructor() {
@@ -8,10 +9,10 @@ export class Header {
 
     checkUserLoggedIn() {
         try {
-            const currentUser = localStorage.getItem('currentUser');
+            const currentUser = getFromStorage('currentUser');
             if (currentUser) {
-                const userData = JSON.parse(currentUser);
-                if (userData && userData.email) {
+                const userData = currentUser;
+                if (userData?.email) {
                     document.body.classList.add('is-logged-in');
                     return true;
                 }
@@ -30,7 +31,7 @@ export class Header {
     }
 
     logout() {
-        localStorage.removeItem('currentUser');
+        removeFromStorage('currentUser');
         this.loginState = false;
         document.body.classList.remove('is-logged-in');
         document.dispatchEvent(new CustomEvent('cart-updated'));

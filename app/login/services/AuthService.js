@@ -1,11 +1,12 @@
+import { getFromStorage, setToStorage, removeFromStorage } from '../../../core/functionUtils.js';
+
 export class AuthService {
     static USERS_STORAGE_KEY = 'registeredUsers';
     static CURRENT_USER_KEY = 'currentUser';
 
     static _loadUsers() {
         try {
-            const usersJson = localStorage.getItem(AuthService.USERS_STORAGE_KEY);
-            return usersJson ? JSON.parse(usersJson) : [];
+            return getFromStorage(AuthService.USERS_STORAGE_KEY, []);
         } catch {
             return [];
         }
@@ -13,7 +14,7 @@ export class AuthService {
 
     static _saveUsers(users) {
         try {
-            localStorage.setItem(AuthService.USERS_STORAGE_KEY, JSON.stringify(users));
+            setToStorage(AuthService.USERS_STORAGE_KEY, users);
             return true;
         } catch {
             return false;
@@ -22,8 +23,7 @@ export class AuthService {
 
     static getCurrentUser() {
         try {
-            const userData = localStorage.getItem(AuthService.CURRENT_USER_KEY);
-            return userData ? JSON.parse(userData) : null;
+            return getFromStorage(AuthService.CURRENT_USER_KEY, null);
         } catch {
             return null;
         }
@@ -31,11 +31,9 @@ export class AuthService {
 
     static logout() {
         try {
-            localStorage.removeItem(AuthService.CURRENT_USER_KEY);
+            removeFromStorage(AuthService.CURRENT_USER_KEY);
             document.body.classList.remove('is-logged-in');
-            
             document.dispatchEvent(new CustomEvent('user-logged-out'));
-            
             return true;
         } catch {
             return false;
@@ -52,10 +50,8 @@ export class AuthService {
 
                 if (user) {
                     const userData = { email: user.email, nome: user.nome };
-                    localStorage.setItem(AuthService.CURRENT_USER_KEY, JSON.stringify(userData));
-                    
+                    setToStorage(AuthService.CURRENT_USER_KEY, userData);
                     document.body.classList.add('is-logged-in');
-                    
                     resolve({ message: 'Login bem-sucedido!', user: userData });
                 } else {
                     reject(new Error('Credenciais inválidas.'));

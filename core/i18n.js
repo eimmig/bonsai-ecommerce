@@ -8,13 +8,17 @@ export class I18n {
     const res = await fetch(`translations/${lang}.json`);
     this.translations = await res.json();
   }
-
+  
   async translatePage(lang = this.currentLang) {
     this.currentLang = lang;
     await this.loadTranslations(lang);
     this.translateElement(document);
   }
-  translateElement(element, lang = this.currentLang) {
+  /**
+   * Traduz o conteúdo de um elemento e seus descendentes
+   * @param {HTMLElement} element - O elemento a ser traduzido
+   */
+  translateElement(element) {
     // Traduz textos
     element.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');

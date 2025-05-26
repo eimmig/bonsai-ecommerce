@@ -1,4 +1,5 @@
 import { CartUtils } from '../../cart/utils/cart-utils.js';
+import { getFromStorage } from '../../../core/functionUtils.js';
 
 /**
  * Classe responsável por atualizar a contagem de itens no carrinho no cabeçalho
@@ -46,7 +47,7 @@ export class HeaderCartManager {
         // Checa se há usuário logado
         let user = null;
         try {
-            user = JSON.parse(localStorage.getItem('currentUser'));
+            user = getFromStorage('currentUser');
         } catch {}
         // Sempre instancia CartUtils para garantir currentUserIdentifier correto
         this.cartUtils = new CartUtils();

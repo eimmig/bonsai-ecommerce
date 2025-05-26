@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     background-color: var(--color-background-light);
-    justify-content: space-between;
+    justify-content: center;
 }
 .banner-image {
 }

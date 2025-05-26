@@ -36,6 +36,7 @@ export class BonsaiProducts {
                     const card = this.createProductCard(product);
                     container.appendChild(card);
                 });
+                // Garante tradução dos botões após renderização
                 if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
                     window.i18nInstance.translateElement(container);
                 }
@@ -49,4 +50,11 @@ export function initBonsaiProducts() {
     const bonsaiProducts = new BonsaiProducts();
     bonsaiProducts.init();
     return bonsaiProducts;
+}
+
+export function initBonsaiProductsPage() {
+    initBonsaiProducts();
+    if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
+        window.i18nInstance.translateElement(document.querySelector('.bonsai-products-section'));
+    }
 }

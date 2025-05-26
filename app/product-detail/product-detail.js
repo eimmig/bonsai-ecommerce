@@ -54,8 +54,8 @@ export class ProductDetail {
             this.renderProductDetails();
             this.renderRelatedProducts();
             const loading = document.getElementById("loading-product");
+            if (loading) loading.remove();
             const content = document.getElementById("product-content");
-            if (loading) loading.style.display = "none";
             if (content) content.style.display = "flex";
         } catch (error) {
             console.error("Erro ao carregar dados do produto:", error);

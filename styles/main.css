@@ -8,6 +8,7 @@
 @import url('../app/cart/cart-with-itens/cart-with-itens.css');
 @import url('../app/cart/empty-cart/empty-cart.css');
 @import url('../app/product-detail/product-detail.css');
+@import url('../app/bonsai-products/bonsai-products.css');
 
 /* Variáveis globais de cores e estilos */
 :root {

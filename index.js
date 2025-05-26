@@ -6,6 +6,7 @@ import { initHome } from "./app/home/home.js";
 import { initAbout } from "./app/about/about.js";
 import { initCart } from './app/cart/cart.js';
 import {initProductDetail} from "./app/product-detail/product-detail.js";
+import { renderLoadingComponent, removeLoadingComponent } from './core/loading.js';
 
 const translateService = new I18n();
 let headerComponent;
@@ -42,6 +43,7 @@ Promise.all([
 });
 
 async function loadComponent(id, path, translateAfterLoad = true, parameters = null) {
+  renderLoadingComponent(id, 'Carregando...');
   const res = await fetch(path);
   const data = await res.text();
   document.getElementById(id).innerHTML = data;
@@ -70,6 +72,14 @@ async function loadComponent(id, path, translateAfterLoad = true, parameters = n
     initProductDetail(parameters)
   }
 
+  if (path === "app/bonsai-products/bonsai-products.html") {
+    const module = await import("./app/bonsai-products/bonsai-products.js");
+    if (module?.initBonsaiProductsPage) {
+      module.initBonsaiProductsPage();
+    }
+  }
+  removeLoadingComponent(id);
+  
   return data;
 }
 

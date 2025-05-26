@@ -105,8 +105,8 @@ export class ProductCard {
                     ${hasDiscount ? `<span class="original-price">${this.formatPrice(product.valor)}</span>` : ''}
                     <span class="discounted-price">${this.formatPrice(discountedPrice)}</span>
                 </div>
-                <button class="add-to-cart-btn">Adicionar ao carrinho</button>
-                <button class="view-details-btn">Ver detalhes</button>
+                <button class="add-to-cart-btn" data-i18n="btn_add_to_cart">Adicionar ao carrinho</button>
+                <button class="view-details-btn" data-i18n="btn_view_product">Ver detalhes</button>
             </div>
         `;
 

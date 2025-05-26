@@ -118,5 +118,5 @@
   "payment_options": "Payment options",
   "calculate_shipping": "Calculate shipping",
   "more_products": "More products",
-  "all_bonsais": "All Bonsais"
+  "all_bonsais": "All <span class=\"bonsai-title\">Bonsais</span>"
 }

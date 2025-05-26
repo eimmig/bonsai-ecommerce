@@ -77,7 +77,7 @@ export class ProductDetail {
         if (hasDiscount) {
             priceHTML += `<span class="original-price">${this.formatPrice(this.productData.valor)}</span>`;
             priceHTML += `<span class="discounted-price">${this.formatPrice(discountedPrice)}</span>`;
-            priceHTML += `<span class="discount-badge">-${this.productData.porcentagemDesconto}%</span>`;
+            priceHTML += `<span class="discount-badge-detail">-${this.productData.porcentagemDesconto}%</span>`;
         } else {
             priceHTML += `<span class="discounted-price">${this.formatPrice(this.productData.valor)}</span>`;
         }
@@ -214,31 +214,7 @@ export class ProductDetail {
         } else {
             alert(message);
         }
-    }
 
-    getCareInfo(type) {
-        const careInfo = {
-            light: [
-                "Luz indireta brilhante, ideal para ambientes internos com boa iluminação",
-                "Meia-sombra, evite luz solar direta",
-                "Luz solar filtrada, ideal para varandas cobertas",
-                "Luz direta pela manhã e sombra à tarde"
-            ],
-            water: [
-                "Mantenha o substrato levemente úmido, regando quando a superfície estiver seca",
-                "Regar moderadamente, deixando o substrato secar entre as regas",
-                "Regar abundantemente uma vez por semana, verificando a umidade do solo",
-                "Borrifar as folhas diariamente e regar quando o substrato estiver seco"
-            ],
-            temperature: [
-                "18°C a 24°C, proteger de temperaturas extremas",
-                "15°C a 25°C, evite correntes de ar frio",
-                "20°C a 30°C, ideal para espécies tropicais",
-                "10°C a 20°C, resistente a temperaturas mais baixas"
-            ]
-        };
-        const index = parseInt(this.productData.id) % 4;
-        return careInfo[type][index];
     }
 
     calculateDiscountedPrice(originalPrice, discountPercentage) {

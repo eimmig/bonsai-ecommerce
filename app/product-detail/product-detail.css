@@ -206,7 +206,7 @@
     color: var(--color-primary);
 }
 
-.discount-badge {
+.discount-badge-detail {
     background-color: var(--color-primary);
     color: white;
     padding: 0.2rem 0.5rem;
@@ -328,7 +328,6 @@
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     color: var(--color-title);
-    text-align: center;
 }
 
 .products-container-detail {

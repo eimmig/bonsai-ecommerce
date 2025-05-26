@@ -1,5 +1,6 @@
 import { NotificationService } from "../../core/notifications.js";
 import { formatCurrencyBRL, loadProductsFromStorage } from "../../core/functionUtils.js";
+import { CepMask } from "../login/components/input-masks/CepMask.js";
 
 export class ProductDetail {
     /**
@@ -26,6 +27,11 @@ export class ProductDetail {
             }
             await this.loadProductData(productId);
             this.setupEventListeners();
+            // Aplica máscara de CEP
+            const cepInput = document.getElementById("shipping-cep");
+            if (cepInput) {
+                CepMask(cepInput);
+            }
         } catch (error) {
             console.error("Erro ao inicializar o componente ProductDetail:", error);
             this.showError(this._t('error_load_product_detail'));
@@ -161,6 +167,12 @@ export class ProductDetail {
             const card = this.createProductCard(product);
             container.appendChild(card);
         });
+        
+        if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
+            window.i18nInstance.translateElement(container);
+        }
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     /**
@@ -185,7 +197,7 @@ export class ProductDetail {
                     ${hasDiscount ? `<span class="original-price">${formatCurrencyBRL(product.valor)}</span>` : ""}
                     <span class="discounted-price">${formatCurrencyBRL(discountedPrice)}</span>
                 </div>
-                <button class="view-details-btn" data-i18n="btn_view_product">${this._t('btn_view_product')}</button>
+                <button class="view-details-btn" data-i18n="btn_view_product">View product</button>
             </div>
         `;
         return cardElement;

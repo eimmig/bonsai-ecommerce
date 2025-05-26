@@ -101,5 +101,22 @@
   "cart_continue_shopping": "Continuar comprando",
   "cart_checkout": "Ir para pagamento",
   "cart_empty_message": "Seu carrinho está vazio :(",
-  "cart_start_shopping": "Começar a comprar!"
+  "cart_start_shopping": "Começar a comprar!",
+  "btn_view_product": "Ver produto",
+  "btn_add_to_cart": "Adicionar ao carrinho",
+  "btn_calculate": "Calcular",
+  "btn_back_home": "Voltar para a página inicial",
+  "installments_prefix": "Em até {n}x de",
+  "installments_suffix": "sem juros",
+  "placeholder_cep": "Digite seu CEP",
+  "error_no_product_id": "ID do produto não especificado.",
+  "error_load_product_detail": "Não foi possível carregar os detalhes do produto.",
+  "error_load_products": "Não foi possível carregar os produtos.",
+  "error_product_not_found": "Produto não encontrado.",
+  "msg_product_added_cart": "Produto adicionado ao carrinho com sucesso!",
+  "error_title": "Ops! Algo deu errado",
+  "payment_options": "Opções de pagamento",
+  "calculate_shipping": "Calcule o frete",
+  "more_products": "Mais produtos",
+  "all_bonsais": "All Bonsais"
 }

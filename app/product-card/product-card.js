@@ -5,6 +5,7 @@
  * incluindo cálculo de desconto, formatação de preço e interações de botões.
  */
 import {NotificationService} from "../../core/notifications.js";
+import { loadProductsFromStorage } from "../../core/functionUtils.js";
 
 export class ProductCard {
     constructor(maxProducts = null) {
@@ -32,20 +33,12 @@ export class ProductCard {
         try {
             let jsonPath = '/data/products.json'; // Caminho absoluto a partir da raiz do servidor
 
-            // Tenta carregar do localStorage primeiro (carregado pelo index.js)
-            const localData = localStorage.getItem('products');
-            if (localData) {
-                try {
-                    const data = JSON.parse(localData);
-                    this.productsData = data.produtos;
-                    if (this.maxProducts) {
-                        this.productsData = this.productsData.slice(0, this.maxProducts);
-                    }
-                    console.log("Produtos carregados do localStorage:", this.productsData.length);
-                    return this.productsData;
-                } catch (e) {
-                    console.error("Erro ao ler localStorage:", e);
-                }
+            // Usa utilitário centralizado para tentar carregar do localStorage primeiro
+            const localProducts = loadProductsFromStorage();
+            if (localProducts?.length) {
+                this.productsData = this.maxProducts ? localProducts.slice(0, this.maxProducts) : localProducts;
+                console.log("Produtos carregados do localStorage:", this.productsData.length);
+                return this.productsData;
             }
 
             // Se não encontrou no localStorage, busca via fetch

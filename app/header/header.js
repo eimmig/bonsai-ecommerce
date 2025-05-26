@@ -79,6 +79,8 @@ export class Header {
             childList: true,
             subtree: true
         });
+        // Adiciona setup para o link Bonsais
+        this.setupBonsaisLink();
     }
     
     setupHomeLink() {
@@ -130,6 +132,22 @@ export class Header {
             link.addEventListener('click', async (e) => {
                 e.preventDefault();
                 await window.loadComponent("main", "app/login/login.html", true);
+            });
+        });
+    }
+
+    setupBonsaisLink() {
+        const bonsaisLinks = document.querySelectorAll('.bonsais-link');
+        bonsaisLinks.forEach(link => {
+            link.addEventListener('click', async (e) => {
+                e.preventDefault();
+                await window.loadComponent("main", "app/bonsai-products/bonsai-products.html", true);
+                // Carrega o JS do componente
+                const module = await import("../bonsai-products/bonsai-products.js");
+                if (module && module.initBonsaiProducts) {
+                    module.initBonsaiProducts();
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
     }

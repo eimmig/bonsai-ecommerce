@@ -1,6 +1,6 @@
 import { CartUtils } from '../utils/cart-utils.js';
 import { NotificationService } from '../../../core/notifications.js';
-import { formatCurrencyBRL, loadProductsFromStorage } from '../../../core/format.js';
+import { formatCurrencyBRL, loadProductsFromStorage } from '../../../core/functionUtils.js';
 
 /**
  * Classe responsável pela página de carrinho com itens

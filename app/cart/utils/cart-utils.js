@@ -2,6 +2,7 @@
  * Utilitário para gerenciar o carrinho de compras
  */
 import { NotificationService } from '../../../core/notifications.js';
+import { getFromStorage, setToStorage } from '../../../core/functionUtils.js';
 
 export class CartUtils {
     constructor() {
@@ -14,25 +15,25 @@ export class CartUtils {
      * @private
      */
     _getCurrentUserIdentifier() {
-        const currentUserString = localStorage.getItem('currentUser');
-        if (!currentUserString) {
+        const currentUser = getFromStorage('currentUser');
+        if (!currentUser) {
             return 'guest';
         }
-        
         try {
-            const currentUser = JSON.parse(currentUserString);
             return currentUser.email || 'guest';
         } catch (error) {
             console.error("Erro ao parsear usuário do localStorage:", error);
             return 'guest';
         }
-    }    /**
+    }    
+    
+    /**
      * Carrega todos os carrinhos do localStorage
      * @private
      */
     _loadCarts() {
         try {
-            return JSON.parse(localStorage.getItem(this.STORAGE_KEY_CARTS) || '{}');
+            return getFromStorage(this.STORAGE_KEY_CARTS, {});
         } catch (error) {
             console.error("Erro ao carregar carrinhos do localStorage:", error);
             return {};
@@ -45,7 +46,7 @@ export class CartUtils {
      */
     _saveCarts(carts) {
         try {
-            localStorage.setItem(this.STORAGE_KEY_CARTS, JSON.stringify(carts));
+            setToStorage(this.STORAGE_KEY_CARTS, carts);
         } catch (error) {
             console.error("Erro ao salvar carrinhos no localStorage:", error);
         }
@@ -57,7 +58,9 @@ export class CartUtils {
      */
     _notifyCartUpdated() {
         document.dispatchEvent(new CustomEvent('cart-updated'));
-    }    /**
+    }    
+    
+    /**
      * Adiciona um item ao carrinho
      */
     addToCart(productId, quantity = 1) {
@@ -111,7 +114,9 @@ export class CartUtils {
      */
     _findCartItemById(cartItems, productId) {
         return cartItems.find(item => item.productId === productId);
-    }    /**
+    }   
+    
+    /**
      * Remove um item do carrinho
      */
     removeFromCart(productId) {

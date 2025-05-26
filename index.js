@@ -1,4 +1,5 @@
 import { I18n } from './core/i18n.js';
+import { getFromStorage, setToStorage } from './core/functionUtils.js';
 import { Header } from './app/header/header.js';
 import { initLogin } from './app/login/login.js';
 import { initHome } from "./app/home/home.js";
@@ -20,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function checkUserSession() {
   try {
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = getFromStorage('currentUser');
     if (currentUser) {
-      const userData = JSON.parse(currentUser);
+      const userData = currentUser;
       console.log('Usuário já autenticado:', userData.nome);
       document.body.classList.add('is-logged-in');
     }
@@ -80,7 +81,7 @@ async function loadProductsData() {
     }
     
     const productsData = await response.json();
-    localStorage.setItem('products', JSON.stringify(productsData));
+    setToStorage('products', productsData);
     console.log('Dados de produtos carregados com sucesso!');
   } catch (error) {
     console.error('Falha ao carregar dados de produtos:', error);

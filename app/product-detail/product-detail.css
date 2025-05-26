@@ -68,7 +68,7 @@
     align-items: center;
     justify-content: center;
     background-color: #f9f9f9;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--color-border);
 }
 
 .product-main-image img {
@@ -90,7 +90,7 @@
     border-radius: 4px;
     overflow: hidden;
     cursor: pointer;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--color-border);
     transition: border-color 0.2s ease;
     display: flex;
     align-items: center;
@@ -114,19 +114,19 @@
     margin-top: 2rem;
     margin-bottom: 2rem;
     padding-top: 1.5rem;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid var(--color-border);
 }
 
 .product-description h2 {
     font-size: 1.3rem;
     margin-bottom: 0.8rem;
-    color: #444;
+    color: var(--color-title);
     font-weight: 600;
 }
 
 .product-description p {
     line-height: 1.6;
-    color: #666;
+    color: var(--color-text);
 }
 
 /* Seção de informações do produto */
@@ -150,7 +150,7 @@
 .payment-options h3 {
     font-size: 1rem;
     margin-bottom: 0.8rem;
-    color: #555;
+    color: var(--color-text);
     font-weight: 500;
 }
 
@@ -174,7 +174,7 @@
 
 .payment-method span {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--color-text);
 }
 
 /* Container de preço */
@@ -182,7 +182,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 2rem;
-    background-color: #f9f9f9;
+    background-color: var(--color-background-light);
     padding: 1rem;
     border-radius: 8px;
 }
@@ -197,7 +197,7 @@
     text-decoration: line-through;
     margin-right: 0.5rem;
     font-size: 1.1rem;
-    color: #777;
+    color: var(--color-dark-gray);
 }
 
 .discounted-price {
@@ -218,22 +218,22 @@
 
 .installment-options {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--color-dark-gray);
 }
 
 /* Calculadora de frete */
 .shipping-calculator {
     margin-bottom: 2rem;
     padding: 1rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--color-border);
     border-radius: 8px;
-    background-color: #fafafa;
+    background-color: var(--color-background-light);
 }
 
 .shipping-calculator h3 {
     font-size: 1rem;
     margin-bottom: 0.8rem;
-    color: #555;
+    color: var(--color-text);
     font-weight: 500;
 }
 
@@ -245,20 +245,36 @@
 
 .shipping-input input {
     flex: 1;
-    padding: 0.6rem;
-    border: 1px solid #ddd;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--color-border);
     border-radius: 4px;
     font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+}
+
+.shipping-input input:focus {
+    outline: none;
+    border-color: var(--color-focus);
 }
 
 .shipping-input button {
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
+    background-color: var(--color-button);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.shipping-input button:hover {
+    background-color: var(--color-button-hover);
 }
 
 .shipping-result {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--color-dark-gray);
     min-height: 20px;
 }
 
@@ -272,7 +288,7 @@
     width: 100%;
     padding: 0.9rem 1.5rem;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -281,7 +297,10 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     background-color: var(--color-button);
+    color: white;
+    border: none;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 #add-to-cart-btn:hover {
@@ -308,7 +327,7 @@
 .related-products h2 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    color: #333;
+    color: var(--color-title);
     text-align: center;
 }
 

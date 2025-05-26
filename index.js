@@ -5,6 +5,7 @@ import { initLogin } from './app/login/login.js';
 import { initHome } from "./app/home/home.js";
 import { initAbout } from "./app/about/about.js";
 import { initCart } from './app/cart/cart.js';
+import { initBonsaiProductsPage } from "./app/bonsai-products/bonsai-products.js";
 import {initProductDetail} from "./app/product-detail/product-detail.js";
 import { renderLoadingComponent, removeLoadingComponent } from './core/loading.js';
 
@@ -74,11 +75,9 @@ async function loadComponent(id, path, translateAfterLoad = true, parameters = n
   }
 
   if (path === "app/bonsai-products/bonsai-products.html") {
-    const module = await import("./app/bonsai-products/bonsai-products.js");
-    if (module?.initBonsaiProductsPage) {
-      module.initBonsaiProductsPage();
-    }
+    initBonsaiProductsPage();
   }
+  
   removeLoadingComponent(id);
   
   return data;

@@ -5,9 +5,18 @@
     </button>
 
     <!-- Seção superior mobile -->
-    <div class="d-flex d-lg-none align-items-center">      
+    <div class="d-flex d-lg-none align-items-center gap-3">      
       <a class="nav-link home-link" href="#" data-i18n="home">Início</a>
-      <a class="nav-link mx-3 products-link" href="#" data-i18n="products">Produtos</a>
+      <div class="nav-item dropdown">
+        <button class="nav-link dropdown-toggle btn btn-link products-link" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-i18n="products">
+          Produtos
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item bonsais-link" href="#" data-i18n="bonsais">Bonsais</a></li>
+          <li><a class="dropdown-item accessories-link" href="#" data-i18n="accessories">Acessórios</a></li>
+          <li><a class="dropdown-item kits-link" href="#" data-i18n="kits">Kits</a></li>
+        </ul>
+      </div>
       <a class="nav-link about-link" href="#" data-i18n="about_link">Sobre nós</a>
     </div>
     

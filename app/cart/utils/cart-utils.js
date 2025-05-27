@@ -83,13 +83,21 @@ export class CartUtils {
         
         if (existingItem) {
             existingItem.quantity += quantity;
-            NotificationService.showToast('Carrinho atualizado', `Quantidade atualizada no carrinho`, 'success');
+            NotificationService.showToast(
+                window.i18nInstance?.translate('toast_cart_updated_title') || 'Carrinho atualizado',
+                window.i18nInstance?.translate('toast_cart_updated_message') || 'Quantidade atualizada no carrinho',
+                'success'
+            );
         } else {
             userCart.push({
                 productId: productIdStr,
                 quantity: quantity
             });
-            NotificationService.showToast('Item adicionado', `Item adicionado ao carrinho`, 'success');
+            NotificationService.showToast(
+                window.i18nInstance?.translate('toast_item_added_title') || 'Item adicionado',
+                window.i18nInstance?.translate('toast_item_added_message') || 'Item adicionado ao carrinho',
+                'success'
+            );
         }
         
         this._saveCarts(carts);
@@ -113,7 +121,8 @@ export class CartUtils {
      * @private
      */
     _findCartItemById(cartItems, productId) {
-        return cartItems.find(item => item.productId === productId);
+        const productIdStr = productId.toString();
+        return cartItems.find(item => item.productId.toString() === productIdStr);
     }   
     
     /**
@@ -146,7 +155,11 @@ export class CartUtils {
         this._saveCarts(carts);
         this._notifyCartUpdated();
         
-        NotificationService.showToast('Item removido', 'Item removido do carrinho', 'info');
+        NotificationService.showToast(
+            window.i18nInstance?.translate('toast_item_removed_title') || 'Item removido',
+            window.i18nInstance?.translate('toast_item_removed_message') || 'Item removido do carrinho',
+            'info'
+        );
         return true;
     }
 
@@ -182,7 +195,11 @@ export class CartUtils {
         this._saveCarts(carts);
         this._notifyCartUpdated();
         
-        NotificationService.showToast('Quantidade atualizada', `Quantidade atualizada para ${quantity}`, 'info');
+        NotificationService.showToast(
+            window.i18nInstance?.translate('toast_quantity_updated_title') || 'Quantidade atualizada',
+            (window.i18nInstance?.translate('toast_quantity_updated_message', {quantity}) || `Quantidade atualizada para ${quantity}`),
+            'info'
+        );
         return true;
     }
 
@@ -198,7 +215,11 @@ export class CartUtils {
         this._saveCarts(carts);
         this._notifyCartUpdated();
         
-        NotificationService.showToast('Carrinho limpo', 'Todos os itens foram removidos do carrinho', 'info');
+        NotificationService.showToast(
+            window.i18nInstance?.translate('toast_cart_cleared_title') || 'Carrinho limpo',
+            window.i18nInstance?.translate('toast_cart_cleared_message') || 'Todos os itens foram removidos do carrinho',
+            'info'
+        );
         return true;
     }
 

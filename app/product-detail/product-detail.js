@@ -1,5 +1,6 @@
 import { NotificationService } from "../../core/notifications.js";
 import { formatCurrencyBRL, loadProductsFromStorage } from "../../core/functionUtils.js";
+import { CartUtils } from "../cart/utils/cart-utils.js";
 import { CepMask } from "../login/components/input-masks/CepMask.js";
 
 export class ProductDetail {
@@ -113,15 +114,15 @@ export class ProductDetail {
      */
     renderProductImages() {
         const mainImage = document.getElementById("main-product-image");
-        mainImage.src = this.productData.imagem[0].urlImagemDestaque;
+        mainImage.src = this.productData.imagem.urlImagemDestaque;
         mainImage.alt = this.productData.nome;
         const thumbnailsContainer = document.querySelector(".product-thumbnails");
         thumbnailsContainer.innerHTML = "";
         const imageUrls = [
-            this.productData.imagem[0].urlImagemDestaque,
-            this.productData.imagem[0].urlImagem1,
-            this.productData.imagem[0].urlImagem2,
-            this.productData.imagem[0].urlImagem3
+            this.productData.imagem.urlImagemDestaque,
+            this.productData.imagem.urlImagem1,
+            this.productData.imagem.urlImagem2,
+            this.productData.imagem.urlImagem3
         ];
         imageUrls.forEach((url, index) => {
             const thumbnail = document.createElement("div");
@@ -145,10 +146,10 @@ export class ProductDetail {
         thumbnails[index].classList.add("active");
         const mainImage = document.getElementById("main-product-image");
         const imageUrls = [
-            this.productData.imagem[0].urlImagemDestaque,
-            this.productData.imagem[0].urlImagem1,
-            this.productData.imagem[0].urlImagem2,
-            this.productData.imagem[0].urlImagem3
+            this.productData.imagem.urlImagemDestaque,
+            this.productData.imagem.urlImagem1,
+            this.productData.imagem.urlImagem2,
+            this.productData.imagem.urlImagem3
         ];
         mainImage.src = imageUrls[index];
         this.currentImageIndex = index;
@@ -184,7 +185,7 @@ export class ProductDetail {
         const cardElement = document.createElement("div");
         cardElement.className = `product-card ${!hasDiscount ? "no-discount" : ""}`;
         cardElement.dataset.productId = product.id;
-        const imageUrl = product.imagem[0].urlImagemDestaque;
+        const imageUrl = product.imagem.urlImagemDestaque;
         cardElement.innerHTML = `
             ${hasDiscount ? `<div class="discount-badge">-${product.porcentagemDesconto}%</div>` : ""}
             <div class="product-image">
@@ -218,11 +219,7 @@ export class ProductDetail {
                     const card = event.target.closest(".product-card");
                     if (card) {
                         const productId = card.dataset.productId;
-                        if (window.loadComponent) {
-                            window.loadComponent("main", "app/product-detail/product-detail.html", true, productId);
-                        } else {
-                            window.location.href = `/app/product-detail/product-detail.html?id=${productId}`;
-                        }
+                        window.loadComponent("main", "app/product-detail/product-detail.html", true, productId);
                     }
                 }
             });
@@ -233,7 +230,21 @@ export class ProductDetail {
      * Adiciona o produto ao carrinho
      */
     addToCart() {
-        NotificationService.showToast("Sucesso", this._t('msg_product_added_cart'), "success");
+        if (!this.productData?.id) {
+            NotificationService.showToast(
+                this._t('toast_error_title'),
+                this._t('error_product_not_found'),
+                'error'
+            );
+            return;
+        }
+        const cartUtils = new CartUtils();
+        cartUtils.addToCart(this.productData.id, 1);
+        NotificationService.showToast(
+            this._t('toast_item_added_title'),
+            this._t('msg_product_added_cart'),
+            'success'
+        );
     }
 
     /**

@@ -48,6 +48,7 @@ export class AuthenticationPageManager {
         this.addEventListeners();
         this.initInputMasks();
         this._checkInitialMode();
+        document.title = 'Entrar | Bonsai E-commerce';
     }
 
     addEventListeners() {
@@ -101,7 +102,11 @@ export class AuthenticationPageManager {
             
             document.body.classList.add('is-logged-in');
             
-            NotificationService.showToast('Sucesso', 'Login realizado com sucesso!');
+            NotificationService.showToast(
+                window.i18nInstance?.translate('toast_login_success_title') || 'Sucesso',
+                window.i18nInstance?.translate('toast_login_success_message') || 'Login realizado com sucesso!',
+                'success'
+            );
             this.loginValidator.reset();
             this.showMainUI();
             document.dispatchEvent(new CustomEvent('user-logged-in', { 
@@ -112,7 +117,11 @@ export class AuthenticationPageManager {
             window.headerComponent?.headerCartManager?._updateCartCount();
             window.loadComponent("main", "app/home/home.html", true);
         } catch (error) {
-            NotificationService.showToast('Erro', error.message, 'error');
+            NotificationService.showToast(
+                window.i18nInstance?.translate('toast_error_title') || 'Erro',
+                error.message,
+                'error'
+            );
             this.loginValidator.reset();
             this.loginEmailInput.focus();
         }
@@ -144,11 +153,19 @@ export class AuthenticationPageManager {
 
         try {
             await AuthService.signup(formData);
-            NotificationService.showToast('Sucesso', 'Cadastro realizado com sucesso! Agora você pode fazer login.');
+            NotificationService.showToast(
+                window.i18nInstance?.translate('toast_signup_success_title') || 'Sucesso',
+                window.i18nInstance?.translate('toast_signup_success_message') || 'Cadastro realizado com sucesso! Agora você pode fazer login.',
+                'success'
+            );
             this.clearSignupForm();
             this.switchToLoginMode();
         } catch (error) {
-            NotificationService.showToast('Erro', error.message, 'error');
+            NotificationService.showToast(
+                window.i18nInstance?.translate('toast_error_title') || 'Erro',
+                error.message,
+                'error'
+            );
             this.signupValidator.reset();
         }
     }

@@ -1,16 +1,11 @@
-/**
- * ProductCard Component
- *
- * Este script gerencia a criação e interação dos cards de produtos,
- * incluindo cálculo de desconto, formatação de preço e interações de botões.
- */
-import {NotificationService} from "../../core/notifications.js";
-import { loadProductsFromStorage } from "../../core/functionUtils.js";
+import { NotificationService } from "../../core/notifications.js";
+import { loadProductsFromStorage, formatCurrencyBRL } from "../../core/functionUtils.js";
+import { CartUtils } from "../cart/utils/cart-utils.js";
 
 export class ProductCard {
     constructor(maxProducts = null) {
         this.productsData = [];
-        this.maxProducts = maxProducts; // Recebe o número máximo de produtos como parâmetro, com valor padrão 6
+        this.maxProducts = maxProducts;
     }
 
     /**
@@ -31,29 +26,22 @@ export class ProductCard {
      */
     async loadProductsData() {
         try {
-            let jsonPath = '/data/products.json'; // Caminho absoluto a partir da raiz do servidor
-
-            // Usa utilitário centralizado para tentar carregar do localStorage primeiro
+            let jsonPath = '/data/products.json';
             const localProducts = loadProductsFromStorage();
             if (localProducts?.length) {
                 this.productsData = this.maxProducts ? localProducts.slice(0, this.maxProducts) : localProducts;
                 console.log("Produtos carregados do localStorage:", this.productsData.length);
                 return this.productsData;
             }
-
-            // Se não encontrou no localStorage, busca via fetch
             const response = await fetch(jsonPath);
             if (!response.ok) {
                 throw new Error('Não foi possível carregar os dados dos produtos');
             }
-
             const data = await response.json();
             this.productsData = data.produtos;
-
             if (this.maxProducts) {
                 this.productsData = this.productsData.slice(0, this.maxProducts);
             }
-
             console.log("Produtos carregados via fetch:", this.productsData.length);
             return this.productsData;
         } catch (error) {
@@ -70,10 +58,11 @@ export class ProductCard {
         const container = document.querySelector('.products-container');
         if (container) {
             container.innerHTML = '';
-
             this.productsData.forEach(product => {
                 container.appendChild(this.createProductCard(product));
             });
+
+            window.i18nInstance.translateElement(container);
         }
     }
 
@@ -85,14 +74,10 @@ export class ProductCard {
     createProductCard(product) {
         const hasDiscount = product.porcentagemDesconto > 0;
         const discountedPrice = this.calculateDiscountedPrice(product.valor, product.porcentagemDesconto);
-
         const cardElement = document.createElement('div');
         cardElement.className = `product-card ${!hasDiscount ? 'no-discount' : ''}`;
         cardElement.dataset.productId = product.id;
-
-        // Garantir que a imagem seja a urlImagemDestaque
-        const imageUrl = product.imagem[0].urlImagemDestaque;
-
+        const imageUrl = product.imagem.urlImagemDestaque;
         cardElement.innerHTML = `
             ${hasDiscount ? `<div class="discount-badge">-${product.porcentagemDesconto}%</div>` : ''}
             <div class="product-image">
@@ -102,14 +87,13 @@ export class ProductCard {
                 <h3 class="product-name-card">${product.nome}</h3>
                 <p class="product-description">${product.descricao}</p>
                 <div class="product-price">
-                    ${hasDiscount ? `<span class="original-price">${this.formatPrice(product.valor)}</span>` : ''}
-                    <span class="discounted-price">${this.formatPrice(discountedPrice)}</span>
+                    ${hasDiscount ? `<span class="original-price">${formatCurrencyBRL(product.valor)}</span>` : ''}
+                    <span class="discounted-price">${formatCurrencyBRL(discountedPrice)}</span>
                 </div>
                 <button class="add-to-cart-btn" data-i18n="btn_add_to_cart">Adicionar ao carrinho</button>
                 <button class="view-details-btn" data-i18n="btn_view_product">Ver detalhes</button>
             </div>
         `;
-
         return cardElement;
     }
 
@@ -117,24 +101,22 @@ export class ProductCard {
      * Configura os event listeners para os botões do card
      */
     setupEventListeners() {
-        document.addEventListener('click', (event) => {
-            // Verificar se o clique foi em um botão de adicionar ao carrinho
-            if (event.target.classList.contains('add-to-cart-btn')) {
-                const card = event.target.closest('.product-card');
-                if (card) {
-                    const productId = card.dataset.productId;
-                    this.addToCart(productId);
-                }
-            }
+        const container = document.querySelector('.products-container');
+        if (!container) return;
+        container.addEventListener('click', (event) => {
+            const card = event.target.closest('.product-card');
+            if (!card) return;
+            const productId = card.dataset.productId;
 
-            // Verificar se o clique foi em um botão de ver detalhes
-            if (event.target.classList.contains('view-details-btn')) {
-                const card = event.target.closest('.product-card');
-                if (card) {
-                    const productId = card.dataset.productId;
-                    this.viewProductDetails(productId);
-                }
+            if (event.target.classList.contains('add-to-cart-btn')) {
+                this.addToCart(productId);
+                return;
             }
+            if (event.target.classList.contains('view-details-btn')) {
+                this.viewProductDetails(productId);
+                return;
+            }
+            this.viewProductDetails(productId);
         });
     }
 
@@ -143,12 +125,13 @@ export class ProductCard {
      * @param {string} productId - ID do produto a ser adicionado ao carrinho
      */
     addToCart(productId) {
-        console.log(`Produto ${productId} adicionado ao carrinho`);
-        // Implementação futura: integração com o carrinho de compras
-        // Exemplo: usar localStorage ou enviar para API
-
-        // Simular notificação de sucesso
-        NotificationService.showToast('Sucesso', 'Produto adicionado ao carrinho com sucesso!', 'success');
+        const cartUtils = new CartUtils();
+        cartUtils.addToCart(productId, 1);
+        NotificationService.showToast(
+            window.i18nInstance?.translate('toast_item_added_title') || 'Sucesso',
+            window.i18nInstance?.translate('toast_item_added_message') || 'Produto adicionado ao carrinho!',
+            'success'
+        );
     }
 
     /**
@@ -170,18 +153,8 @@ export class ProductCard {
         if (!discountPercentage || discountPercentage <= 0) {
             return originalPrice;
         }
-
         const discount = (originalPrice * discountPercentage) / 100;
         return originalPrice - discount;
-    }
-
-    /**
-     * Formata o valor para o formato de moeda brasileira
-     * @param {number} value - Valor a ser formatado
-     * @returns {string} - Valor formatado (ex: "R$ 299,90")
-     */
-    formatPrice(value) {
-        return `R$ ${value.toFixed(2).replace('.', ',')}`;
     }
 }
 

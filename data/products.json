@@ -6,14 +6,12 @@
       "descricao": "Bonsai Ficus Retusa perfeito para ambientes internos, fácil manutenção.",
       "valor": 299.90,
       "porcentagemDesconto": 25,
-      "imagem": [
-        {
+      "imagem": {
           "urlImagem1": "../assets/images/products/ficus-retusa.svg",
           "urlImagem2": "../assets/images/products/ficus-retusa.svg",
           "urlImagem3": "../assets/images/products/ficus-retusa.svg",
           "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
-        }
-      ]
+      }
     },
     {
       "id": "2",
@@ -21,14 +19,12 @@
       "descricao": "Bonsai estilo cascata, ideal para decoração em ambientes naturais.",
       "valor": 349.90,
       "porcentagemDesconto": 10,
-      "imagem": [
-        {
+      "imagem": {
           "urlImagem1": "../assets/images/products/ficus-retusa.svg",
           "urlImagem2": "../assets/images/products/ficus-retusa.svg",
           "urlImagem3": "../assets/images/products/ficus-retusa.svg",
           "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
-        }
-      ]
+      }
     },
     {
       "id": "3",
@@ -36,14 +32,12 @@
       "descricao": "Bonsai compacto, ideal para mesa de escritório, requer pouca luz.",
       "valor": 179.90,
       "porcentagemDesconto": 0,
-      "imagem": [
-        {
+      "imagem": {
           "urlImagem1": "../assets/images/products/ficus-retusa.svg",
           "urlImagem2": "../assets/images/products/ficus-retusa.svg",
           "urlImagem3": "../assets/images/products/ficus-retusa.svg",
           "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
-        }
-      ]
+      }
     },
     {
       "id": "4",
@@ -51,14 +45,12 @@
       "descricao": "Bonsai tradicional japonês, resistente e indicado para áreas externas.",
       "valor": 459.90,
       "porcentagemDesconto": 15,
-      "imagem": [
-        {
+      "imagem": {
           "urlImagem1": "../assets/images/products/ficus-retusa.svg",
           "urlImagem2": "../assets/images/products/ficus-retusa.svg",
           "urlImagem3": "../assets/images/products/ficus-retusa.svg",
           "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
-        }
-      ]
+      }
     },
     {
       "id": "5",
@@ -66,14 +58,12 @@
       "descricao": "Bonsai de bordo japonês, coloração vermelha vibrante no outono.",
       "valor": 529.90,
       "porcentagemDesconto": 20,
-      "imagem": [
-        {
+      "imagem": {
           "urlImagem1": "../assets/images/products/ficus-retusa.svg",
           "urlImagem2": "../assets/images/products/ficus-retusa.svg",
           "urlImagem3": "../assets/images/products/ficus-retusa.svg",
           "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
-        }
-      ]
+      }
     },
     {
       "id": "6",
@@ -81,14 +71,12 @@
       "descricao": "Bonsai elegante com folhagem delicada, adaptável a diversos ambientes.",
       "valor": 399.90,
       "porcentagemDesconto": 5,
-      "imagem": [
-        {
+      "imagem": {
           "urlImagem1": "../assets/images/products/ficus-retusa.svg",
           "urlImagem2": "../assets/images/products/ficus-retusa.svg",
           "urlImagem3": "../assets/images/products/ficus-retusa.svg",
           "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
-        }
-      ]
+      }
     }
   ]
 }

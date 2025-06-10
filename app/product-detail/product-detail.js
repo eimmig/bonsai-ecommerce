@@ -16,6 +16,8 @@ export class ProductDetail {
 
     /**
      * Inicializa o componente, carregando dados e configurando eventos
+     * @param {string} productId - ID do produto a ser exibido
+     * @returns {ProductDetail} - Instância do componente
      */
     async init(productId) {
         try {
@@ -25,7 +27,7 @@ export class ProductDetail {
             }
             if (!productId) {
                 this.showError(this._t('error_no_product_id'));
-                return;
+                return this;
             }
             await this.loadProductData(productId);
             this.setupEventListeners();
@@ -37,6 +39,7 @@ export class ProductDetail {
             console.error("Erro ao inicializar o componente ProductDetail:", error);
             this.showError(this._t('error_load_product_detail'));
         }
+        return this;
     }
 
     /**
@@ -98,15 +101,27 @@ export class ProductDetail {
         const finalPrice = hasDiscount ? discountedPrice : this.productData.valor;
         const installmentHTML = this.generateInstallmentOptions(finalPrice);
         installmentOptions.innerHTML = installmentHTML;
-    }
-
+    }    
+    
     /**
      * Gera o HTML das opções de parcelamento
      */
     generateInstallmentOptions(price) {
         const maxInstallments = 12;
         const installmentValue = price / maxInstallments;
-        return `${this._t('installments_prefix', {n: maxInstallments})} ${formatCurrencyBRL(installmentValue)} ${this._t('installments_suffix')}`;
+        
+        const installmentDiv = document.createElement('div');
+        installmentDiv.innerHTML = `
+            <span data-i18n="installments_prefix" data-i18n-params='{"n":12}'>Em até 12x de</span>
+            ${formatCurrencyBRL(installmentValue)}
+            <span data-i18n="installments_suffix">sem juros</span>
+        `;
+        
+        if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
+            window.i18nInstance.translateElement(installmentDiv);
+        }
+        
+        return installmentDiv.innerHTML;
     }
 
     /**
@@ -118,12 +133,14 @@ export class ProductDetail {
         mainImage.alt = this.productData.nome;
         const thumbnailsContainer = document.querySelector(".product-thumbnails");
         thumbnailsContainer.innerHTML = "";
+        
         const imageUrls = [
             this.productData.imagem.urlImagemDestaque,
             this.productData.imagem.urlImagem1,
             this.productData.imagem.urlImagem2,
             this.productData.imagem.urlImagem3
         ];
+
         imageUrls.forEach((url, index) => {
             const thumbnail = document.createElement("div");
             thumbnail.className = `thumbnail ${index === 0 ? "active" : ""}`;
@@ -174,7 +191,9 @@ export class ProductDetail {
         }
         
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }    /**
+    }    
+    
+    /**
      * Cria o card de produto relacionado
      */
     createProductCard(product) {
@@ -192,20 +211,29 @@ export class ProductDetail {
         if (addToCartBtn) {
             addToCartBtn.addEventListener("click", () => this.addToCart());
         }
-        const related = document.querySelector(".related-products");
-        if (related) {
-            related.addEventListener("click", (event) => {
-                if (event.target.classList.contains("view-details-btn")) {
-                    const card = event.target.closest(".product-card");
-                    if (card) {
-                        const productId = card.dataset.productId;
-                        window.loadComponent("main", "app/product-detail/product-detail.html", true, productId);
+        
+        const relatedContainer = document.querySelector(".related-products .products-container-detail");
+        if (relatedContainer) {
+            relatedContainer.addEventListener('click', (event) => {
+                const card = event.target.closest('.product-card');
+                if (!card) return;
+                const productId = card.dataset.productId;
+
+                if (event.target.classList.contains('add-to-cart-btn')) {
+                    if (!this.cardComponent) {
+                        this.cardComponent = new ProductCard();
                     }
+                    this.cardComponent.addToCart(productId);
+                    return;
+                }
+                
+                if (event.target.classList.contains('view-details-btn') || card) {
+                    window.loadComponent("main", "app/product-detail/product-detail.html", true, productId);
                 }
             });
         }
     }
-
+    
     /**
      * Adiciona o produto ao carrinho
      */
@@ -218,13 +246,17 @@ export class ProductDetail {
             );
             return;
         }
+        
         const cartUtils = new CartUtils();
-        cartUtils.addToCart(this.productData.id, 1);
-        NotificationService.showToast(
-            this._t('toast_item_added_title'),
-            this._t('msg_product_added_cart'),
-            'success'
-        );
+        const added = cartUtils.addToCart(this.productData.id, 1);
+        
+        if (added) {
+            NotificationService.showToast(
+                this._t('toast_item_added_title'),
+                this._t('msg_product_added_cart'),
+                'success'
+            );
+        }
     }
 
     /**
@@ -266,8 +298,11 @@ export class ProductDetail {
     }
 }
 
+/**
+ * Função de inicialização do componente de detalhes do produto
+ * @param {string} selectedProductId - ID do produto selecionado
+ * @returns {ProductDetail} Instância do componente de detalhes do produto
+ */
 export function initProductDetail(selectedProductId) {
-    const detail = new ProductDetail();
-    detail.init(selectedProductId);
-    return detail;
+    return new ProductDetail().init(selectedProductId);
 }

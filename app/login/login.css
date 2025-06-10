@@ -54,7 +54,6 @@
   margin-bottom: 10px;
 }
 
-/* Base input field styles */
 .auth-input-field {
   max-width: 380px;
   width: 100%;
@@ -70,17 +69,14 @@
   transition: border-color 0.3s ease;
 }
 
-/* Input focus state */
 .auth-input-field:focus-within {
   border-color: var(--color-button);
 }
 
-/* Error state */
 .auth-input-field.is-invalid {
   border-color: #dc3545;
 }
 
-/* Error message */
 .auth-input-field .invalid-feedback {
   display: none;
   color: #dc3545;
@@ -95,7 +91,6 @@
   display: block;
 }
 
-/* Remove browser default validation UI */
 .auth-input-field input:invalid {
   box-shadow: none !important;
   outline: none !important;
@@ -283,7 +278,6 @@
   pointer-events: all;
 }
 
-/* Botão de idioma - usando o mesmo estilo do header */
 .auth-panel .lang-btn {
   border: 1px solid var(--color-white);
   background: transparent;

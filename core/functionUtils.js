@@ -46,13 +46,21 @@ export function removeFromStorage(key) {
     }
 }
 
-// Utilitário para formatação de valores monetários (Real)
+/**
+ * Formata um valor numérico para o formato de moeda brasileira (BRL)
+ * @param {number|string} value - Valor a ser formatado
+ * @returns {string} Valor formatado como moeda brasileira
+ */
 export function formatCurrencyBRL(value) {
     if (typeof value !== 'number') value = Number(value) || 0;
     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-// Utilitário para carregar produtos do localStorage
+/**
+ * Carrega a lista de produtos do localStorage
+ * @param {string} storageKey - Chave para buscar os produtos no localStorage
+ * @returns {Array} Array de produtos
+ */
 export function loadProductsFromStorage(storageKey = 'products') {
     const data = getFromStorage(storageKey, { produtos: [] });
     return data.produtos || [];

@@ -6,9 +6,10 @@ export class EmptyCartPage {
     /**
      * Inicializa a página de carrinho vazio
      */
-    constructor() {
+    init() {
         this._initializeElements();
         this._setupEventListeners();
+        return this;
     }
 
     /**

@@ -1,4 +1,7 @@
-// Máscara de CEP: 99999-999
+/**
+ * Aplica máscara de formatação para CEP no formato 99999-999
+ * @param {HTMLInputElement} input - Elemento input que receberá a máscara
+ */
 export function CepMask(input) {
     input.addEventListener('input', (e) => {
         let value = input.value.replace(/\D/g, '');

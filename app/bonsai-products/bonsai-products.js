@@ -11,14 +11,15 @@ export class BonsaiProducts {
 
     /**
      * Inicializa o componente e renderiza todos os produtos
+     * @returns {BonsaiProducts} - Instância do componente
      */
-    async init() {
+    init() {
         this.productsData = loadProductsFromStorage();
         this.renderProductCardsWithComponent();
-
         document.title = 'Produtos | Bonsai E-commerce';
+        return this;
     }
-
+    
     /**
      * Renderiza os cards reutilizando o ProductCard Component
      */
@@ -31,26 +32,51 @@ export class BonsaiProducts {
             const ProductCard = module.ProductCard;
             const cardComponent = new ProductCard();
             cardComponent.productsData = this.productsData;
-            cardComponent.renderProductCards = function() {
-                this.productsData.forEach(product => {
-                    const card = this.createProductCard(product);
-                    container.appendChild(card);
-                });
-                if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
-                    window.i18nInstance.translateElement(container);
+            
+            this.productsData.forEach(product => {
+                const card = cardComponent.createProductCard(product);
+                container.appendChild(card);
+            });
+            
+            if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
+                window.i18nInstance.translateElement(container);
+            }
+            
+            // Configura os event listeners para adicionar ao carrinho e ver detalhes
+            container.addEventListener('click', (event) => {
+                const card = event.target.closest('.product-card');
+                if (!card) return;
+                const productId = card.dataset.productId;
+
+                if (event.target.classList.contains('add-to-cart-btn')) {
+                    cardComponent.addToCart(productId);
+                    return;
                 }
-            };
-            cardComponent.renderProductCards();
+                if (event.target.classList.contains('view-details-btn')) {
+                    cardComponent.viewProductDetails(productId);
+                    return;
+                }
+                
+                if (card) {
+                    cardComponent.viewProductDetails(productId);
+                }
+            });
         });
     }
 }
 
+/**
+ * Inicializa o componente de produtos bonsai
+ * @returns {BonsaiProducts} Instância do componente inicializado
+ */
 export function initBonsaiProducts() {
-    const bonsaiProducts = new BonsaiProducts();
-    bonsaiProducts.init();
-    return bonsaiProducts;
+    return new BonsaiProducts().init();
 }
 
+/**
+ * Inicializa a página de produtos bonsai completa
+ * Além de inicializar o componente, também aplica as traduções
+ */
 export function initBonsaiProductsPage() {
     initBonsaiProducts();
     if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {

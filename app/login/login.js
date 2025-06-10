@@ -5,5 +5,5 @@ import { AuthenticationPageManager } from './controllers/AuthenticationPageManag
  * @returns {AuthenticationPageManager} Instância do gerenciador de autenticação
  */
 export function initLogin() {
-    return new AuthenticationPageManager();
+    return new AuthenticationPageManager().init();
 }

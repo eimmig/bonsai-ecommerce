@@ -3,13 +3,19 @@ import { loadProductsFromStorage, formatCurrencyBRL } from "../../core/functionU
 import { CartUtils } from "../cart/utils/cart-utils.js";
 
 export class ProductCard {
+    /**
+     * Construtor da classe
+     * @param {number|null} maxProducts - Número máximo de produtos para exibir
+     */
     constructor(maxProducts = null) {
         this.productsData = [];
         this.maxProducts = maxProducts;
-    }    /**
+    }    
+    
+    /**
      * Inicializa o componente, carregando os dados e configurando eventos
-     */
-    init() {
+     * @returns {ProductCard} - Instância do componente
+     */    init() {
         try {
             this.loadProductsData();
             this.renderProductCards();
@@ -17,7 +23,10 @@ export class ProductCard {
         } catch (error) {
             console.error('Erro ao inicializar o componente ProductCard:', error);
         }
-    }/**
+        return this;
+    }
+    
+    /**
      * Carrega os dados de produtos do localStorage
      */
     loadProductsData() {
@@ -39,7 +48,9 @@ export class ProductCard {
 
             window.i18nInstance.translateElement(container);
         }
-    }    /**
+    }    
+    
+    /**
      * Cria um elemento de card de produto baseado nos dados fornecidos
      * @param {Object} product - Dados do produto a ser exibido
      * @returns {HTMLElement} - Elemento DOM do card de produto
@@ -99,20 +110,23 @@ export class ProductCard {
             }
             this.viewProductDetails(productId);
         });
-    }
-
+    }    
+    
     /**
      * Adiciona um produto ao carrinho
      * @param {string} productId - ID do produto a ser adicionado ao carrinho
      */
     addToCart(productId) {
         const cartUtils = new CartUtils();
-        cartUtils.addToCart(productId, 1);
-        NotificationService.showToast(
-            window.i18nInstance?.translate('toast_item_added_title') || 'Sucesso',
-            window.i18nInstance?.translate('toast_item_added_message') || 'Produto adicionado ao carrinho!',
-            'success'
-        );
+        const added = cartUtils.addToCart(productId, 1);
+        
+        if (added) {
+            NotificationService.showToast(
+                window.i18nInstance?.translate('toast_item_added_title') || 'Sucesso',
+                window.i18nInstance?.translate('toast_item_added_message') || 'Produto adicionado ao carrinho!',
+                'success'
+            );
+        }
     }
 
     /**

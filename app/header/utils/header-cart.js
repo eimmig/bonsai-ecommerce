@@ -7,11 +7,22 @@ import { getFromStorage } from '../../../core/functionUtils.js';
  */
 export class HeaderCartManager {
     /**
-     * Inicializa o gerenciador de carrinho do cabeçalho
+     * Construtor da classe
      */
     constructor() {
+        this.cartUtils = null;
+        this.cartBadges = [];
+    }
+    
+    /**
+     * Inicializa o gerenciador de carrinho do cabeçalho
+     * @returns {HeaderCartManager} - Instância do gerenciador
+     */
+    init() {
         this._initializeDependencies();
-        this._initialize();
+        this._updateCartCount();
+        this._setupEventListeners();
+        return this;
     }
 
     /**
@@ -22,24 +33,14 @@ export class HeaderCartManager {
         this.cartUtils = new CartUtils();
         this.cartBadges = this._getCartBadges();
     }
-    
-    /**
+      /**
      * Obtém todos os badges do carrinho
      * @private
      * @returns {NodeList} Lista de badges
      */
     _getCartBadges() {
         return document.querySelectorAll('.cart-link .badge');
-    }
-
-    /**
-     * Inicializa o gerenciador
-     * @private
-     */
-    _initialize() {
-        this._updateCartCount();
-        this._setupEventListeners();
-    }    /**
+    }/**
      * Atualiza o contador de itens nos badges do carrinho
      * @private
      */

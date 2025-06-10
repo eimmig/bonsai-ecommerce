@@ -1,12 +1,9 @@
-/* Estilos para a página de detalhes do produto */
-
 .product-detail-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 1rem;
 }
 
-/* Indicador de carregamento */
 .loading-indicator {
     display: flex;
     flex-direction: column;
@@ -30,7 +27,6 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Layout principal de detalhes do produto */
 .product-detail {
     background-color: #fff;
     border-radius: 8px;
@@ -52,7 +48,6 @@
     }
 }
 
-/* Seção de imagens */
 .product-images {
     flex: 1;
     max-width: 50%;
@@ -109,7 +104,6 @@
     border-width: 2px;
 }
 
-/* Descrição do produto (agora abaixo das imagens) */
 .product-description {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -129,7 +123,6 @@
     color: var(--color-text);
 }
 
-/* Seção de informações do produto */
 .product-info {
     flex: 1;
     padding-top: 0.5rem;
@@ -142,7 +135,6 @@
     font-weight: 600;
 }
 
-/* Opções de pagamento */
 .payment-options {
     margin-bottom: 1.5rem;
 }
@@ -177,7 +169,6 @@
     color: var(--color-text);
 }
 
-/* Container de preço */
 .product-price-container {
     display: flex;
     flex-direction: column;
@@ -221,7 +212,6 @@
     color: var(--color-dark-gray);
 }
 
-/* Calculadora de frete */
 .shipping-calculator {
     margin-bottom: 2rem;
     padding: 1rem;
@@ -278,7 +268,6 @@
     min-height: 20px;
 }
 
-/* Botão de adicionar ao carrinho */
 .product-actions {
     display: flex;
     width: 100%;
@@ -319,7 +308,6 @@
     filter: brightness(0) invert(1);
 }
 
-/* Seção de produtos relacionados */
 .related-products {
     margin-top: 3rem;
 }

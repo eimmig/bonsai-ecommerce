@@ -3,9 +3,32 @@ import { getFromStorage, removeFromStorage } from '../../core/functionUtils.js';
 
 export class Header {
     constructor() {
+        this.loginState = false;
+    }
+    
+    /**
+     * Inicializa o componente Header
+     * @returns {Header} Instância do header
+     */
+    init() {
         this.loginState = this.checkUserLoggedIn();
         this.setupObserver();
+        this.setupAllLinks();
         this.setupProductSearch();
+        return this;
+    }
+    
+    /**
+     * Configura todos os links de navegação
+     */
+    setupAllLinks() {
+        this.setupHomeLink();
+        this.setupAboutLink();
+        this.setupCartLink();
+        this.setupContactLink();
+        this.setupLoginLink();
+        this.setupBonsaisLink();
+        this.setupLoginHandlers();
     }
 
     checkUserLoggedIn() {
@@ -62,14 +85,13 @@ export class Header {
             mutations.forEach((mutation) => {
                 if (mutation.addedNodes.length) {
                     const header = document.querySelector('#header nav');
-                    if (header) {
-                        this.setupLoginHandlers();
+                    if (header) {                        this.setupLoginHandlers();
                         this.setupHomeLink();
                         this.setupAboutLink();
                         this.setupCartLink();
                         this.setupContactLink();
                         this.setupLoginLink();
-                        this.headerCartManager = new HeaderCartManager();
+                        this.headerCartManager = new HeaderCartManager().init();
                         observer.disconnect();
                     }
                 }
@@ -190,7 +212,14 @@ export class Header {
                 } else {
                     card.style.display = 'none';
                 }
-            }
-        });
+            }        });
     }
+}
+
+/**
+ * Função de inicialização do componente Header
+ * @returns {Header} Instância do componente Header inicializado
+ */
+export function initHeader() {
+    return new Header().init();
 }

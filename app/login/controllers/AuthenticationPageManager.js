@@ -5,12 +5,23 @@ import { NotificationService } from '../../../core/notifications.js';
 import { FormValidator } from '../../../core/form-validator.js';
 
 export class AuthenticationPageManager {
-    constructor() {
+    /**
+     * Construtor da classe
+     */
+    /**
+     * Inicializa o gerenciador de autenticação
+     * @returns {AuthenticationPageManager} - Instância do gerenciador
+     */
+    init() {
         this._setupUIElements();
         this._cacheFormElements();
         this._cacheInputElements();
-        this.init();
         this._initializeFormValidation();
+        this._setupEventListeners();
+        this._initInputMasks();
+        this._checkInitialMode();
+        document.title = 'Entrar | Bonsai E-commerce';
+        return this;
     }
 
     _initializeFormValidation() {
@@ -42,16 +53,11 @@ export class AuthenticationPageManager {
         this.signupPhoneInput = document.getElementById('signup-telefone');
         this.signupEmailInput = document.getElementById('signup-email');
         this.signupPasswordInput = document.getElementById('signup-senha');
-    }
-
-    init() {
-        this.addEventListeners();
-        this.initInputMasks();
-        this._checkInitialMode();
-        document.title = 'Entrar | Bonsai E-commerce';
-    }
-
-    addEventListeners() {
+    }    /**
+     * Configura os eventos de listener para os formulários e botões
+     * @private
+     */
+    _setupEventListeners() {
         this.signUpToggleBtn.addEventListener('click', this.toggleMode.bind(this));
         this.loginToggleBtn.addEventListener('click', this.toggleMode.bind(this));
         this.loginForm.addEventListener('submit', this.handleLoginSubmit.bind(this));
@@ -68,9 +74,11 @@ export class AuthenticationPageManager {
                 });
             }
         });
-    }
-
-    initInputMasks() {
+    }    /**
+     * Inicializa as máscaras de input para CPF/CNPJ e telefone
+     * @private
+     */
+    _initInputMasks() {
         this.cpfCnpjMask = new CpfCnpjMask('signup-cpf-cnpj');
         this.telefoneMask = new TelefoneMask('signup-telefone');
     }

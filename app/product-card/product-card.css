@@ -1,4 +1,3 @@
-/* Container para a grade de produtos */
 .products-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -149,7 +148,6 @@
     color: var(--color-white);
 }
 
-/* Ocultar badge de desconto se não houver desconto */
 .no-discount .discount-badge {
     display: none;
 }
@@ -158,7 +156,6 @@
     display: none;
 }
 
-/* Responsividade */
 @media (max-width: 992px) {
     .products-container {
         grid-template-columns: repeat(2, 1fr);

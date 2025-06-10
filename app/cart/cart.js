@@ -31,23 +31,24 @@ export function initCart() {
  */
 class CartManager {
     /**
-     * Inicializa o gerenciador de carrinho
+     * Inicializa o gerenciador de carrinho com uma instância do CartUtils
      */
     constructor() {
         this.cartUtils = new CartUtils();
     }    
     
     /**
-     * Inicializa o carrinho - decide qual componente mostrar
-     * @public
+     * Inicializa o carrinho - decide qual componente mostrar baseado no estado do carrinho
+     * Carrega o componente apropriado (vazio ou com itens) e atualiza o título da página
+     * @returns {Promise<void>}
      */
     async initialize() {
         if (this.cartUtils.isCartEmpty()) {
             await window.loadComponent('main', 'app/cart/empty-cart/empty-cart.html', true);
-            this.emptyCartPage = new EmptyCartPage();
+            this.emptyCartPage = new EmptyCartPage().init();
         } else {
             await window.loadComponent('main', 'app/cart/cart-with-itens/cart-with-itens.html', true);
-            this.cartWithItems = new Cart();
+            this.cartWithItems = new Cart().init();
         }
 
         document.title = 'Carrinho | Bonsai E-commerce';

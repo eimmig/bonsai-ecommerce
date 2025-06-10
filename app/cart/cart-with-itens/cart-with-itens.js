@@ -18,11 +18,12 @@ export class Cart {
     /**
      * Inicializa o componente de carrinho com itens
      */
-    constructor() {
+    init() {
         this._initializeElements();
         this._initializeData();
         this._setupEventListeners();
         this._renderCartItems();
+        return this;
     }
 
     /**
@@ -388,5 +389,5 @@ export class Cart {
  * @returns {Cart} Instância do carrinho
  */
 export function initCartWithItems() {
-    return new Cart();
+    return new Cart().init();
 }

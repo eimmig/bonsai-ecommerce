@@ -6,49 +6,24 @@ export class ProductCard {
     constructor(maxProducts = null) {
         this.productsData = [];
         this.maxProducts = maxProducts;
-    }
-
-    /**
+    }    /**
      * Inicializa o componente, carregando os dados e configurando eventos
      */
-    async init() {
+    init() {
         try {
-            await this.loadProductsData();
+            this.loadProductsData();
             this.renderProductCards();
             this.setupEventListeners();
         } catch (error) {
             console.error('Erro ao inicializar o componente ProductCard:', error);
         }
-    }
-
-    /**
-     * Carrega os dados de produtos do arquivo JSON usando a função global loadComponent
+    }/**
+     * Carrega os dados de produtos do localStorage
      */
-    async loadProductsData() {
-        try {
-            let jsonPath = '/data/products.json';
-            const localProducts = loadProductsFromStorage();
-            if (localProducts?.length) {
-                this.productsData = this.maxProducts ? localProducts.slice(0, this.maxProducts) : localProducts;
-                console.log("Produtos carregados do localStorage:", this.productsData.length);
-                return this.productsData;
-            }
-            const response = await fetch(jsonPath);
-            if (!response.ok) {
-                throw new Error('Não foi possível carregar os dados dos produtos');
-            }
-            const data = await response.json();
-            this.productsData = data.produtos;
-            if (this.maxProducts) {
-                this.productsData = this.productsData.slice(0, this.maxProducts);
-            }
-            console.log("Produtos carregados via fetch:", this.productsData.length);
-            return this.productsData;
-        } catch (error) {
-            console.error('Erro ao carregar dados de produtos:', error);
-            this.productsData = [];
-            return this.productsData;
-        }
+    loadProductsData() {
+        const products = loadProductsFromStorage();
+        this.productsData = this.maxProducts ? products.slice(0, this.maxProducts) : products;
+        return this.productsData;
     }
 
     /**
@@ -64,9 +39,7 @@ export class ProductCard {
 
             window.i18nInstance.translateElement(container);
         }
-    }
-
-    /**
+    }    /**
      * Cria um elemento de card de produto baseado nos dados fornecidos
      * @param {Object} product - Dados do produto a ser exibido
      * @returns {HTMLElement} - Elemento DOM do card de produto
@@ -78,6 +51,9 @@ export class ProductCard {
         cardElement.className = `product-card ${!hasDiscount ? 'no-discount' : ''}`;
         cardElement.dataset.productId = product.id;
         const imageUrl = product.imagem.urlImagemDestaque;
+
+        const installmentValue = discountedPrice / 12;
+
         cardElement.innerHTML = `
             ${hasDiscount ? `<div class="discount-badge">-${product.porcentagemDesconto}%</div>` : ''}
             <div class="product-image">
@@ -85,10 +61,15 @@ export class ProductCard {
             </div>
             <div class="product-info">
                 <h3 class="product-name-card">${product.nome}</h3>
-                <p class="product-description">${product.descricao}</p>
+                <p class="product-description">${product.descricao.substring(0, 100)}${product.descricao.length > 100 ? "..." : ""}</p>
                 <div class="product-price">
                     ${hasDiscount ? `<span class="original-price">${formatCurrencyBRL(product.valor)}</span>` : ''}
                     <span class="discounted-price">${formatCurrencyBRL(discountedPrice)}</span>
+                </div>
+                <div class="installments">
+                    <span data-i18n="installments_prefix" data-i18n-params='{"n":12}'>Em até 12x de</span>
+                    ${formatCurrencyBRL(installmentValue)}
+                    <span data-i18n="installments_suffix">sem juros</span>
                 </div>
                 <button class="add-to-cart-btn" data-i18n="btn_add_to_cart">Adicionar ao carrinho</button>
                 <button class="view-details-btn" data-i18n="btn_view_product">Ver detalhes</button>

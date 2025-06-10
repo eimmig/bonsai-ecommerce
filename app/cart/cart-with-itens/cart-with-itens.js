@@ -70,7 +70,6 @@ export class Cart {
     _calculateSummary() {
         const summary = this._calculateCartTotals();
         this.discountAmount = summary.totalDiscount;
-        // Corrigido: total = subtotal + frete - desconto
         const total = summary.subtotal + this.shippingCost - this.discountAmount;
 
         this.elements.summarySubtotal.textContent = this._formatCurrency(summary.subtotal);
@@ -133,7 +132,6 @@ export class Cart {
         } else if (this._isIncrementButton(event.target)) {
             this._incrementItemQuantity(item);
         }
-        // Removido _refreshCartItems() daqui, pois já é chamado nos métodos acima
     }
     
     /**

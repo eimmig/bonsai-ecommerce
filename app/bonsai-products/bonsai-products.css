@@ -6,7 +6,6 @@
 }
 
 .bonsai-products-container .product-card {
-  /* Ajuste para ocupar 100% da célula do grid */
   width: 100%;
   min-width: 0;
 }

@@ -58,8 +58,8 @@ export class CartUtils {
      */
     _notifyCartUpdated() {
         document.dispatchEvent(new CustomEvent('cart-updated'));
-    }    
-    
+    }  
+      
     /**
      * Adiciona um item ao carrinho
      */
@@ -71,6 +71,17 @@ export class CartUtils {
         
         if (quantity <= 0) {
             console.error('Quantidade deve ser maior que zero');
+            return false;
+        }
+
+        const currentUser = getFromStorage('currentUser');
+        if (!currentUser?.email) {
+            window.loadComponent('main', 'app/login/login.html', true);
+            NotificationService.showToast(
+                window.i18nInstance?.translate('toast_login_required_title') || 'Login necessário',
+                window.i18nInstance?.translate('toast_login_required_message') || 'Faça login para adicionar itens ao carrinho',
+                'info'
+            );
             return false;
         }
         
@@ -147,7 +158,6 @@ export class CartUtils {
             item => item.productId.toString() !== productIdStr
         );
         
-        // Se nenhum item foi removido, retorna falso
         if (carts[this.currentUserIdentifier].length === initialLength) {
             return false;
         }
@@ -171,7 +181,6 @@ export class CartUtils {
             return false;
         }
         
-        // Se quantidade for zero ou negativa, remova o item
         if (quantity <= 0) {
             return this.removeFromCart(productId);
         }
@@ -190,7 +199,6 @@ export class CartUtils {
             return false;
         }
         
-        // Atualiza a quantidade
         cartItem.quantity = quantity;
         this._saveCarts(carts);
         this._notifyCartUpdated();
@@ -198,26 +206,6 @@ export class CartUtils {
         NotificationService.showToast(
             window.i18nInstance?.translate('toast_quantity_updated_title') || 'Quantidade atualizada',
             (window.i18nInstance?.translate('toast_quantity_updated_message', {quantity}) || `Quantidade atualizada para ${quantity}`),
-            'info'
-        );
-        return true;
-    }
-
-    /**
-     * Limpa o carrinho do usuário atual
-     */
-    clearCart() {
-        const carts = this._loadCarts();
-        
-        // Define um array vazio para o usuário atual
-        carts[this.currentUserIdentifier] = [];
-        
-        this._saveCarts(carts);
-        this._notifyCartUpdated();
-        
-        NotificationService.showToast(
-            window.i18nInstance?.translate('toast_cart_cleared_title') || 'Carrinho limpo',
-            window.i18nInstance?.translate('toast_cart_cleared_message') || 'Todos os itens foram removidos do carrinho',
             'info'
         );
         return true;

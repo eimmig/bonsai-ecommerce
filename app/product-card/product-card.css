@@ -91,8 +91,15 @@
     font-weight: 700;
     font-size: 1.2rem;
     color: var(--color-title);
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.installments {
+    font-size: 14px;
+    color: var(--color-dark-gray);
+    margin-bottom: 15px;
     white-space: nowrap;
 }
 

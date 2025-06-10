@@ -80,7 +80,6 @@ export class Header {
             childList: true,
             subtree: true
         });
-        // Adiciona setup para o link Bonsais
         this.setupBonsaisLink();
     }
     

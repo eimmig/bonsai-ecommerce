@@ -2,6 +2,7 @@ import { NotificationService } from "../../core/notifications.js";
 import { formatCurrencyBRL, loadProductsFromStorage } from "../../core/functionUtils.js";
 import { CartUtils } from "../cart/utils/cart-utils.js";
 import { CepMask } from "../login/components/input-masks/CepMask.js";
+import { ProductCard } from "../product-card/product-card.js";
 
 export class ProductDetail {
     /**
@@ -28,7 +29,6 @@ export class ProductDetail {
             }
             await this.loadProductData(productId);
             this.setupEventListeners();
-            // Aplica máscara de CEP
             const cepInput = document.getElementById("shipping-cep");
             if (cepInput) {
                 CepMask(cepInput);
@@ -174,34 +174,14 @@ export class ProductDetail {
         }
         
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    /**
+    }    /**
      * Cria o card de produto relacionado
      */
     createProductCard(product) {
-        const hasDiscount = product.porcentagemDesconto > 0;
-        const discountedPrice = this.calculateDiscountedPrice(product.valor, product.porcentagemDesconto);
-        const cardElement = document.createElement("div");
-        cardElement.className = `product-card ${!hasDiscount ? "no-discount" : ""}`;
-        cardElement.dataset.productId = product.id;
-        const imageUrl = product.imagem.urlImagemDestaque;
-        cardElement.innerHTML = `
-            ${hasDiscount ? `<div class="discount-badge">-${product.porcentagemDesconto}%</div>` : ""}
-            <div class="product-image">
-                <img src="${imageUrl}" alt="${product.nome}">
-            </div>
-            <div class="product-info">
-                <h3 class="product-name">${product.nome}</h3>
-                <p class="product-description">${product.descricao.substring(0, 80)}${product.descricao.length > 80 ? "..." : ""}</p>
-                <div class="product-price">
-                    ${hasDiscount ? `<span class="original-price">${formatCurrencyBRL(product.valor)}</span>` : ""}
-                    <span class="discounted-price">${formatCurrencyBRL(discountedPrice)}</span>
-                </div>
-                <button class="view-details-btn" data-i18n="btn_view_product">View product</button>
-            </div>
-        `;
-        return cardElement;
+        if (!this.cardComponent) {
+            this.cardComponent = new ProductCard();
+        }
+        return this.cardComponent.createProductCard(product);
     }
 
     /**

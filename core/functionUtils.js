@@ -1,5 +1,3 @@
-// Utilitários centralizados para acesso ao localStorage e formatação
-
 /**
  * Obtém um valor do localStorage e faz o parse para JSON, se possível.
  * @param {string} key

@@ -113,7 +113,7 @@ export class AuthenticationPageManager {
                 detail: { user: result.user }
             }));
             document.dispatchEvent(new CustomEvent('cart-updated'));
-            // Força atualização do badge do carrinho se header já estiver carregado
+           
             window.headerComponent?.headerCartManager?._updateCartCount();
             window.loadComponent("main", "app/home/home.html", true);
         } catch (error) {

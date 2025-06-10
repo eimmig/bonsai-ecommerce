@@ -1,4 +1,3 @@
-// Componente de loading reutilizável
 export function renderLoadingComponent(containerId, message = 'Carregando...') {
     const container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
     if (!container) return;

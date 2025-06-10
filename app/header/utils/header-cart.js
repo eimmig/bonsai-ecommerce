@@ -44,12 +44,10 @@ export class HeaderCartManager {
      * @private
      */
     _updateCartCount() {
-        // Checa se há usuário logado
         let user = null;
         try {
             user = getFromStorage('currentUser');
         } catch {}
-        // Sempre instancia CartUtils para garantir currentUserIdentifier correto
         this.cartUtils = new CartUtils();
         const cartItemCount = user?.email ? this.cartUtils.getCartItemCount() : 0;
         this._updateAllBadges(cartItemCount);

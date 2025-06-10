@@ -10,7 +10,6 @@ import { getFromStorage } from '../../core/functionUtils.js';
  * dependendo se existem itens no carrinho do usuário atual
  */
 export function initCart() {
-    // Verifica se o usuário está logado
     const currentUser = AuthService.getCurrentUser ? AuthService.getCurrentUser() : getFromStorage('currentUser');
     if (!currentUser?.email) {
         window.loadComponent('main', 'app/login/login.html', true);

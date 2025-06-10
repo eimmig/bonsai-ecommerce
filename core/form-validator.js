@@ -45,34 +45,52 @@ export class FormValidator {
         field.value = input.value;
         field.errors = [];
 
-        if (!input.value && !input.hasAttribute('required')) {
+        if (this._isOptionalAndEmpty(input)) {
             field.valid = true;
             this._updateFieldUI(input);
             return;
         }
 
-        if (input.type === 'email' && this.form.classList.contains('register-form')) {
-            field.valid = this._validateEmail(input.value);
-            if (!field.valid) {
-                field.errors.push('error_invalid_email');
-            }
+        if (this._shouldValidateEmail(input)) {
+            this._validateEmailField(input, field);
         } else {
-            field.valid = input.checkValidity();
-
-            if (!field.valid) {
-                if (input.validity.valueMissing) {
-                    field.errors.push('error_required_field');
-                } else if (input.validity.tooShort) {
-                    field.errors.push(input.name === 'senha' ? 'error_min_password' : 'error_min_name');
-                } else if (input.validity.patternMismatch) {
-                    if (input.name === 'cpf_cnpj') {
-                        field.errors.push('error_invalid_cpf_cnpj');
-                    }
-                }
-            }
+            this._validateStandardField(input, field);
         }
 
         this._updateFieldUI(input);
+    }
+
+    _isOptionalAndEmpty(input) {
+        return !input.value && !input.hasAttribute('required');
+    }
+
+    _shouldValidateEmail(input) {
+        return input.type === 'email' && this.form.classList.contains('register-form');
+    }
+
+    _validateEmailField(input, field) {
+        field.valid = this._validateEmail(input.value);
+        if (!field.valid) {
+            field.errors.push('error_invalid_email');
+        }
+    }
+
+    _validateStandardField(input, field) {
+        field.valid = input.checkValidity();
+
+        if (!field.valid) {
+            this._collectStandardFieldErrors(input, field);
+        }
+    }
+
+    _collectStandardFieldErrors(input, field) {
+        if (input.validity.valueMissing) {
+            field.errors.push('error_required_field');
+        } else if (input.validity.tooShort) {
+            field.errors.push(input.name === 'senha' ? 'error_min_password' : 'error_min_name');
+        } else if (input.validity.patternMismatch && input.name === 'cpf_cnpj') {
+            field.errors.push('error_invalid_cpf_cnpj');
+        }
     }
 
     /**

@@ -13,10 +13,8 @@ export class NotificationService {
         const toastTitle = document.getElementById('toastTitle');
         const toastMessage = document.getElementById('toastMessage');
         
-        // Remove classes existentes
         toast.classList.remove('bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'text-white');
         
-        // Adiciona classes baseadas no tipo
         switch (type) {
             case 'error':
                 toast.classList.add('bg-danger', 'text-white');

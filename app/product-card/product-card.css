@@ -46,6 +46,7 @@
     align-items: center;
     padding: 15px;
     background-color: var(--color-light-gray);
+    cursor: pointer;
 }
 
 .product-image img {

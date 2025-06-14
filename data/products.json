@@ -7,10 +7,10 @@
       "valor": 299.90,
       "porcentagemDesconto": 25,
       "imagem": {
-          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
-          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+          "urlImagem1": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/ficus-retusa2.jpeg",
+          "urlImagem2": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/ficus-retusa3.jpeg",
+          "urlImagem3": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/ficus-retusa4.jpeg",
+          "urlImagemDestaque": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/ficus-retusa1.jpeg"
       }
     },
     {
@@ -20,10 +20,10 @@
       "valor": 349.90,
       "porcentagemDesconto": 10,
       "imagem": {
-          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
-          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+          "urlImagem1": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/juniperus-chinensis2.jpeg",
+          "urlImagem2": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/juniperus-chinensis3.jpeg",
+          "urlImagem3": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/juniperus-chinensis4.jpeg",
+          "urlImagemDestaque": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/juniperus-chinensis1.jpeg"
       }
     },
     {
@@ -33,10 +33,10 @@
       "valor": 179.90,
       "porcentagemDesconto": 0,
       "imagem": {
-          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
-          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+          "urlImagem1": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/carmona-microphylla2.jpeg",
+          "urlImagem2": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/carmona-microphylla3.jpeg",
+          "urlImagem3": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/carmona-microphylla4.jpeg",
+          "urlImagemDestaque": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/carmona-microphylla1.jpeg"
       }
     },
     {
@@ -46,10 +46,10 @@
       "valor": 459.90,
       "porcentagemDesconto": 15,
       "imagem": {
-          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
-          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+          "urlImagem1": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/pinus-pentaphylla2.jpeg",
+          "urlImagem2": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/pinus-pentaphylla3.jpeg",
+          "urlImagem3": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/pinus-pentaphylla4.jpeg",
+          "urlImagemDestaque": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/pinus-pentaphylla1.jpeg"
       }
     },
     {
@@ -59,10 +59,10 @@
       "valor": 529.90,
       "porcentagemDesconto": 20,
       "imagem": {
-          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
-          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+          "urlImagem1": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/acer-palmatum2.jpeg",
+          "urlImagem2": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/acer-palmatum3.jpeg",
+          "urlImagem3": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/acer-palmatum4.jpeg",
+          "urlImagemDestaque": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/acer-palmatum1.jpeg"
       }
     },
     {
@@ -72,10 +72,10 @@
       "valor": 399.90,
       "porcentagemDesconto": 5,
       "imagem": {
-          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
-          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+          "urlImagem1": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/zelkova-serrata2.jpeg",
+          "urlImagem2": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/zelkova-serrata3.jpeg",
+          "urlImagem3": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/zelkova-serrata4.jpeg",
+          "urlImagemDestaque": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/zelkova-serrata1.jpeg"
       }
     },
     {
@@ -85,23 +85,23 @@
       "valor": 219.90,
       "porcentagemDesconto": 0,
       "imagem": {
-          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
-          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+          "urlImagem1": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/sakura2.jpeg",
+          "urlImagem2": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/sakura3.jpeg",
+          "urlImagem3": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/sakura4.jpeg",
+          "urlImagemDestaque": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/sakura1.jpeg"
       }
     },
     {
       "id": "8",
-      "nome": "Carmona Microphylla",
-      "descricao": "Bonsai de oliveira, resistente e com folhas prateadas.",
+      "nome": "Caliandra Spinosa",
+      "descricao": "Bonsai tropical com flores vermelhas vibrantes, ideal para climas quentes.",
       "valor": 399.90,
       "porcentagemDesconto": 0,
       "imagem": {
-          "urlImagem1": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem2": "../assets/images/products/ficus-retusa.svg",
-          "urlImagem3": "../assets/images/products/ficus-retusa.svg",
-          "urlImagemDestaque": "../assets/images/products/ficus-retusa.svg"
+          "urlImagem1": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/caliandra-spinosa2.jpeg",
+          "urlImagem2": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/caliandra-spinosa3.jpeg",
+          "urlImagem3": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/carmona-microphylla4.jpeg",
+          "urlImagemDestaque": "https://github.com/eimmig/bonsai-ecommerce/raw/main/assets/images/products/caliandra-spinosa1.jpeg"
       }
     }
   ]

@@ -7,11 +7,9 @@
 
 export function initTipsCard(containerId = 'tips-container') {
     window.loadComponent(containerId, '../../app/tips-card/tips-card.html', true).then(() => {
-        if (window.i18nInstance) {
-            window.i18nInstance.translateElement(
-                document.getElementById(containerId),
-                window.i18nInstance.currentLang
-            );
-        }
+        window.i18nInstance.translateElement(
+            document.getElementById(containerId),
+            window.i18nInstance.currentLang
+        );
     });
 }

@@ -90,4 +90,13 @@ export class AuthService {
             }, 500);
         });
     }
+
+    /**
+     * Verifica se existe um usuário logado no sistema.
+     * @returns {boolean} true se logado, false caso contrário
+     */
+    static isLoggedIn() {
+        const user = this.getCurrentUser();
+        return !!user?.email;
+    }
 }

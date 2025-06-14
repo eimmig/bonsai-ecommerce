@@ -6,9 +6,6 @@ import { FormValidator } from '../../../core/form-validator.js';
 
 export class AuthenticationPageManager {
     /**
-     * Construtor da classe
-     */
-    /**
      * Inicializa o gerenciador de autenticação
      * @returns {AuthenticationPageManager} - Instância do gerenciador
      */
@@ -22,13 +19,6 @@ export class AuthenticationPageManager {
         this._checkInitialMode();
         document.title = 'Entrar | Bonsai E-commerce';
         return this;
-    }
-
-    _initializeFormValidation() {
-        this.loginForm.setAttribute('novalidate', '');
-        this.signupForm.setAttribute('novalidate', '');
-        this.loginValidator = new FormValidator(this.loginForm);
-        this.signupValidator = new FormValidator(this.signupForm);
     }
 
     _setupUIElements() {
@@ -53,16 +43,21 @@ export class AuthenticationPageManager {
         this.signupPhoneInput = document.getElementById('signup-telefone');
         this.signupEmailInput = document.getElementById('signup-email');
         this.signupPasswordInput = document.getElementById('signup-senha');
-    }    /**
-     * Configura os eventos de listener para os formulários e botões
-     * @private
-     */
+    }
+
+    _initializeFormValidation() {
+        this.loginForm.setAttribute('novalidate', '');
+        this.signupForm.setAttribute('novalidate', '');
+        this.loginValidator = new FormValidator(this.loginForm);
+        this.signupValidator = new FormValidator(this.signupForm);
+    }
+
     _setupEventListeners() {
         this.signUpToggleBtn.addEventListener('click', this.toggleMode.bind(this));
         this.loginToggleBtn.addEventListener('click', this.toggleMode.bind(this));
         this.loginForm.addEventListener('submit', this.handleLoginSubmit.bind(this));
         this.signupForm.addEventListener('submit', this.handleSignupSubmit.bind(this));
-        
+
         const btn1 = document.getElementById('back-to-home-btn');
         const btn2 = document.getElementById('back-to-home-btn-2');
         [btn1, btn2].forEach(btn => {
@@ -74,10 +69,8 @@ export class AuthenticationPageManager {
                 });
             }
         });
-    }    /**
-     * Inicializa as máscaras de input para CPF/CNPJ e telefone
-     * @private
-     */
+    }
+
     _initInputMasks() {
         this.cpfCnpjMask = new CpfCnpjMask('signup-cpf-cnpj');
         this.telefoneMask = new TelefoneMask('signup-telefone');
@@ -88,28 +81,28 @@ export class AuthenticationPageManager {
         this.toggleMode();
     }
 
+    /**
+     * Alterna entre os modos de login e cadastro, alterando a classe do container.
+     */
     toggleMode() {
         this.isSignUpMode = !this.isSignUpMode;
         this.container.classList.toggle('sign-up-mode', this.isSignUpMode);
     }
 
+    /**
+     * Lida com o envio do formulário de login, faz validação, autentica e exibe mensagens.
+     * @param {Event} event Evento de submit do formulário
+     */
     async handleLoginSubmit(event) {
         event.preventDefault();
-
-        if (!this.loginValidator.validateForm()) {
-            return;
-        }
-
+        if (!this.loginValidator.validateForm()) return;
         const formData = {
             email: this.loginEmailInput.value,
             senha: this.loginPasswordInput.value,
         };
-
         try {
             const result = await AuthService.login(formData);
-            
             document.body.classList.add('is-logged-in');
-            
             NotificationService.showToast(
                 window.i18nInstance?.translate('toast_login_success_title') || 'Sucesso',
                 window.i18nInstance?.translate('toast_login_success_message') || 'Login realizado com sucesso!',
@@ -117,13 +110,10 @@ export class AuthenticationPageManager {
             );
             this.loginValidator.reset();
             this.showMainUI();
-            document.dispatchEvent(new CustomEvent('user-logged-in', { 
-                detail: { user: result.user }
-            }));
+            document.dispatchEvent(new CustomEvent('user-logged-in', { detail: { user: result.user } }));
             document.dispatchEvent(new CustomEvent('cart-updated'));
-           
             window.headerComponent?.headerCartManager?._updateCartCount();
-            window.loadComponent("main", "app/home/home.html", true);
+            window.loadComponent('main', 'app/home/home.html', true);
         } catch (error) {
             NotificationService.showToast(
                 window.i18nInstance?.translate('toast_error_title') || 'Erro',
@@ -135,22 +125,13 @@ export class AuthenticationPageManager {
         }
     }
 
-    clearLoginForm() {
-        this.loginValidator.reset();
-    }
-
-    showMainUI() {
-        document.getElementById('header').classList.remove('d-none');
-        document.getElementById('footer').classList.remove('d-none');
-    }
-
+    /**
+     * Lida com o envio do formulário de cadastro, faz validação, registra usuário e exibe mensagens.
+     * @param {Event} event Evento de submit do formulário
+     */
     async handleSignupSubmit(event) {
         event.preventDefault();
-
-        if (!this.signupValidator.validateForm()) {
-            return;
-        }
-
+        if (!this.signupValidator.validateForm()) return;
         const formData = {
             nome: this.signupNameInput.value,
             cpf_cnpj: this.signupCpfCnpjInput.value,
@@ -158,7 +139,6 @@ export class AuthenticationPageManager {
             email: this.signupEmailInput.value,
             senha: this.signupPasswordInput.value,
         };
-
         try {
             await AuthService.signup(formData);
             NotificationService.showToast(
@@ -178,10 +158,31 @@ export class AuthenticationPageManager {
         }
     }
 
+    /**
+     * Limpa o formulário de login.
+     */
+    clearLoginForm() {
+        this.loginValidator.reset();
+    }
+
+    /**
+     * Limpa o formulário de cadastro.
+     */
     clearSignupForm() {
         this.signupValidator.reset();
     }
 
+    /**
+     * Exibe o header e o footer principais da aplicação.
+     */
+    showMainUI() {
+        document.getElementById('header').classList.remove('d-none');
+        document.getElementById('footer').classList.remove('d-none');
+    }
+
+    /**
+     * Força a interface para o modo de login.
+     */
     switchToLoginMode() {
         this.isSignUpMode = false;
         this.toggleMode();

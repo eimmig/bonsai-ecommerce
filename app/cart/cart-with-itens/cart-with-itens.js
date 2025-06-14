@@ -1,19 +1,15 @@
 import { CartUtils } from '../utils/cart-utils.js';
 import { NotificationService } from '../../../core/notifications.js';
-import { formatCurrencyBRL, loadProductsFromStorage } from '../../../core/functionUtils.js';
+import { formatCurrencyBRL, loadProductsFromStorage, calculateDiscountedPrice } from '../../../core/functionUtils.js';
 
 /**
  * Classe responsável pela página de carrinho com itens
  */
 export class Cart {
     /**
-     * Constantes para configuração
+     * Constante de frete padrão
      */
-    static get CONFIG() {
-        return {
-            DEFAULT_SHIPPING_COST: 50.00
-        };
-    }
+    static DEFAULT_SHIPPING_COST = 50.00;
     
     /**
      * Inicializa o componente de carrinho com itens
@@ -50,7 +46,7 @@ export class Cart {
         this.cartUtils = new CartUtils();
         this._refreshCartItems();
         this.products = loadProductsFromStorage();
-        this.shippingCost = Cart.CONFIG.DEFAULT_SHIPPING_COST;
+        this.shippingCost = Cart.DEFAULT_SHIPPING_COST;
         this.discountAmount = 0;
     }
     
@@ -94,7 +90,7 @@ export class Cart {
             
             const originalPrice = productInfo.valor;
             const discountPercentage = productInfo.porcentagemDesconto || 0;
-            const discountedPrice = this._calculateDiscountedPrice(originalPrice, discountPercentage);
+            const discountedPrice = calculateDiscountedPrice(originalPrice, discountPercentage);
             
             subtotal += discountedPrice * item.quantity;
             totalDiscount += (originalPrice - discountedPrice) * item.quantity;
@@ -104,16 +100,47 @@ export class Cart {
     }
     
     /**
-     * Calcula o preço com desconto
+     * Retorna o tipo de controle de quantidade ou null
      * @private
-     * @param {number} originalPrice Preço original
-     * @param {number} discountPercentage Porcentagem de desconto
-     * @returns {number} Preço com desconto
+     * @param {HTMLElement} element
+     * @returns {'decrement'|'increment'|null}
      */
-    _calculateDiscountedPrice(originalPrice, discountPercentage) {
-        return originalPrice * (1 - discountPercentage / 100);
-    }    
-    
+    _getQuantityControlType(element) {
+        if (element.classList.contains('quantity-minus')) return 'decrement';
+        if (element.classList.contains('quantity-plus')) return 'increment';
+        return null;
+    }
+
+    /**
+     * Atualiza e renderiza o carrinho após alteração de quantidade
+     * @private
+     */
+    _updateAndRenderCart() {
+        this._refreshCartItems();
+        if (!this.cartItems || this.cartItems.length === 0) {
+            window.loadComponent('main', 'app/cart/cart.html', true);
+            return;
+        }
+        this._renderCartItems();
+    }
+
+    /**
+     * Atualiza os itens do carrinho na memória
+     * @private
+     */
+    _refreshCartItems() {
+        this.cartItems = this.cartUtils.getCartItems();
+    }   
+
+    /**
+     * Habilita ou desabilita o botão de checkout
+     * @private
+     * @param {boolean} enable
+     */
+    _setCheckoutButtonEnabled(enable) {
+        this.elements.checkoutBtn.disabled = !enable;
+    }
+
     /**
      * Manipula as alterações de quantidade (+ e -)
      * @private
@@ -122,76 +149,23 @@ export class Cart {
     _handleQuantityChange(event) {
         const productId = event.target.dataset.id;
         if (!productId) return;
-        
         const item = this.cartItems.find(
             item => item.productId.toString() === productId.toString()
         );
         if (!item) return;
-        
-        if (this._isDecrementButton(event.target)) {
-            this._decrementItemQuantity(item);
-        } else if (this._isIncrementButton(event.target)) {
-            this._incrementItemQuantity(item);
+        const controlType = this._getQuantityControlType(event.target);
+        if (controlType === 'decrement') {
+            if (item.quantity > 1) {
+                this.cartUtils.updateQuantity(item.productId, item.quantity - 1);
+            } else {
+                this.cartUtils.removeFromCart(item.productId);
+            }
+            this._updateAndRenderCart();
+        } else if (controlType === 'increment') {
+            this.cartUtils.updateQuantity(item.productId, item.quantity + 1);
+            this._updateAndRenderCart();
         }
     }
-    
-    /**
-     * Verifica se é o botão de decremento
-     * @private
-     * @param {HTMLElement} element Elemento do DOM
-     * @returns {boolean} true se for o botão de decremento
-     */
-    _isDecrementButton(element) {
-        return element.classList.contains('quantity-minus');
-    }
-    
-    /**
-     * Verifica se é o botão de incremento
-     * @private
-     * @param {HTMLElement} element Elemento do DOM
-     * @returns {boolean} true se for o botão de incremento
-     */
-    _isIncrementButton(element) {
-        return element.classList.contains('quantity-plus');
-    }
-    
-    /**
-     * Decrementa a quantidade de um item
-     * @private
-     * @param {Object} item Item do carrinho
-     */
-    _decrementItemQuantity(item) {
-        if (item.quantity > 1) {
-            this.cartUtils.updateQuantity(item.productId, item.quantity - 1);
-        } else {
-            this.cartUtils.removeFromCart(item.productId);
-        }
-        this._refreshCartItems();
-        if (!this.cartItems || this.cartItems.length === 0) {
-            window.loadComponent('main', 'app/cart/cart.html', true);
-            return;
-        }
-        this._renderCartItems();
-    }
-    
-    /**
-     * Incrementa a quantidade de um item
-     * @private
-     * @param {Object} item Item do carrinho
-     */
-    _incrementItemQuantity(item) {
-        this.cartUtils.updateQuantity(item.productId, item.quantity + 1);
-        this._refreshCartItems();
-        this._renderCartItems();
-    }
-    
-    /**
-     * Atualiza os itens do carrinho na memória
-     * @private
-     */
-    _refreshCartItems() {
-        this.cartItems = this.cartUtils.getCartItems();
-    }    
     
     /**
      * Configura os listeners de eventos
@@ -225,21 +199,10 @@ export class Cart {
      */
     _setupQuantityControls() {
         this.elements.productsList.addEventListener('click', (event) => {
-            if (this._isQuantityControl(event.target)) {
+            if (this._getQuantityControlType(event.target)) {
                 this._handleQuantityChange(event);
             }
         });
-    }
-    
-    /**
-     * Verifica se o elemento clicado é um controle de quantidade
-     * @private
-     * @param {HTMLElement} element Elemento do DOM
-     * @returns {boolean} true se for um controle de quantidade
-     */
-    _isQuantityControl(element) {
-        return element.classList.contains('quantity-minus') || 
-               element.classList.contains('quantity-plus');
     }
     
     /**
@@ -261,7 +224,7 @@ export class Cart {
             window.i18nInstance?.translate('toast_checkout_redirect_message') || 'Preparando página de pagamento',
             'info'
         );
-        window.loadComponent('main', 'app/payment/checkout/checkout.html', true);
+        // window.loadComponent('main', 'app/payment/checkout/checkout.html', true);
     }    
     
     /**
@@ -272,28 +235,12 @@ export class Cart {
         const productsList = this.elements.productsList;
         productsList.innerHTML = '';
         if (!this.cartItems || this.cartItems.length === 0) {
-            this._disableCheckoutButton();
+            this._setCheckoutButtonEnabled(false);
             return;
         }
-        this._enableCheckoutButton();
+        this._setCheckoutButtonEnabled(true);
         this._renderEachCartItem(productsList);
         this._calculateSummary();
-    }
-    
-    /**
-     * Desabilita o botão de checkout
-     * @private
-     */
-    _disableCheckoutButton() {
-        this.elements.checkoutBtn.disabled = true;
-    }
-    
-    /**
-     * Habilita o botão de checkout
-     * @private
-     */
-    _enableCheckoutButton() {
-        this.elements.checkoutBtn.disabled = false;
     }
     
     /**
@@ -325,7 +272,7 @@ export class Cart {
     _createCartItemElement(item, productInfo) {
         const price = productInfo.valor;
         const discountPercentage = productInfo.porcentagemDesconto || 0;
-        const discountedPrice = this._calculateDiscountedPrice(price, discountPercentage);
+        const discountedPrice = calculateDiscountedPrice(price, discountPercentage);
         const imageUrl = this._getProductImageUrl(productInfo);
         
         const productItemDiv = document.createElement('div');

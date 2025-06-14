@@ -3,6 +3,7 @@
  */
 import { NotificationService } from '../../../core/notifications.js';
 import { getFromStorage, setToStorage } from '../../../core/functionUtils.js';
+import { AuthService } from '../../login/services/AuthService.js';
 
 export class CartUtils {
     constructor() {
@@ -15,7 +16,7 @@ export class CartUtils {
      * @private
      */
     _getCurrentUserIdentifier() {
-        const currentUser = getFromStorage('currentUser');
+        const currentUser = AuthService.getCurrentUser();
         if (!currentUser) {
             return 'guest';
         }

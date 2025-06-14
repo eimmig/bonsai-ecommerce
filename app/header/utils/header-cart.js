@@ -1,5 +1,5 @@
 import { CartUtils } from '../../cart/utils/cart-utils.js';
-import { getFromStorage } from '../../../core/functionUtils.js';
+import { AuthService } from '../../login/services/AuthService.js';
 
 /**
  * Classe responsável por atualizar a contagem de itens no carrinho no cabeçalho
@@ -47,7 +47,7 @@ export class HeaderCartManager {
     _updateCartCount() {
         let user = null;
         try {
-            user = getFromStorage('currentUser');
+            user = AuthService.getCurrentUser();
         } catch {}
         this.cartUtils = new CartUtils();
         const cartItemCount = user?.email ? this.cartUtils.getCartItemCount() : 0;

@@ -1,12 +1,12 @@
 .footer {
   background-color: var(--color-footer);
-  color: white;
+  color: var(--color-white);
   padding: 1rem 0;
   font-size: 0.85rem;
 }
 
 .footer h5 {
-  color: white;
+  color: var(--color-white);
   font-size: 1rem;
   margin-bottom: 1.5rem;
   font-weight: 500;
@@ -17,7 +17,7 @@
 }
 
 .footer-title {
-  color: white;
+  color: var(--color-white);
   font-size: 0.85rem;
   margin-bottom: 0.5rem;
   font-weight: normal;
@@ -36,7 +36,7 @@
 }
 
 .footer-links a {
-  color: white;
+  color: var(--color-white);
   text-decoration: underline;
   opacity: 0.9;
   font-size: 0.85rem;
@@ -83,7 +83,7 @@
   text-align: center;
   padding-top: 2rem;
   margin-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-border-white-translucent);
   font-size: 0.85rem;
   opacity: 0.8;
 }

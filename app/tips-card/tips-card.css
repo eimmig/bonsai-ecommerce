@@ -8,11 +8,11 @@
 }
 
 .tip-card {
-    background-color: #f8f8f8;
+    background-color: var(--color-card-bg);
     border-radius: 10px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 8px var(--color-shadow-light);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@
 
 .tip-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 12px var(--color-shadow);
 }
 
 .tip-icon {
@@ -31,7 +31,7 @@
 
 .tip-icon i {
     font-size: 20px;
-    color: #666666;
+    color: var(--color-dark-gray);
 }
 
 .tip-card h3 {
@@ -44,7 +44,7 @@
 .tip-card p {
     text-align: justify;
     font-size: 18px;
-    color: #666;
+    color: var(--color-text-medium);
     line-height: 1.5;
 }
 

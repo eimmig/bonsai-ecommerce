@@ -1,5 +1,5 @@
 import { NotificationService } from "../../core/notifications.js";
-import { loadProductsFromStorage, formatCurrencyBRL } from "../../core/functionUtils.js";
+import { loadProductsFromStorage, formatCurrencyBRL, calculateDiscountedPrice } from "../../core/functionUtils.js";
 import { CartUtils } from "../cart/utils/cart-utils.js";
 
 export class ProductCard {
@@ -57,7 +57,7 @@ export class ProductCard {
      */
     createProductCard(product) {
         const hasDiscount = product.porcentagemDesconto > 0;
-        const discountedPrice = this.calculateDiscountedPrice(product.valor, product.porcentagemDesconto);
+        const discountedPrice = calculateDiscountedPrice(product.valor, product.porcentagemDesconto);
         const cardElement = document.createElement('div');
         cardElement.className = `product-card ${!hasDiscount ? 'no-discount' : ''}`;
         cardElement.dataset.productId = product.id;
@@ -136,20 +136,6 @@ export class ProductCard {
     viewProductDetails(productId) {
         console.log(`Redirecionando para detalhes do produto ${productId}`);
         window.loadComponent('main', 'app/product-detail/product-detail.html', true, productId);
-    }
-
-    /**
-     * Calcula o preço com desconto
-     * @param {number} originalPrice - Preço original do produto
-     * @param {number} discountPercentage - Percentual de desconto
-     * @returns {number} - Preço com desconto aplicado
-     */
-    calculateDiscountedPrice(originalPrice, discountPercentage) {
-        if (!discountPercentage || discountPercentage <= 0) {
-            return originalPrice;
-        }
-        const discount = (originalPrice * discountPercentage) / 100;
-        return originalPrice - discount;
     }
 }
 

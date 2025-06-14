@@ -8,6 +8,8 @@ import { initCart } from './app/cart/cart.js';
 import { initBonsaiProductsPage } from "./app/bonsai-products/bonsai-products.js";
 import {initProductDetail} from "./app/product-detail/product-detail.js";
 import { renderLoadingComponent, removeLoadingComponent } from './core/loading.js';
+import { AuthService } from './app/login/services/AuthService.js';
+
 
 const translateService = new I18n();
 let headerComponent;
@@ -18,25 +20,8 @@ window.loadComponent = loadComponent;
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProductsData();
-    checkUserSession();
+    AuthService.isLoggedIn();
 });
-
-/**
- * Verifica se existe uma sessão de usuário ativa no localStorage
- * Adiciona a classe 'is-logged-in' ao body caso exista um usuário autenticado
- */
-function checkUserSession() {
-    try {
-        const currentUser = getFromStorage('currentUser');
-        if (currentUser) {
-            const userData = currentUser;
-            console.log('Usuário já autenticado:', userData.nome);
-            document.body.classList.add('is-logged-in');
-        }
-    } catch (error) {
-        console.error('Erro ao verificar sessão do usuário:', error);
-    }
-}
 
 /**
  * Carrega os componentes principais da aplicação (header, footer e main) 

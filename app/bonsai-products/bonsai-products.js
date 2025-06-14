@@ -1,8 +1,5 @@
-/**
- * BonsaiProducts Component
- * Renderiza todos os produtos do catálogo em formato de cards, semelhante à home.
- */
 import { loadProductsFromStorage } from "../../core/functionUtils.js";
+import { ProductCard } from "../product-card/product-card.js";
 
 export class BonsaiProducts {
     constructor() {
@@ -28,39 +25,31 @@ export class BonsaiProducts {
         if (!container) return;
         container.innerHTML = "";
         container.classList.add("bonsai-grid-4"); 
-        import("../product-card/product-card.js").then(module => {
-            const ProductCard = module.ProductCard;
-            const cardComponent = new ProductCard();
-            cardComponent.productsData = this.productsData;
-            
-            this.productsData.forEach(product => {
-                const card = cardComponent.createProductCard(product);
-                container.appendChild(card);
-            });
-            
-            if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
-                window.i18nInstance.translateElement(container);
+        const cardComponent = new ProductCard();
+        cardComponent.productsData = this.productsData;
+        this.productsData.forEach(product => {
+            const card = cardComponent.createProductCard(product);
+            container.appendChild(card);
+        });
+        
+        // Configura os event listeners para adicionar ao carrinho e ver detalhes
+        container.addEventListener('click', (event) => {
+            const card = event.target.closest('.product-card');
+            if (!card) return;
+            const productId = card.dataset.productId;
+
+            if (event.target.classList.contains('add-to-cart-btn')) {
+                cardComponent.addToCart(productId);
+                return;
+            }
+            if (event.target.classList.contains('view-details-btn')) {
+                cardComponent.viewProductDetails(productId);
+                return;
             }
             
-            // Configura os event listeners para adicionar ao carrinho e ver detalhes
-            container.addEventListener('click', (event) => {
-                const card = event.target.closest('.product-card');
-                if (!card) return;
-                const productId = card.dataset.productId;
-
-                if (event.target.classList.contains('add-to-cart-btn')) {
-                    cardComponent.addToCart(productId);
-                    return;
-                }
-                if (event.target.classList.contains('view-details-btn')) {
-                    cardComponent.viewProductDetails(productId);
-                    return;
-                }
-                
-                if (card) {
-                    cardComponent.viewProductDetails(productId);
-                }
-            });
+            if (card) {
+                cardComponent.viewProductDetails(productId);
+            }
         });
     }
 }
@@ -79,7 +68,6 @@ export function initBonsaiProducts() {
  */
 export function initBonsaiProductsPage() {
     initBonsaiProducts();
-    if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
-        window.i18nInstance.translateElement(document.querySelector('.bonsai-products-section'));
-    }
+    
+    window.i18nInstance.translateElement(document.querySelector('.bonsai-products-section'));
 }

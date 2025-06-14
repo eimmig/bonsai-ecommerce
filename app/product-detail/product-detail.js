@@ -1,5 +1,5 @@
 import { NotificationService } from "../../core/notifications.js";
-import { formatCurrencyBRL, loadProductsFromStorage } from "../../core/functionUtils.js";
+import { formatCurrencyBRL, loadProductsFromStorage, calculateDiscountedPrice } from "../../core/functionUtils.js";
 import { CartUtils } from "../cart/utils/cart-utils.js";
 import { CepMask } from "../login/components/input-masks/CepMask.js";
 import { ProductCard } from "../product-card/product-card.js";
@@ -21,10 +21,6 @@ export class ProductDetail {
      */
     async init(productId) {
         try {
-            if (!productId) {
-                const urlParams = new URLSearchParams(window.location.search);
-                productId = urlParams.get("id");
-            }
             if (!productId) {
                 this.showError(this._t('error_no_product_id'));
                 return this;
@@ -85,7 +81,7 @@ export class ProductDetail {
         const priceArea = document.getElementById("product-price-area");
         const installmentOptions = document.getElementById("installment-options");
         const hasDiscount = this.productData.porcentagemDesconto > 0;
-        const discountedPrice = this.calculateDiscountedPrice(
+        const discountedPrice = calculateDiscountedPrice(
             this.productData.valor,
             this.productData.porcentagemDesconto
         );
@@ -117,9 +113,7 @@ export class ProductDetail {
             <span data-i18n="installments_suffix">sem juros</span>
         `;
         
-        if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
-            window.i18nInstance.translateElement(installmentDiv);
-        }
+        window.i18nInstance.translateElement(installmentDiv);
         
         return installmentDiv.innerHTML;
     }
@@ -129,18 +123,11 @@ export class ProductDetail {
      */
     renderProductImages() {
         const mainImage = document.getElementById("main-product-image");
-        mainImage.src = this.productData.imagem.urlImagemDestaque;
+        const imageUrls = this._getProductImageUrls();
+        mainImage.src = imageUrls[0];
         mainImage.alt = this.productData.nome;
         const thumbnailsContainer = document.querySelector(".product-thumbnails");
         thumbnailsContainer.innerHTML = "";
-        
-        const imageUrls = [
-            this.productData.imagem.urlImagemDestaque,
-            this.productData.imagem.urlImagem1,
-            this.productData.imagem.urlImagem2,
-            this.productData.imagem.urlImagem3
-        ];
-
         imageUrls.forEach((url, index) => {
             const thumbnail = document.createElement("div");
             thumbnail.className = `thumbnail ${index === 0 ? "active" : ""}`;
@@ -162,12 +149,7 @@ export class ProductDetail {
         thumbnails.forEach(thumb => thumb.classList.remove("active"));
         thumbnails[index].classList.add("active");
         const mainImage = document.getElementById("main-product-image");
-        const imageUrls = [
-            this.productData.imagem.urlImagemDestaque,
-            this.productData.imagem.urlImagem1,
-            this.productData.imagem.urlImagem2,
-            this.productData.imagem.urlImagem3
-        ];
+        const imageUrls = this._getProductImageUrls();
         mainImage.src = imageUrls[index];
         this.currentImageIndex = index;
     }
@@ -186,9 +168,7 @@ export class ProductDetail {
             container.appendChild(card);
         });
         
-        if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
-            window.i18nInstance.translateElement(container);
-        }
+        window.i18nInstance.translateElement(container);
         
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }    
@@ -197,10 +177,7 @@ export class ProductDetail {
      * Cria o card de produto relacionado
      */
     createProductCard(product) {
-        if (!this.cardComponent) {
-            this.cardComponent = new ProductCard();
-        }
-        return this.cardComponent.createProductCard(product);
+        return this.cardComponentInstance.createProductCard(product);
     }
 
     /**
@@ -211,22 +188,16 @@ export class ProductDetail {
         if (addToCartBtn) {
             addToCartBtn.addEventListener("click", () => this.addToCart());
         }
-        
         const relatedContainer = document.querySelector(".related-products .products-container-detail");
         if (relatedContainer) {
             relatedContainer.addEventListener('click', (event) => {
                 const card = event.target.closest('.product-card');
                 if (!card) return;
                 const productId = card.dataset.productId;
-
                 if (event.target.classList.contains('add-to-cart-btn')) {
-                    if (!this.cardComponent) {
-                        this.cardComponent = new ProductCard();
-                    }
-                    this.cardComponent.addToCart(productId);
+                    this.cardComponentInstance.addToCart(productId);
                     return;
                 }
-                
                 if (event.target.classList.contains('view-details-btn') || card) {
                     window.loadComponent("main", "app/product-detail/product-detail.html", true, productId);
                 }
@@ -279,22 +250,28 @@ export class ProductDetail {
     }
 
     /**
-     * Calcula o preço com desconto
-     */
-    calculateDiscountedPrice(originalPrice, discountPercentage) {
-        if (!discountPercentage || discountPercentage <= 0) return originalPrice;
-        const discount = (originalPrice * discountPercentage) / 100;
-        return originalPrice - discount;
-    }
-
-    /**
      * Função de tradução local
      */
     _t(key, params = {}) {
-        if (window.i18nInstance && typeof window.i18nInstance.translate === 'function') {
-            return window.i18nInstance.translate(key, params) || key;
+        return window.i18nInstance.translate(key, params) || key;
+    }
+
+    /**
+     * Getter para o componente de card de produto
+     */
+    get cardComponentInstance() {
+        if (!this._cardComponent) {
+            this._cardComponent = new ProductCard();
         }
-        return key;
+        return this._cardComponent;
+    }
+
+    /**
+     * Retorna array de URLs de imagens do produto
+     */
+    _getProductImageUrls() {
+        const img = this.productData.imagem;
+        return [img.urlImagemDestaque, img.urlImagem1, img.urlImagem2, img.urlImagem3];
     }
 }
 

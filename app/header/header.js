@@ -1,5 +1,6 @@
 import { HeaderCartManager } from './utils/header-cart.js';
-import { getFromStorage, removeFromStorage } from '../../core/functionUtils.js';
+import {  removeFromStorage } from '../../core/functionUtils.js';
+import { AuthService } from '../login/services/AuthService.js';
 
 export class Header {
     constructor() {
@@ -11,7 +12,7 @@ export class Header {
      * @returns {Header} Instância do header
      */
     init() {
-        this.loginState = this.checkUserLoggedIn();
+        this.loginState = AuthService.isLoggedIn();
         this.setupObserver();
         this.setupAllLinks();
         this.setupProductSearch();
@@ -29,24 +30,6 @@ export class Header {
         this.setupLoginLink();
         this.setupBonsaisLink();
         this.setupLoginHandlers();
-    }
-
-    checkUserLoggedIn() {
-        try {
-            const currentUser = getFromStorage('currentUser');
-            if (currentUser) {
-                const userData = currentUser;
-                if (userData?.email) {
-                    document.body.classList.add('is-logged-in');
-                    return true;
-                }
-            }
-            document.body.classList.remove('is-logged-in');
-            return false;
-        } catch (error) {
-            console.error('Erro ao verificar usuário logado:', error);
-            return false;
-        }
     }
 
     toggleLoginState() {

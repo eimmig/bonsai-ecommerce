@@ -2,7 +2,6 @@ import { Cart } from './cart-with-itens/cart-with-itens.js';
 import { EmptyCartPage } from './empty-cart/empty-cart.js';
 import { CartUtils } from './utils/cart-utils.js';
 import { AuthService } from '../login/services/AuthService.js';
-import { getFromStorage } from '../../core/functionUtils.js';
 
 /**
  * Função que inicializa o módulo do carrinho
@@ -10,15 +9,13 @@ import { getFromStorage } from '../../core/functionUtils.js';
  * dependendo se existem itens no carrinho do usuário atual
  */
 export function initCart() {
-    const currentUser = AuthService.getCurrentUser ? AuthService.getCurrentUser() : getFromStorage('currentUser');
-    if (!currentUser?.email) {
+    const isLogged = AuthService.isLoggedIn();
+    if (!isLogged) {
         window.loadComponent('main', 'app/login/login.html', true);
         return;
     }
-
     const cartManager = new CartManager();
     cartManager.initialize();
-    
     if (window.i18nInstance && typeof window.i18nInstance.translateElement === 'function') {
         const main = document.getElementById('main');
         window.i18nInstance.translateElement(main, window.i18nInstance.currentLang);

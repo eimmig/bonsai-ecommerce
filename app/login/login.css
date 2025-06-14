@@ -50,7 +50,7 @@
 
 .auth-title {
   font-size: 2.2rem;
-  color: #444;
+  color: var(--color-text-dark);
   margin-bottom: 10px;
 }
 
@@ -74,12 +74,12 @@
 }
 
 .auth-input-field.is-invalid {
-  border-color: #dc3545;
+  border-color: var(--color-error);
 }
 
 .auth-input-field .invalid-feedback {
   display: none;
-  color: #dc3545;
+  color: var(--color-error);
   font-size: 0.8rem;
   margin-top: 0.25rem;
   position: absolute;
@@ -116,7 +116,7 @@
 }
 
 .auth-input-field input::placeholder {
-  color: #aaa;
+  color: var(--color-placeholder);
   font-weight: 500;
 }
 

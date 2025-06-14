@@ -65,3 +65,15 @@ export function loadProductsFromStorage(storageKey = 'products') {
     const data = getFromStorage(storageKey, { produtos: [] });
     return data.produtos || [];
 }
+
+/**
+ * Calcula o preço com desconto
+ * @param {number} originalPrice - Preço original do produto
+ * @param {number} discountPercentage - Percentual de desconto
+ * @returns {number} - Preço com desconto aplicado
+ */
+export function calculateDiscountedPrice(originalPrice, discountPercentage) {
+    if (!discountPercentage || discountPercentage <= 0) return originalPrice;
+    const discount = (originalPrice * discountPercentage) / 100;
+    return originalPrice - discount;
+}

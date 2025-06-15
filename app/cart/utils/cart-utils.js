@@ -78,11 +78,6 @@ export class CartUtils {
         const currentUser = getFromStorage('currentUser');
         if (!currentUser?.email) {
             window.loadComponent('main', 'app/login/login.html', true);
-            NotificationService.showToast(
-                window.i18nInstance?.translate('toast_login_required_title') || 'Login necessário',
-                window.i18nInstance?.translate('toast_login_required_message') || 'Faça login para adicionar itens ao carrinho',
-                'info'
-            );
             return false;
         }
         

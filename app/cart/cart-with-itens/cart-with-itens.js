@@ -291,7 +291,7 @@ export class Cart {
      * @returns {string} URL da imagem
      */
     _getProductImageUrl(productInfo) {
-        return productInfo.imagem && productInfo.imagem.length > 0 
+        return productInfo.imagem
             ? productInfo.imagem.urlImagemDestaque 
             : 'assets/images/products/default.svg';
     }

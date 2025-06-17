@@ -1,5 +1,5 @@
 import { I18n } from './core/i18n.js';
-import { getFromStorage, setToStorage } from './core/functionUtils.js';
+import { setToStorage } from './core/functionUtils.js';
 import { initHeader } from './app/header/header.js';
 import { initLogin } from './app/login/login.js';
 import { initHome } from "./app/home/home.js";
@@ -12,7 +12,6 @@ import { AuthService } from './app/login/services/AuthService.js';
 
 
 const translateService = new I18n();
-let headerComponent;
 
 window.setLanguage = (lang) => translateService.setLanguage(lang);
 window.i18nInstance = translateService;
@@ -33,7 +32,7 @@ Promise.all([
     loadComponent("main", "app/home/home.html", false),
 ]).then(() => {
     translateService.translatePage(translateService.currentLang);
-    headerComponent = initHeader();
+    initHeader();
 });
 
 /**

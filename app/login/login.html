@@ -9,11 +9,14 @@
                            placeholder="E-mail" id="login-email" required autocomplete="username" />
                     <div class="invalid-feedback" data-i18n="error_required_field"></div>
                 </div>
-                <div class="auth-input-field">
+                <div class="auth-input-field password-field">
                     <i class="fas fa-lock"></i>
                     <input type="password" name="senha" data-i18n-placeholder="login_password_placeholder" 
                            placeholder="Senha" id="login-senha" required minlength="6"
                            autocomplete="current-password" />
+                    <button type="button" class="toggle-password-visibility" aria-label="Mostrar senha" onclick="togglePasswordVisibility('login-senha', this)">
+                        <i class="fa-regular fa-eye"></i>
+                    </button>
                     <div class="invalid-feedback" data-i18n="error_min_password"></div>
                 </div>
                 <input type="submit" data-i18n-value="login_submit" value="Login" class="auth-btn auth-solid" />
@@ -53,11 +56,14 @@
                            autocomplete="email" />
                     <div class="invalid-feedback" data-i18n="error_invalid_email"></div>
                 </div>
-                <div class="auth-input-field">
+                <div class="auth-input-field password-field">
                     <i class="fas fa-lock"></i>
                     <input type="password" name="senha" data-i18n-placeholder="signup_password_placeholder" 
                            placeholder="Senha" id="signup-senha" required minlength="6"
                            autocomplete="new-password" />
+                    <button type="button" class="toggle-password-visibility" aria-label="Mostrar senha" onclick="togglePasswordVisibility('signup-senha', this)">
+                        <i class="fa-regular fa-eye"></i>
+                    </button>
                     <div class="invalid-feedback" data-i18n="error_min_password"></div>
                 </div>
                 <input type="submit" class="auth-btn" data-i18n-value="signup_submit" value="Cadastre-se" />

@@ -49,6 +49,7 @@ Promise.all([
  * @returns {Promise<string>} - Conteúdo HTML carregado
  */
 async function loadComponent(id, path, translateAfterLoad = true, parameters = null) {
+    debugger;
     renderLoadingComponent(id, 'Carregando...');
     const res = await fetch(path);
     const data = await res.text();

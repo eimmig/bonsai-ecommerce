@@ -294,6 +294,31 @@
   color: var(--color-button);
 }
 
+.password-field {
+  position: relative;
+}
+.password-field .toggle-password-visibility {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  z-index: 2;
+  font-size: 1.1em;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.password-field input[type="password"],
+.password-field input[type="text"] {
+  padding-right: 36px;
+}
+
 @media (max-width: 870px) {
   .auth-container {
     min-height: 800px;

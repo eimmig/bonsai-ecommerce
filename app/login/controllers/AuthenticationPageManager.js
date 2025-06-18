@@ -188,4 +188,18 @@ export class AuthenticationPageManager {
         this.isSignUpMode = false;
         this.toggleMode();
     }
+
+    togglePasswordVisibility(inputId, el) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        if (input.type === 'password') {
+            input.type = 'text';
+            el.querySelector('i').classList.remove('fa-eye');
+            el.querySelector('i').classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            el.querySelector('i').classList.remove('fa-eye-slash');
+            el.querySelector('i').classList.add('fa-eye');
+        }
+    }   
 }

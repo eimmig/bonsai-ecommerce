@@ -28,7 +28,7 @@
 }
 
 .product-detail {
-    background-color: var(--color-white);
+    background-color: var(--color-var(--color-white));
     border-radius: 8px;
     box-shadow: 0 2px 10px var(--color-shadow);
     margin-bottom: 2rem;
@@ -198,8 +198,8 @@
 }
 
 .discount-badge-detail {
-    background-color: var(--color-primary);
-    color: white;
+    background-color: var(--color-discount);
+    color: var(--color-white);
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
     font-size: 0.9rem;
@@ -251,7 +251,7 @@
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
     background-color: var(--color-button);
-    color: white;
+    color: var(--color-white);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -286,7 +286,7 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     background-color: var(--color-button);
-    color: white;
+    color: var(--color-white);
     border: none;
     border-radius: 4px;
     cursor: pointer;

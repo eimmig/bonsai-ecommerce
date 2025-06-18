@@ -9,6 +9,7 @@
 @import url('../app/cart/empty-cart/empty-cart.css');
 @import url('../app/product-detail/product-detail.css');
 @import url('../app/bonsai-products/bonsai-products.css');
+@import url('../app/payment/checkout/checkout.css');
 
 /* Variáveis globais de cores e estilos */
 :root {
@@ -41,6 +42,7 @@
   --color-btn-blue: #4081bc;
   --color-btn-blue-hover: #2c5f8c;
   --color-border-white-translucent: rgba(255, 255, 255, 0.1);
+  --backgroud-color-gray: rgba(255, 255, 255, 0.8);
 }
 
 html {
@@ -57,8 +59,24 @@ body {
   flex-direction: column;
 }
 
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1050;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
 #main {
   flex: 1 0 auto;
+  margin-top: 80px;
+}
+
+@media (max-width: 991.98px) {
+  #main {
+    margin-top: 110px;
+  }
 }
 
 .footer {

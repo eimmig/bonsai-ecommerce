@@ -218,13 +218,12 @@ export class Cart {
      * @private
      */
     _handleCheckout() {
-        //TODO: Implementar lógica de checkout
         NotificationService.showToast(
             window.i18nInstance?.translate('toast_checkout_redirect_title') || 'Redirecionando',
             window.i18nInstance?.translate('toast_checkout_redirect_message') || 'Preparando página de pagamento',
             'info'
         );
-        // window.loadComponent('main', 'app/payment/checkout/checkout.html', true);
+        window.loadComponent('main', 'app/payment/checkout/checkout.html', true);
     }    
     
     /**
@@ -310,8 +309,10 @@ export class Cart {
             <div class="product-image-wrapper">
                 <img src="${imageUrl}" alt="${productInfo.nome}" class="product-image">
             </div>
-            <span class="product-name">${productInfo.nome}</span>
-            <span class="product-price">${this._formatCurrency(price)}</span>
+            <div class="product-info-wrapper">
+                <span class="product-name">${productInfo.nome}</span>
+                <span class="product-price">${this._formatCurrency(price)}</span>
+            </div>
             <div class="quantity-control">
                 <button class="quantity-minus" data-id="${item.productId}">-</button>
                 <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.productId}" readonly>

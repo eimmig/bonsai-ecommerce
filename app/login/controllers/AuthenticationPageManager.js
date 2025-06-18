@@ -24,6 +24,7 @@ export class AuthenticationPageManager {
     _setupUIElements() {
         document.getElementById('header').classList.add('d-none');
         document.getElementById('footer').classList.add('d-none');
+        document.getElementById('main').style.marginTop = '0';
         this.container = document.querySelector('.auth-container');
         this.isSignUpMode = false;
     }
@@ -63,8 +64,7 @@ export class AuthenticationPageManager {
         [btn1, btn2].forEach(btn => {
             if (btn) {
                 btn.addEventListener('click', () => {
-                    document.getElementById('header').classList.remove('d-none');
-                    document.getElementById('footer').classList.remove('d-none');
+                    this._showMainUI();
                     window.loadComponent('main', 'app/home/home.html', true);
                 });
             }
@@ -109,7 +109,7 @@ export class AuthenticationPageManager {
                 'success'
             );
             this.loginValidator.reset();
-            this.showMainUI();
+            this._showMainUI();
             document.dispatchEvent(new CustomEvent('user-logged-in', { detail: { user: result.user } }));
             document.dispatchEvent(new CustomEvent('cart-updated'));
             window.headerComponent?.headerCartManager?._updateCartCount();
@@ -175,9 +175,10 @@ export class AuthenticationPageManager {
     /**
      * Exibe o header e o footer principais da aplicação.
      */
-    showMainUI() {
+    _showMainUI() {
         document.getElementById('header').classList.remove('d-none');
         document.getElementById('footer').classList.remove('d-none');
+        document.getElementById('main').style.marginTop = '80px';
     }
 
     /**

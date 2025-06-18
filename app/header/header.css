@@ -177,7 +177,7 @@ body.is-logged-in .logged-out-only {
   }
 
   .navbar-nav .dropdown-divider {
-    border-color: rgba(0, 0, 0, 0.1);
+    border-color: var(--color-shadow);
     margin: 0.5rem 0;
   }
 

@@ -9,6 +9,7 @@ import { initBonsaiProductsPage } from "./app/bonsai-products/bonsai-products.js
 import {initProductDetail} from "./app/product-detail/product-detail.js";
 import { renderLoadingComponent, removeLoadingComponent } from './core/loading.js';
 import { AuthService } from './app/login/services/AuthService.js';
+import { initPayment } from './app/payment/payment.js';
 
 
 const translateService = new I18n();
@@ -19,7 +20,11 @@ window.loadComponent = loadComponent;
 
 document.addEventListener('DOMContentLoaded', () => {
     loadProductsData();
-    AuthService.isLoggedIn();
+    if (AuthService.isLoggedIn()) {
+        document.body.classList.add('is-logged-in');
+    } else {
+        document.body.classList.remove('is-logged-in');
+    }
 });
 
 /**
@@ -76,6 +81,10 @@ async function loadComponent(id, path, translateAfterLoad = true, parameters = n
 
     if (path === "app/bonsai-products/bonsai-products.html") {
         initBonsaiProductsPage();
+    }
+
+    if (path === "app/payment/checkout/checkout.html") {
+        initPayment();
     }
     
     removeLoadingComponent(id);
